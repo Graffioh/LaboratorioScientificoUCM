@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.UUID;
 
 enum TypePersonale{
@@ -20,4 +21,6 @@ public class Personale {
 	private TypePersonale tipoPers;
 
 	private UUID codPers = UUID.randomUUID();
+	
+	ArrayList<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
 }

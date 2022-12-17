@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.UUID;
 
 enum TypeStrumento{
@@ -17,4 +18,7 @@ public class Strumento {
 	private TypeStrumento tipoStr;
 
 	private UUID codStr = UUID.randomUUID();
+	
+	ArrayList<Postazione> postazioni = new ArrayList<Postazione>();
+	ArrayList<DotazioneAccessoria> dotazioniAccessorie = new ArrayList<DotazioneAccessoria>();
 }

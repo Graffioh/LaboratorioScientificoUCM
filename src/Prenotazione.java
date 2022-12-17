@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class Prenotazione {
@@ -7,4 +8,7 @@ public class Prenotazione {
 	private LocalTime ora;
 	private String tempoUso;
 	private UUID codP = UUID.randomUUID();
+	
+	ArrayList<Strumento> strumenti = new ArrayList<Strumento>();
+	ArrayList<DotazioneAccessoria> dotazioniAccessorie = new ArrayList<DotazioneAccessoria>();
 }
