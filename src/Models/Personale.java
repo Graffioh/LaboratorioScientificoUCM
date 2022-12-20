@@ -1,3 +1,4 @@
+package Models;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -22,5 +23,6 @@ public class Personale {
 
 	private UUID codPers = UUID.randomUUID();
 	
+	ArrayList<Sede> sediDoveLavora = new ArrayList<Sede>();
 	ArrayList<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
 }
