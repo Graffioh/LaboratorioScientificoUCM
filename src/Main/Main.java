@@ -2,7 +2,8 @@ package Main;
 
 import java.awt.EventQueue;
 
-import GUI.MainFrame;
+import GUI.LoginPage;
+import GUI.HomePage;
 
 public class Main {
 	/**
@@ -12,7 +13,7 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainFrame frame = new MainFrame();
+					LoginPage frame = new LoginPage();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
