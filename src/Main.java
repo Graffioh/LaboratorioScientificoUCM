@@ -1,9 +1,7 @@
-package Main;
 
 import java.awt.EventQueue;
 
-import GUI.LoginPage;
-import GUI.HomePage;
+import gui.LoginPage;
 
 public class Main {
 	/**

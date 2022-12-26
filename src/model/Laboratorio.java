@@ -1,4 +1,4 @@
-package Models;
+package model;
 import java.util.UUID;	
 import java.util.ArrayList;
 enum TypeLaboratorio{
