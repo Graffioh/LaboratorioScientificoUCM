@@ -10,14 +10,14 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import java.awt.Font;
 
-public class HomePage extends JPanel {
+public class prova extends JPanel {
 	JList listaStrumenti;
 	JList listaDotazioni;
 
 	JLabel labelListaStrumenti;
 	JLabel labelListaDotazioni;
 	
-	public HomePage() {
+	public prova() {
 		setLayout(null);
 		
 		listaStrumenti = new JList();
@@ -26,16 +26,16 @@ public class HomePage extends JPanel {
 
 		labelListaStrumenti = new JLabel("Strumenti");
 		labelListaStrumenti.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		labelListaStrumenti.setBounds(220, 80, 90, 15);
+		labelListaStrumenti.setBounds(195, 80, 90, 15);
 		add(labelListaStrumenti);
 		
 		listaDotazioni = new JList();
 		listaDotazioni.setBounds(515, 100, 450, 500);
 		add(listaDotazioni);
 
-		labelListaDotazioni = new JLabel("Dotazioni Accessorie");
-		labelListaDotazioni.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		labelListaDotazioni.setBounds(670, 80, 200, 15);
-		add(labelListaDotazioni);
+		/*labelListaDotazioni = new JLabel("Dotazioni accessorie");
+		labelListaDotazioni.setBounds(515, 100, 450, 500);
+		add(labelListaDotazioni);*/
 	}
 }
+

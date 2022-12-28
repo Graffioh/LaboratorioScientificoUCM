@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 
 public class LoginPage extends JFrame {
 
-	private HomePage home;
+	private MainGUI home;
 	
 	private JPanel loginPagePanel;
 	
@@ -72,7 +72,7 @@ public class LoginPage extends JFrame {
 	
 	private void switchToHomePage() {
 		setVisible(false);
-		home = new HomePage();
+		home = new MainGUI();
 		home.setVisible(true);
 	}
 }
