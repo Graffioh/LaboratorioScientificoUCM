@@ -54,7 +54,7 @@ public class MainGUI extends JFrame {
 		});
 		homepagePanel.add(profiloPersonaleBtn);
 		
-		btn2 = new JButton("GoTo1");
+		btn2 = new JButton("Back");
 		btn2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -69,31 +69,31 @@ public class MainGUI extends JFrame {
 		prenotazioneBtn.setFont(new Font("Tahoma", Font.BOLD, 25));
 		prenotazioneBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//
 			}
 		});
 		prenotazioneBtn.setBounds(300, 650, 400, 50);
 		homepagePanel.add(prenotazioneBtn);
 
 		riepilogoStrumentiBtn = new JButton("RiepilogoS");
-		riepilogoStrumentiBtn.setFont(new Font("Tahoma", Font.BOLD, 20));
+		riepilogoStrumentiBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
 		riepilogoStrumentiBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//
 			}
 		});
-		riepilogoStrumentiBtn.setBounds(40, 600, 100, 50);
+		riepilogoStrumentiBtn.setBounds(30, 600, 150, 30);
 		homepagePanel.add(riepilogoStrumentiBtn);
 
-
-
 		riepilogoDotazioniBtn = new JButton("RiepilogoD");
-		riepilogoDotazioniBtn.setFont(new Font("Tahoma", Font.BOLD, 20));
+		riepilogoDotazioniBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
 		riepilogoDotazioniBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//
 			}
 		});
-		riepilogoDotazioniBtn.setBounds(680, 600, 100, 50);
+		riepilogoDotazioniBtn.setBounds(820, 600, 150, 30);
 		homepagePanel.add(riepilogoDotazioniBtn);
-
 		
 	}
 }

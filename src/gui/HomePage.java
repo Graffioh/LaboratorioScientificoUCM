@@ -30,12 +30,12 @@ public class HomePage extends JPanel {
 		add(labelListaStrumenti);
 		
 		listaDotazioni = new JList();
-		listaDotazioni.setBounds(515, 100, 450, 500);
+		listaDotazioni.setBounds(520, 100, 450, 500);
 		add(listaDotazioni);
 
 		labelListaDotazioni = new JLabel("Dotazioni Accessorie");
 		labelListaDotazioni.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		labelListaDotazioni.setBounds(670, 80, 200, 15);
+		labelListaDotazioni.setBounds(675, 80, 200, 15);
 		add(labelListaDotazioni);
 	}
 }
