@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import dao.*;
 import model.Personale;
@@ -83,6 +84,9 @@ public class LoginPage extends JFrame {
 			setVisible(false);
 			mainPage = new MainGUI();
 			mainPage.setVisible(true);
+		} 
+		else{
+			JOptionPane.showMessageDialog(null, "Login non riuscito, riprovare");
 		}
 	}
 }

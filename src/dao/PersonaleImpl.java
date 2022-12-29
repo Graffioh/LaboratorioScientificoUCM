@@ -53,7 +53,6 @@ public class PersonaleImpl implements PersonaleDAO {
 
 			// If there is at least one result row from the query then its ok, otherwise return false
 			if(!rsMatricola.next()) {
-				System.out.println("Dati non validi");
 				return false;
 			}
 

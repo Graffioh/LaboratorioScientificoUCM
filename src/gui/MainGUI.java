@@ -19,7 +19,7 @@ public class MainGUI extends JFrame {
 	private JPanel backgroundPane;
 	
 	private HomePage homepagePanel;
-	private provapanel2 panel2;
+	private ProfilePage panel2;
 	
 	private JButton profiloPersonaleBtn;
 	private JButton btn2;
@@ -39,7 +39,7 @@ public class MainGUI extends JFrame {
 		backgroundPane.setLayout(new CardLayout(0, 0));
 		
 		homepagePanel = new HomePage();
-		panel2 = new provapanel2();
+		panel2 = new ProfilePage();
 		backgroundPane.add(homepagePanel);
 		backgroundPane.add(panel2);
 		
