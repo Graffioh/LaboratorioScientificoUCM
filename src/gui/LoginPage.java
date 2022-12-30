@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 
 import dao.*;
 import model.Personale;
+import controller.*;
 
 public class LoginPage extends JFrame {
 
@@ -27,6 +28,8 @@ public class LoginPage extends JFrame {
 
 	private JLabel matricolaLabel;
 	private JLabel codiceLabel;
+	
+	private Controller controller;
 	
 	//private ArrayList<Personale> personale1;
 
@@ -57,11 +60,12 @@ public class LoginPage extends JFrame {
 		codiceTextField.setColumns(10);
 		loginPagePanel.add(codiceTextField);
 		
+		controller = new Controller();
 		// Button
 		loginBtn = new JButton("Login");
 		loginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchToMainPage(matricolaTextField.getText(), Integer.parseInt(codiceTextField.getText())); // Switch to the main page when login button is pressed & the login is successful
+				controller.switchToMainPage(matricolaTextField.getText(), Integer.parseInt(codiceTextField.getText()), LoginPage.this, mainPage); // Switch to the main page when login button is pressed & the login is successful
 			}
 		});
 		loginBtn.setBounds(99, 189, 227, 43);
@@ -77,16 +81,4 @@ public class LoginPage extends JFrame {
 		loginPagePanel.add(codiceLabel);
 	}
 
-	private void switchToMainPage(String matricola, int codice) {
-		PersonaleImpl prova11 = new PersonaleImpl();
-
-		if(prova11.logIn(matricola,codice)) {
-			setVisible(false);
-			mainPage = new MainGUI();
-			mainPage.setVisible(true);
-		} 
-		else{
-			JOptionPane.showMessageDialog(null, "Login non riuscito, riprovare");
-		}
-	}
 }
