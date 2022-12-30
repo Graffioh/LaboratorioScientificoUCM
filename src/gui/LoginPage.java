@@ -18,28 +18,18 @@ import controller.*;
 
 public class LoginPage extends JFrame {
 
-	private MainGUI mainPage;
-
 	private JPanel loginPagePanel;
-
 	private JButton loginBtn;
-
-	private JTextField matricolaTextField;
-	private JTextField codiceTextField;
-
-	private JLabel matricolaLabel;
-	private JLabel codiceLabel;
-	
-	private Controller controller;
+	private JTextField matricolaTextField, codiceTextField;
+	private JLabel matricolaLabel, codiceLabel;
 	
 	private static String matricola;
 	private static int codice;
-
-	private Personale personaleprova;
 	
-	private ArrayList<Personale> personaleArray = new ArrayList<Personale>();
-
-	private PersonaleImpl personaleImpl = new PersonaleImpl();
+	private MainGUI mainPage;
+	
+	private Controller controller;
+	
 	
 	public LoginPage() {
 		
@@ -76,7 +66,7 @@ public class LoginPage extends JFrame {
 				matricola = matricolaTextField.getText();
 				codice = Integer.parseInt(codiceTextField.getText());
 
-				controller.switchToMainPage(matricolaTextField.getText(), Integer.parseInt(codiceTextField.getText()), LoginPage.this, mainPage); // Switch to the main page when login button is pressed & the login is successful
+				controller.switchToMainPage(matricolaTextField.getText(), Integer.parseInt(codiceTextField.getText()), LoginPage.this, mainPage);
 			}
 		});
 		loginBtn.setBounds(99, 189, 227, 43);
@@ -92,11 +82,11 @@ public class LoginPage extends JFrame {
 		loginPagePanel.add(codiceLabel);
 	}
 
-	public String getMatricolaTextField(){
+	public static String getMatricolaTextField(){
 		return matricola;
 	}
 
-	public int getCodiceTextField(){
+	public static int getCodiceTextField(){
 		return codice;
 	}
 

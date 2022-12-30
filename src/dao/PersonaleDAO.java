@@ -6,6 +6,7 @@ import model.Personale;
 
 public interface PersonaleDAO {
 	
+	// Populate the arraylist based on database table
 	ArrayList<Personale> populate();
 	
 	// Manage the user login

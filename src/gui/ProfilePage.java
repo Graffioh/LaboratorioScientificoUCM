@@ -8,22 +8,33 @@ import model.Personale;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.LayoutManager;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+
+import controller.*;
 
 public class ProfilePage extends JPanel {
 
-	private JLabel nomeEcognome, laboratorio, ruolo, numeroTelefono, email, recapitoAziendale, dataNascita, residenza;
-	private JPanel textPanelHeader, textPanelNormal;
+	private JLabel nomeEcognomeLabel, laboratorioLabel, ruoloLabel, numeroTelefonoLabel, emailLabel, recapitoAziendaleLabel, dataNascitaLabel, residenzaLabel, picLabel;
+	private JPanel textPanelHeader, textPanelNormal, profilePicPanel;
 	private LayoutManager layout1, layout2;
-
-	PersonaleImpl personaleImpl = new PersonaleImpl();
-	ArrayList<Personale> personaleArray = personaleImpl.populate();
-
-	LoginPage loginpageobj = new LoginPage(); // We need this to access the getters for matricola and codice static variables
 	
-	Personale filteredPersonale;
+	private ArrayList<Personale> personaleArray;
+
+	private PersonaleImpl personaleDAO;
+
+	private Controller controller;
+	
+	private Personale filteredPersonale;
+	
+	private BufferedImage myPicture;
+
 
 	public ProfilePage() {
 		// debug
@@ -34,8 +45,13 @@ public class ProfilePage extends JPanel {
 		System.out.println(loginpageobj.getCodiceTextField());
 		System.out.println("Personale filtrato:");
 		System.out.println(filterBasedOnMatricolaCodice(personaleArray, loginpageobj.getMatricolaTextField(),loginpageobj.getCodiceTextField()));*/
-
-		filteredPersonale = filterBasedOnMatricolaCodice(personaleArray, loginpageobj.getMatricolaTextField(),loginpageobj.getCodiceTextField());
+		
+		// Personale dao implementation used to populate personale array list from database datas
+		personaleDAO = new PersonaleImpl();
+		personaleArray = personaleDAO.populate();
+		
+		controller = new Controller();
+		filteredPersonale = controller.filterBasedOnMatricolaCodice(personaleArray, LoginPage.getMatricolaTextField(), LoginPage.getCodiceTextField());
 		
 		setLayout(null);
 		
@@ -44,7 +60,7 @@ public class ProfilePage extends JPanel {
 		add(textPanelHeader);
 		
 		textPanelNormal = new JPanel();
-		textPanelNormal.setBounds(440,250,200,515);
+		textPanelNormal.setBounds(515,300,200,172);
 		add(textPanelNormal);
 		
 		layout1 = new BoxLayout(textPanelHeader, BoxLayout.PAGE_AXIS);  
@@ -52,48 +68,50 @@ public class ProfilePage extends JPanel {
 	    textPanelHeader.setLayout(layout1);
 	    textPanelNormal.setLayout(layout2);
 
-		nomeEcognome = new JLabel(filteredPersonale.getNome() + " " + filteredPersonale.getCognome());
-		nomeEcognome.setAlignmentX(CENTER_ALIGNMENT);
-		nomeEcognome.setFont(new Font("Tahoma", Font.BOLD, 45));
-		textPanelHeader.add(nomeEcognome);
+		nomeEcognomeLabel = new JLabel(filteredPersonale.getNome() + " " + filteredPersonale.getCognome());
+		nomeEcognomeLabel.setAlignmentX(CENTER_ALIGNMENT);
+		nomeEcognomeLabel.setFont(new Font("Tahoma", Font.BOLD, 45));
+		textPanelHeader.add(nomeEcognomeLabel);
 
-		laboratorio = new JLabel("Sede + Laboratorio");
-		laboratorio.setAlignmentX(CENTER_ALIGNMENT);
-		laboratorio.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		textPanelHeader.add(laboratorio);
+		laboratorioLabel = new JLabel("Sede + Laboratorio");
+		laboratorioLabel.setAlignmentX(CENTER_ALIGNMENT);
+		laboratorioLabel.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		textPanelHeader.add(laboratorioLabel);
 
-		ruolo = new JLabel(filteredPersonale.getTipoPers().toString());
-		ruolo.setAlignmentX(CENTER_ALIGNMENT);
-		ruolo.setFont(new Font("Tahoma", Font.PLAIN, 28));
-		textPanelHeader.add(ruolo);
+		ruoloLabel = new JLabel(filteredPersonale.getTipoPers().toString());
+		ruoloLabel.setAlignmentX(CENTER_ALIGNMENT);
+		ruoloLabel.setFont(new Font("Tahoma", Font.PLAIN, 28));
+		textPanelHeader.add(ruoloLabel);
 		
-		numeroTelefono = new JLabel("recapito telefonico: " + filteredPersonale.getRecapitoTel());
-		textPanelNormal.add(numeroTelefono);
+		numeroTelefonoLabel = new JLabel("recapito telefonico: " + filteredPersonale.getRecapitoTel());
+		textPanelNormal.add(numeroTelefonoLabel);
 		
-		email = new JLabel("email: " + filteredPersonale.getEmail());
-		textPanelNormal.add(email);
+		emailLabel = new JLabel("email: " + filteredPersonale.getEmail());
+		textPanelNormal.add(emailLabel);
 		
-		recapitoAziendale = new JLabel("recapito aziendale: " + filteredPersonale.getRecapitoTelAziendale());
-		textPanelNormal.add(recapitoAziendale);
+		recapitoAziendaleLabel = new JLabel("recapito aziendale: " + filteredPersonale.getRecapitoTelAziendale());
+		textPanelNormal.add(recapitoAziendaleLabel);
 		
-		dataNascita = new JLabel("data di nascita: " + filteredPersonale.getDataNascita());
-		textPanelNormal.add(dataNascita);
+		dataNascitaLabel = new JLabel("data di nascita: " + filteredPersonale.getDataNascita());
+		textPanelNormal.add(dataNascitaLabel);
 		
-		residenza = new JLabel("residenza: " + filteredPersonale.getVia() + ", " + filteredPersonale.getRegione());
-		textPanelNormal.add(residenza);
-	}
-
-
-	private Personale filterBasedOnMatricolaCodice(ArrayList<Personale> personaleArray, String matricola, int codice){
-		Personale tmpPersonale = new Personale("", "", "", "", "", "", null, "", "", "", "", 0, null, null);
-
-		for (Personale p : personaleArray){
-			if(matricola.equals(p.getMatricola()) && codice == p.getCodice()){
-				tmpPersonale = p;
-			}
+		residenzaLabel = new JLabel("residenza: " + filteredPersonale.getVia() + ", " + filteredPersonale.getRegione());
+		textPanelNormal.add(residenzaLabel);
+		
+		
+		profilePicPanel = new JPanel();
+		profilePicPanel.setBounds(330, 253, 175, 172);
+		add(profilePicPanel);
+		
+		try {
+			myPicture = ImageIO.read(new File("./img/placeholder-profile-image.png"));
+		} catch(IOException e) {
+			e.printStackTrace();
 		}
-
-		return tmpPersonale;
+		
+		picLabel = new JLabel(new ImageIcon(myPicture));
+		profilePicPanel.add(picLabel);
+		
 	}
 
 }

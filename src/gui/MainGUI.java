@@ -17,15 +17,11 @@ public class MainGUI extends JFrame {
     public static final int WIDTH_HOMEPAGE_WINDOW = 1024;
 
 	private JPanel backgroundPane;
+	private JButton profiloPersonaleBtn, backBtn1, prenotazioneBtn, riepilogoStrumentiBtn, riepilogoDotazioniBtn;
 	
 	private HomePage homepagePanel;
-	private ProfilePage panel2;
 	
-	private JButton profiloPersonaleBtn;
-	private JButton btn2;
-	private JButton prenotazioneBtn;
-	private JButton riepilogoStrumentiBtn;
-	private JButton riepilogoDotazioniBtn;
+	private ProfilePage profilePanel;
 	 
 	public MainGUI() {
 		setResizable(false);
@@ -39,9 +35,9 @@ public class MainGUI extends JFrame {
 		backgroundPane.setLayout(new CardLayout(0, 0));
 		
 		homepagePanel = new HomePage();
-		panel2 = new ProfilePage();
+		profilePanel = new ProfilePage();
 		backgroundPane.add(homepagePanel);
-		backgroundPane.add(panel2);
+		backgroundPane.add(profilePanel);
 		
 		profiloPersonaleBtn = new JButton("Profilo");
 		profiloPersonaleBtn.setBounds(880, 20, 89, 23);
@@ -49,21 +45,21 @@ public class MainGUI extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				homepagePanel.setVisible(false);
-				panel2.setVisible(true);
+				profilePanel.setVisible(true);
 			}
 		});
 		homepagePanel.add(profiloPersonaleBtn);
 		
-		btn2 = new JButton("Back");
-		btn2.addMouseListener(new MouseAdapter() {
+		backBtn1 = new JButton("Back");
+		backBtn1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				homepagePanel.setVisible(true);
-				panel2.setVisible(false);
+				profilePanel.setVisible(false);
 			}
 		});
-		btn2.setBounds(10, 11, 89, 23);
-		panel2.add(btn2);
+		backBtn1.setBounds(10, 11, 89, 23);
+		profilePanel.add(backBtn1);
 		
 		prenotazioneBtn = new JButton("Prenotazione");
 		prenotazioneBtn.setFont(new Font("Tahoma", Font.BOLD, 25));

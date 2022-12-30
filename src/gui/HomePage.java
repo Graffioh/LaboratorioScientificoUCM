@@ -11,11 +11,9 @@ import javax.swing.JList;
 import java.awt.Font;
 
 public class HomePage extends JPanel {
-	JList listaStrumenti;
-	JList listaDotazioni;
-
-	JLabel labelListaStrumenti;
-	JLabel labelListaDotazioni;
+	
+	private JList listaStrumenti, listaDotazioni;
+	private JLabel labelListaStrumenti, labelListaDotazioni;
 	
 	public HomePage() {
 		setLayout(null);
