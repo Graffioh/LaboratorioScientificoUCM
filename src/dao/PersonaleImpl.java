@@ -18,20 +18,20 @@ public class PersonaleImpl implements PersonaleDAO {
 		connection = DB.getDB().getConnection();
 	}
 
-	/*
+	
 	@Override
 	public ArrayList<Personale> populate() {
 		ArrayList<Personale> alPersonale = new ArrayList<Personale>();
 
 		try {
 
-			String query = "SELECT matricola, codpers FROM Personale";
+			String query = "SELECT * FROM Personale";
 			Statement statementQuery = connection.createStatement();
 			ResultSet rs = statementQuery.executeQuery(query);
 
 			while(rs.next()) {
 				//for(int i = 1; i <= 4; i++){           
-					alPersonale.add(new Personale("", "", "", "", "", "", null,"", "", rs.getString("matricola"), null, rs.getInt("codPers"), null, null));
+					alPersonale.add(new Personale(rs.getString("nome"), rs.getString("cognome"), rs.getString("via"), rs.getString("CAP"), rs.getString("regione"), rs.getString("email"), rs.getDate("data_nascita").toLocalDate(),rs.getString("recapito_tel"), rs.getString("recapito_tel_aziendale"), rs.getString("matricola"), rs.getString("tipo_personale"),  rs.getInt("codPers"), null, null));
 				//} 
 			}
 
@@ -40,7 +40,7 @@ public class PersonaleImpl implements PersonaleDAO {
 		}
 
 		return alPersonale;
-	}*/
+	}
 
 	@Override
 	public boolean logIn(String matricola, int codice) {

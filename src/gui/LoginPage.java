@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -31,8 +32,15 @@ public class LoginPage extends JFrame {
 	
 	private Controller controller;
 	
-	//private ArrayList<Personale> personale1;
+	private static String matricola;
+	private static int codice;
 
+	private Personale personaleprova;
+	
+	private ArrayList<Personale> personaleArray = new ArrayList<Personale>();
+
+	private PersonaleImpl personaleImpl = new PersonaleImpl();
+	
 	public LoginPage() {
 		
 		// LoginPage frame
@@ -59,12 +67,15 @@ public class LoginPage extends JFrame {
 		codiceTextField.setBounds(54, 121, 316, 43);
 		codiceTextField.setColumns(10);
 		loginPagePanel.add(codiceTextField);
-		
+
 		controller = new Controller();
 		// Button
 		loginBtn = new JButton("Login");
 		loginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				matricola = matricolaTextField.getText();
+				codice = Integer.parseInt(codiceTextField.getText());
+
 				controller.switchToMainPage(matricolaTextField.getText(), Integer.parseInt(codiceTextField.getText()), LoginPage.this, mainPage); // Switch to the main page when login button is pressed & the login is successful
 			}
 		});
@@ -79,6 +90,14 @@ public class LoginPage extends JFrame {
 		codiceLabel = new JLabel("Codice");
 		codiceLabel.setBounds(193, 96, 46, 14);
 		loginPagePanel.add(codiceLabel);
+	}
+
+	public String getMatricolaTextField(){
+		return matricola;
+	}
+
+	public int getCodiceTextField(){
+		return codice;
 	}
 
 }
