@@ -29,7 +29,7 @@ public class PersonaleImpl implements PersonaleDAO {
 			Statement statementQuery = connection.createStatement();
 			ResultSet rs = statementQuery.executeQuery(query);
 
-			while(rs.next()) {        
+			while(rs.next()) {
 				personaleArray.add(new Personale(rs.getString("nome"), rs.getString("cognome"), rs.getString("via"), rs.getString("CAP"), rs.getString("regione"), rs.getString("email"), rs.getDate("data_nascita").toLocalDate(),rs.getString("recapito_tel"), rs.getString("recapito_tel_aziendale"), rs.getString("matricola"), rs.getString("tipo_personale"),  rs.getInt("codPers"), null, null));
 			}
 

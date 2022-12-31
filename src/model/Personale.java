@@ -1,9 +1,6 @@
 package model;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.UUID;
-
-
 
 public class Personale {
 
@@ -41,7 +38,7 @@ public class Personale {
 		this.recapitoTel = recapitoTel;
 		this.recapitoTelAziendale = recapitoTelAziendale;
 		this.matricola = matricola;
-		this.tipoPers = TypePersonale.tecnico;
+		this.tipoPers = TypePersonale.valueOf(tipoPersStr);
 		this.codPers = codPers;
 		this.sediDoveLavora = sediDoveLavora;
 		this.prenotazioni = prenotazioni;
@@ -170,7 +167,8 @@ public class Personale {
 					" dataNascita: " + this.getDataNascita() +
 					" recapitoTel: " + this.getRecapitoTel() +
 					" matricola: " + this.getMatricola() + 
-					" codice: " + this.getCodice());
+					" codice: " + this.getCodice() +
+        			"tipo: " + this.getTipoPers());
    
    	}
 }

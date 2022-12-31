@@ -42,9 +42,8 @@ public class ProfilePage extends JPanel {
 		System.out.println("Matricola:");
 		System.out.println(loginpageobj.getMatricolaTextField());
 		System.out.println("Codice:");
-		System.out.println(loginpageobj.getCodiceTextField());
-		System.out.println("Personale filtrato:");
-		System.out.println(filterBasedOnMatricolaCodice(personaleArray, loginpageobj.getMatricolaTextField(),loginpageobj.getCodiceTextField()));*/
+		System.out.println(loginpageobj.getCodiceTextField());*/
+		
 		
 		setLayout(null);
 		
@@ -54,6 +53,9 @@ public class ProfilePage extends JPanel {
 		
 		controller = new Controller();
 		filteredPersonale = controller.filterBasedOnMatricolaCodice(personaleArray, LoginPage.getMatricolaTextField(), LoginPage.getCodiceTextField());
+		
+		System.out.println("Personale filtrato:");
+		System.out.println(filteredPersonale.toString());
 		
 		textPanelHeader = new JPanel();
 		textPanelHeader.setBounds(0,86,1020,139);

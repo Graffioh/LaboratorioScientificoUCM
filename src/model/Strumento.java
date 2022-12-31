@@ -1,18 +1,18 @@
 package model;
 import java.util.ArrayList;
-import java.util.UUID;
 
-enum TypeStrumento{
+public class Strumento {
+	
+	public enum TypeStrumento{
 		misurazione,
 		miscelazione,
 		analisi,
 		riscaldanti,
 		fisicaAtomica,
-		trasferimentoSostanze,
+		trasferimento_sostanze,
 		altro;
-}
-
-public class Strumento {
+	}
+	
 	private String nome;
 	private String descrizione;
 	private String caratteristicheTecniche;
@@ -22,12 +22,12 @@ public class Strumento {
 	ArrayList<Postazione> postazioni = new ArrayList<Postazione>();
 	ArrayList<DotazioneAccessoria> dotazioniAccessorie = new ArrayList<DotazioneAccessoria>();
 	
-	public Strumento(String nome, String descrizione, String caratteristicheTecniche, TypeStrumento tipoStr, int codStr,
+	public Strumento(String nome, String descrizione, String caratteristicheTecniche, String tipoStrumentoStr, int codStr,
 			ArrayList<Postazione> postazioni, ArrayList<DotazioneAccessoria> dotazioniAccessorie, int codP) {
 		this.nome = nome;
 		this.descrizione = descrizione;
 		this.caratteristicheTecniche = caratteristicheTecniche;
-		this.tipoStr = tipoStr;
+		this.tipoStr = TypeStrumento.valueOf(tipoStrumentoStr);
 		this.codStr = codStr;
 		this.postazioni = postazioni;
 		this.dotazioniAccessorie = dotazioniAccessorie;
