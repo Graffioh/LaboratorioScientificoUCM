@@ -46,6 +46,8 @@ public class ProfilePage extends JPanel {
 		System.out.println("Personale filtrato:");
 		System.out.println(filterBasedOnMatricolaCodice(personaleArray, loginpageobj.getMatricolaTextField(),loginpageobj.getCodiceTextField()));*/
 		
+		setLayout(null);
+		
 		// Personale dao implementation used to populate personale array list from database datas
 		personaleDAO = new PersonaleImpl();
 		personaleArray = personaleDAO.populate();
@@ -53,14 +55,12 @@ public class ProfilePage extends JPanel {
 		controller = new Controller();
 		filteredPersonale = controller.filterBasedOnMatricolaCodice(personaleArray, LoginPage.getMatricolaTextField(), LoginPage.getCodiceTextField());
 		
-		setLayout(null);
-		
 		textPanelHeader = new JPanel();
 		textPanelHeader.setBounds(0,86,1020,139);
 		add(textPanelHeader);
 		
 		textPanelNormal = new JPanel();
-		textPanelNormal.setBounds(515,300,200,172);
+		textPanelNormal.setBounds(515,300,300,172);
 		add(textPanelNormal);
 		
 		layout1 = new BoxLayout(textPanelHeader, BoxLayout.PAGE_AXIS);  
