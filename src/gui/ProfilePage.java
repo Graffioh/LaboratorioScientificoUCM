@@ -51,8 +51,11 @@ public class ProfilePage extends JPanel {
 		personaleDAO = new PersonaleImpl();
 		personaleArray = personaleDAO.populate();
 		
+		
 		controller = new Controller();
 		filteredPersonale = controller.filterBasedOnMatricolaCodice(personaleArray, LoginPage.getMatricolaTextField(), LoginPage.getCodiceTextField());
+
+		System.out.println(filteredPersonale.getSediDoveLavora().toString());
 		
 		System.out.println("Personale filtrato:");
 		System.out.println(filteredPersonale.toString());

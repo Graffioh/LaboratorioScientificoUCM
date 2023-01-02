@@ -3,7 +3,7 @@ import java.io.*;
 import java.sql.*;
 
 public class DB {
-	// Static istance for singleton design pattern
+	// Static instance for singleton design pattern
 	private static DB dbcon = null;
 	
 	private Connection conn = null;
@@ -11,7 +11,7 @@ public class DB {
 	// Private constructor for singleton design pattern
 	private DB(){}
 
-	// Public method to retrieve an istance of the singleton outside this class
+	// Public method to retrieve an instance of the singleton outside this class
 	public static DB getDB() {   
 
 		if (dbcon == null) {
@@ -30,7 +30,7 @@ public class DB {
 			if(conn==null || conn.isClosed()) {   
 				// Reading password from file for security reasons
 				try {
-					b = new BufferedReader(new FileReader(new File("C:\\Users\\chiar\\OneDrive\\Desktop\\PROGETTO\\pwd_database.txt")));
+					b = new BufferedReader(new FileReader(new File("C:\\Users\\MSI-Gaming\\Desktop\\Università\\Object Orientation\\Progetto\\pwd_database.txt")));
 					pwd = b.readLine();
 				} catch (IOException e) {
 					e.printStackTrace();
