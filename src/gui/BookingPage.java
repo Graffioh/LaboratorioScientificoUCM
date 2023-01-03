@@ -11,13 +11,12 @@ import javax.swing.JPanel;
 public class BookingPage extends JPanel {
 
 	private JButton prenotaStrumentoBtn, prenotaDotazioneBtn,
-					modificaPrenotazioneBtn, cancellaPrenotazioneBtn,
-					calendarioPrenotazioneBtn;
+					modificaPrenotazioneBtn, calendarioPrenotazioneBtn;
 
 	private PrenotaStrumentoPage prenotaStrumentoPanel;
 	private PrenotaDotazionePage prenotaDotazionePanel;
 	private ModificaPrenotazionePage modificaPrenotazionePanel;
-	private CancellaPrenotazionePage cancellaPrenotazionePanel;
+	
 	private CalendarioPrenotazionePage calendarioPrenotazionePanel;
 
 	public BookingPage() {
@@ -26,19 +25,19 @@ public class BookingPage extends JPanel {
 		prenotaStrumentoPanel = new PrenotaStrumentoPage();
 		prenotaDotazionePanel = new PrenotaDotazionePage();
 		modificaPrenotazionePanel = new ModificaPrenotazionePage();
-		cancellaPrenotazionePanel = new CancellaPrenotazionePage();
+		
 		calendarioPrenotazionePanel = new CalendarioPrenotazionePage();
 		prenotaStrumentoPanel.setBounds(25, 100, 950, 600);
 		prenotaStrumentoPanel.setBackground(Color.pink);
 		prenotaDotazionePanel.setBounds(25, 100, 950, 600);
 		modificaPrenotazionePanel.setBounds(25, 100, 950, 600);
-		cancellaPrenotazionePanel.setBounds(25, 100, 950, 600);
+		
 		calendarioPrenotazionePanel.setBounds(25, 100, 950, 600);
 		
 		add(prenotaStrumentoPanel);
 		add(prenotaDotazionePanel);
 		add(modificaPrenotazionePanel);
-		add(cancellaPrenotazionePanel);
+		
 		add(calendarioPrenotazionePanel);
 
 		prenotaStrumentoBtn = new JButton("Prenota strumento");
@@ -48,11 +47,11 @@ public class BookingPage extends JPanel {
 				prenotaStrumentoPanel.setVisible(true);
 				prenotaDotazionePanel.setVisible(false);
 				modificaPrenotazionePanel.setVisible(false);
-				cancellaPrenotazionePanel.setVisible(false);
+			
 				calendarioPrenotazionePanel.setVisible(false);
 			}
 		});
-		prenotaStrumentoBtn.setBounds(25, 60, 150, 30);
+		prenotaStrumentoBtn.setBounds(175, 60, 150, 30);
 		add(prenotaStrumentoBtn);
 
 		prenotaDotazioneBtn = new JButton("Prenota dotazione");
@@ -62,7 +61,7 @@ public class BookingPage extends JPanel {
 				//
 			}
 		});
-		prenotaDotazioneBtn.setBounds(225, 60, 150, 30);
+		prenotaDotazioneBtn.setBounds(360, 60, 150, 30);
 		add(prenotaDotazioneBtn);
 
 		modificaPrenotazioneBtn = new JButton("Modifica");
@@ -72,18 +71,8 @@ public class BookingPage extends JPanel {
 				//
 			}
 		});
-		modificaPrenotazioneBtn.setBounds(425, 60, 150, 30);
+		modificaPrenotazioneBtn.setBounds(580, 60, 150, 30);
 		add(modificaPrenotazioneBtn);
-
-		cancellaPrenotazioneBtn = new JButton("Cancella");
-		cancellaPrenotazioneBtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		cancellaPrenotazioneBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//
-			}
-		});
-		cancellaPrenotazioneBtn.setBounds(625, 60, 150, 30);
-		add(cancellaPrenotazioneBtn);
 
 		calendarioPrenotazioneBtn = new JButton("Calendario");
 		calendarioPrenotazioneBtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -92,7 +81,7 @@ public class BookingPage extends JPanel {
 				//
 			}
 		});
-		calendarioPrenotazioneBtn.setBounds(825, 60, 150, 30);
+		calendarioPrenotazioneBtn.setBounds(780, 60, 150, 30);
 		add(calendarioPrenotazioneBtn);
 	}
 
