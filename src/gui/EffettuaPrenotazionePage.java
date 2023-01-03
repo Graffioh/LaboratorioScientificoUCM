@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -23,9 +24,9 @@ import model.Personale;
 import model.Sede;
 import model.Strumento;
 
-public class PrenotaStrumentoPage extends JPanel {
+public class EffettuaPrenotazionePage extends JPanel {
 
-	private JLabel selezionaStrumentoLabel, selezionaSedeLabel, calendarioLabel, daOraLabel, aOraLabel;
+	private JLabel selezionaStrumentoLabel, selezionaDotazioneLabel, selezionaSedeLabel, calendarioLabel, daOraLabel, aOraLabel;
 	private JButton confermaBtn;
 	private JTextArea descrizioneField;
 	
@@ -33,7 +34,8 @@ public class PrenotaStrumentoPage extends JPanel {
 	private ArrayList<Personale> personaleArray;
 	
 	private String[] sedi;
-	private String[] strumenti;
+	private String[] strumenti = {"ulala","stoh","SonoGhali"};
+	private String[] dotazioni = {"ciao","ciao2","SonoGeolier"};
 	
 	private PersonaleImpl personaleDAO;
 	private StrumentoImpl strumentoDAO;
@@ -45,8 +47,10 @@ public class PrenotaStrumentoPage extends JPanel {
 	private int countSedi = 0;
 	private int countStrumenti = 0;
 	private JDateChooser jDateChooser1; 
+	
+	private boolean isStrumento = false, isDotazione = false;
 
-	public PrenotaStrumentoPage() {
+	public EffettuaPrenotazionePage() {
 		personaleDAO = new PersonaleImpl();
 		personaleArray = personaleDAO.populate();
 		
@@ -84,65 +88,129 @@ public class PrenotaStrumentoPage extends JPanel {
 			}
 		});
 
+		JRadioButton strumentoRadioBtn = new JRadioButton("Strumento");
+		strumentoRadioBtn.setBounds(365, 140, 100, 50);
+		add(strumentoRadioBtn);
+		
+		strumentoRadioBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+					isStrumento = true;
+					isDotazione = false;
+					
+					System.out.println("ciao1");
+			}
+		});
+		
+		JRadioButton dotazioneRadioBtn = new JRadioButton("Dotazione");
+		dotazioneRadioBtn.setBounds(500, 140, 100, 50);
+		add(dotazioneRadioBtn);
+		
+		dotazioneRadioBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+					isStrumento = false;
+					isDotazione = true;
+
+					System.out.println("ciao2");
+			}
+		});
+
 		// SELEZIONA STRUMENTO
 		selezionaStrumentoLabel = new JLabel("Seleziona strumento");
 		selezionaStrumentoLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		selezionaStrumentoLabel.setBounds(375, 125, 220, 50);
+		selezionaStrumentoLabel.setBounds(375, 200, 220, 50);
 		add(selezionaStrumentoLabel);
 		
 		//strumentoArray = strumentoDAO.getStrumentiBasedOnSede(filteredPersonale.getCodice());
 		
-		for(Strumento s : strumentoArray) {
+		/*for(DotazioneAccessoria d : dotazioneArray) {
 			countStrumenti += 1;
 		}
 
-		strumenti = new String[countStrumenti];
+		dotazione = new String[countStrumenti];
 		for(int i = 0; i < strumentoArray.size(); ++i) {
 			strumenti[i] = strumentoArray.get(i).getNome();
-		}
+		}*/
 		
 		final JComboBox<String> cb2 = new JComboBox<String>(strumenti);
-		cb2.setBounds(355,185,250,40);
-    	cb2.setVisible(true);
+		cb2.setBounds(355,260,250,40);
 		add(cb2);
 
-		descrizioneField = new JTextArea();
-		descrizioneField.setText(" Ahahahahah Ehi, gir pe Secondiglian \r\n Rind a n'Audi ner opac (rind a n'Audi ner opac) \r\n Ca m par n'astronav (ca m par n'astronav) \r\n Sceng o per na Balenciag (Bale) \r\n Ess vo nata Balenciag (Bale, Bale)");
-		descrizioneField.setBounds(346, 250, 270, 100);
-		add(descrizioneField);
+		// SELEZIONA DOTAZIONE
+		selezionaDotazioneLabel = new JLabel("Seleziona dotazione");
+		selezionaDotazioneLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		selezionaDotazioneLabel.setBounds(375, 200, 220, 50);
+		add(selezionaDotazioneLabel);
+		
+		//strumentoArray = strumentoDAO.getStrumentiBasedOnSede(filteredPersonale.getCodice());
+		
+		/*for(DotazioneAccessoria d : dotazioneArray) {
+			countStrumenti += 1;
+		}
+
+		dotazione = new String[countStrumenti];
+		for(int i = 0; i < strumentoArray.size(); ++i) {
+			strumenti[i] = strumentoArray.get(i).getNome();
+		}*/
+		
+		final JComboBox<String> cb3 = new JComboBox<String>(dotazioni);
+		cb3.setBounds(355,260,250,40);
+		add(cb3);
+
+		strumentoRadioBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				selezionaStrumentoLabel.setVisible(true);
+				cb2.setVisible(true);
+				selezionaDotazioneLabel.setVisible(false);
+				cb3.setVisible(false);
+			}
+		});
+
+		dotazioneRadioBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				selezionaStrumentoLabel.setVisible(false);
+				cb2.setVisible(false);
+				selezionaDotazioneLabel.setVisible(true);
+				cb3.setVisible(true);
+			}
+		});
+		
+		selezionaStrumentoLabel.setVisible(false);
+		cb2.setVisible(false);
+		selezionaDotazioneLabel.setVisible(false);
+		cb3.setVisible(false);
 
 		// CALENDARIO (per data prenotazione)
 		calendarioLabel = new JLabel("Seleziona data");
 		calendarioLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		calendarioLabel.setBounds(420, 335, 150, 100);
+		calendarioLabel.setBounds(420, 285, 150, 100);
 		add(calendarioLabel);
 		
 		jDateChooser1 = new JDateChooser();
 		jDateChooser1 = new com.toedter.calendar.JDateChooser();
 		jDateChooser1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 		jDateChooser1.setDateFormatString("dd/MM/yyyy");
-		jDateChooser1.setBounds(420, 410, 120, 20);
+		jDateChooser1.setBounds(420, 370, 120, 20);
 		add(jDateChooser1);
 		
 		// DA - A
 		daOraLabel = new JLabel("DA:");
-		daOraLabel.setBounds(400, 430, 50, 50);
+		daOraLabel.setBounds(400, 390, 50, 50);
 		add(daOraLabel);
 		
 		aOraLabel = new JLabel("A:");
-		aOraLabel.setBounds(520, 430, 50, 50);
+		aOraLabel.setBounds(520, 390, 50, 50);
 		add(aOraLabel);
 		
 		String[] daOra = {"9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"};
 		String[] aOra = {"10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
 		
 		final JComboBox<String> cbDaOra = new JComboBox<String>(daOra);
-		cbDaOra.setBounds(400, 470, 50, 30);
+		cbDaOra.setBounds(400, 430, 50, 30);
     	cbDaOra.setVisible(true);
 		add(cbDaOra);
 		
 		final JComboBox<String> cbAOra = new JComboBox<String>(aOra);
-		cbAOra.setBounds(520, 470, 50, 30);
+		cbAOra.setBounds(520, 430, 50, 30);
     	cbAOra.setVisible(true);
 		add(cbAOra);
 
@@ -155,6 +223,8 @@ public class PrenotaStrumentoPage extends JPanel {
 		confermaBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				System.out.println(jDateChooser1.getDate().toString());
+				
+				System.out.println(isStrumento);
 			}
 		});
 	}

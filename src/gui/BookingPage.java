@@ -10,68 +10,61 @@ import javax.swing.JPanel;
 
 public class BookingPage extends JPanel {
 
-	private JButton prenotaStrumentoBtn, prenotaDotazioneBtn,
+	private JButton prenotaBtn, 
 					modificaPrenotazioneBtn, calendarioPrenotazioneBtn;
+	private JPanel emptyPanel;
 
-	private PrenotaStrumentoPage prenotaStrumentoPanel;
-	private PrenotaDotazionePage prenotaDotazionePanel;
+	private EffettuaPrenotazionePage prenotaStrumentoPanel;
 	private ModificaPrenotazionePage modificaPrenotazionePanel;
-	
 	private CalendarioPrenotazionePage calendarioPrenotazionePanel;
 
 	public BookingPage() {
 		setLayout(null);
-
-		prenotaStrumentoPanel = new PrenotaStrumentoPage();
-		prenotaDotazionePanel = new PrenotaDotazionePage();
+		
+		emptyPanel = new JPanel();
+		emptyPanel.setBounds(25, 100, 950, 600);
+		add(emptyPanel);
+		
+		prenotaStrumentoPanel = new EffettuaPrenotazionePage();
 		modificaPrenotazionePanel = new ModificaPrenotazionePage();
-		
 		calendarioPrenotazionePanel = new CalendarioPrenotazionePage();
+		
 		prenotaStrumentoPanel.setBounds(25, 100, 950, 600);
-		prenotaStrumentoPanel.setBackground(Color.pink);
-		prenotaDotazionePanel.setBounds(25, 100, 950, 600);
 		modificaPrenotazionePanel.setBounds(25, 100, 950, 600);
-		
 		calendarioPrenotazionePanel.setBounds(25, 100, 950, 600);
-		
+
 		add(prenotaStrumentoPanel);
-		add(prenotaDotazionePanel);
 		add(modificaPrenotazionePanel);
-		
 		add(calendarioPrenotazionePanel);
 
-		prenotaStrumentoBtn = new JButton("Prenota strumento");
-		prenotaStrumentoBtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		prenotaStrumentoBtn.addActionListener(new ActionListener() {
+		prenotaStrumentoPanel.setVisible(false);
+		modificaPrenotazionePanel.setVisible(false);
+		calendarioPrenotazionePanel.setVisible(false);
+
+		prenotaBtn = new JButton("Prenota");
+		prenotaBtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		prenotaBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				emptyPanel.setVisible(false);
 				prenotaStrumentoPanel.setVisible(true);
-				prenotaDotazionePanel.setVisible(false);
 				modificaPrenotazionePanel.setVisible(false);
-			
 				calendarioPrenotazionePanel.setVisible(false);
 			}
 		});
-		prenotaStrumentoBtn.setBounds(118, 60, 150, 30);
-		add(prenotaStrumentoBtn);
-
-		prenotaDotazioneBtn = new JButton("Prenota dotazione");
-		prenotaDotazioneBtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		prenotaDotazioneBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//
-			}
-		});
-		prenotaDotazioneBtn.setBounds(323, 60, 150, 30);
-		add(prenotaDotazioneBtn);
+		prenotaBtn.setBounds(220, 59, 150, 30);
+		add(prenotaBtn);
 
 		modificaPrenotazioneBtn = new JButton("Modifica");
 		modificaPrenotazioneBtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		modificaPrenotazioneBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//
+				emptyPanel.setVisible(false);
+				prenotaStrumentoPanel.setVisible(false);
+				modificaPrenotazionePanel.setVisible(true);
+				calendarioPrenotazionePanel.setVisible(false);
 			}
 		});
-		modificaPrenotazioneBtn.setBounds(531, 60, 150, 30);
+		modificaPrenotazioneBtn.setBounds(426, 59, 150, 30);
 		add(modificaPrenotazioneBtn);
 
 		calendarioPrenotazioneBtn = new JButton("Calendario");
@@ -81,7 +74,7 @@ public class BookingPage extends JPanel {
 				//
 			}
 		});
-		calendarioPrenotazioneBtn.setBounds(743, 60, 150, 30);
+		calendarioPrenotazioneBtn.setBounds(630, 59, 150, 30);
 		add(calendarioPrenotazioneBtn);
 	}
 
