@@ -103,7 +103,7 @@ public class ProfilePage extends JPanel {
 		residenzaLabel = new JLabel("residenza: " + filteredPersonale.getVia() + ", " + filteredPersonale.getRegione());
 		textPanelNormal.add(residenzaLabel);
 		
-		
+		// profile image
 		profilePicPanel = new JPanel();
 		profilePicPanel.setBounds(330, 253, 175, 172);
 		add(profilePicPanel);

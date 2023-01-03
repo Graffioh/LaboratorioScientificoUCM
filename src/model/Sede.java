@@ -79,8 +79,8 @@ public class Sede {
 		this.personale = personale;
 	}
 
-	@Override
+	/*@Override
    	public String toString() {
         return ("nome:"+ this.getNome());
-   	}
+   	}*/
 }

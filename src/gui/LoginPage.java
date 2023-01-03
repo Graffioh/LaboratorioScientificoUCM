@@ -66,7 +66,7 @@ public class LoginPage extends JFrame {
 				matricola = matricolaTextField.getText();
 				codice = Integer.parseInt(codiceTextField.getText());
 
-				controller.switchToMainPage(matricolaTextField.getText(), Integer.parseInt(codiceTextField.getText()), LoginPage.this, mainPage);
+				controller.goToMainPageBasedOnLoginData(matricolaTextField.getText(), Integer.parseInt(codiceTextField.getText()), LoginPage.this, mainPage);
 			}
 		});
 		loginBtn.setBounds(99, 189, 227, 43);

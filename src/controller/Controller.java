@@ -11,7 +11,7 @@ import model.Personale;
 
 public class Controller {
 	// Switch to the main page when login button is pressed & the login is successful
-	public void switchToMainPage(String matricola, int codice, JFrame loginFrame, MainGUI mainPage) {
+	public void goToMainPageBasedOnLoginData(String matricola, int codice, JFrame loginFrame, MainGUI mainPage) {
 		PersonaleImpl personaleDAO = new PersonaleImpl();
 
 		if(personaleDAO.logIn(matricola,codice)) {

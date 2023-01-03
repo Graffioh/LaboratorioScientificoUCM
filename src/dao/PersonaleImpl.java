@@ -25,11 +25,6 @@ public class PersonaleImpl implements PersonaleDAO {
 	public ArrayList<Personale> populate() {
 		ArrayList<Personale> personaleArray = new ArrayList<Personale>();
 
-		//SedeImpl sedeDAO = new SedeImpl();
-		ArrayList<Sede> sedeArray = new ArrayList<Sede>();
-
-		//sedeArray = sedeDAO.populate();
-
 		try {
 			String query = "SELECT * FROM Personale";
 			Statement statementQuery = connection.createStatement();
@@ -39,12 +34,10 @@ public class PersonaleImpl implements PersonaleDAO {
 				personaleArray.add(new Personale(rs.getString("nome"), rs.getString("cognome"), rs.getString("via"), rs.getString("CAP"), rs.getString("regione"), rs.getString("email"), rs.getDate("data_nascita").toLocalDate(),rs.getString("recapito_tel"), rs.getString("recapito_tel_aziendale"), rs.getString("matricola"), rs.getString("tipo_personale"),  rs.getInt("codPers"), null, null));
 			}
 
-			/*String query2 = "SELECT * FROM PersonaleSede as P JOIN Sede as S ON S.CodS = P.CodS WHERE P.CodPers = ?";
-			Statement statementQuery2 = connection.createStatement();
-			ResultSet rs2 = statementQuery2.executeQuery(query);*/
-
-			// set di array list sede
+			// Set of arraylist sede into personale (where the personale work)
 			for(Personale p : personaleArray){
+				ArrayList<Sede> sedeArray = new ArrayList<Sede>();
+				
 				String query2 = "SELECT * FROM PersonaleSede as P JOIN Sede as S ON S.CodS = P.CodS WHERE P.CodPers = ?";
 				PreparedStatement prepStatementQuery = connection.prepareStatement(query2);
 
@@ -57,13 +50,7 @@ public class PersonaleImpl implements PersonaleDAO {
 				}
 
 				p.setSediDoveLavora(sedeArray);
-
-				//sedeArray.clear();
-
-				//System.out.println("+++++++++++");
-				//System.out.println(p.getCodice());
 			}
-			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
