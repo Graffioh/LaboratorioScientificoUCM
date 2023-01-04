@@ -49,7 +49,7 @@ ArrayList<Strumento> strumentoArray = new ArrayList<Strumento>();
 
 		try {
 
-			String query = "SELECT STR.nome, STR.descrizione, STR.caratteristiche_tecniche, STR.categoria, STR.codstr, STR.codp"
+			String query = "SELECT STR.nome, STR.descrizione, STR.caratteristiche_tecniche, STR.tempo_uso, STR.categoria, STR.codstr, STR.codp"
 					+ " FROM PersonaleSede as P JOIN Sede as S ON S.CodS = P.CodS"
 					+ " JOIN Postazione as PO ON PO.CodS = S.CodS"
 					+ " JOIN StrumentoPostazione as SP ON PO.CodPos = SP.CodPos"
