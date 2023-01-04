@@ -63,10 +63,15 @@ public class LoginPage extends JFrame {
 		loginBtn = new JButton("Login");
 		loginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				matricola = matricolaTextField.getText();
-				codice = Integer.parseInt(codiceTextField.getText());
+				try {
+					matricola = matricolaTextField.getText();
+					codice = Integer.parseInt(codiceTextField.getText());
 
-				controller.goToMainPageBasedOnLoginData(matricolaTextField.getText(), Integer.parseInt(codiceTextField.getText()), LoginPage.this, mainPage);
+					controller.goToMainPageBasedOnLoginData(matricolaTextField.getText(), Integer.parseInt(codiceTextField.getText()), LoginPage.this, mainPage);
+				} catch (NumberFormatException nfe) {
+					nfe.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Login non riuscito, riprovare");
+				}
 			}
 		});
 		loginBtn.setBounds(99, 189, 227, 43);

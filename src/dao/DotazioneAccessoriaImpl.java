@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,7 +20,7 @@ public class DotazioneAccessoriaImpl implements DotazioneAccessoriaDAO {
 	
 	@Override
 	public ArrayList<DotazioneAccessoria> populate(){
-		ArrayList<DotazioneAccessoria> strumentoArray = new ArrayList<DotazioneAccessoria>();
+		ArrayList<DotazioneAccessoria> dotazioneArray = new ArrayList<DotazioneAccessoria>();
 
 		try {
 			String query = "SELECT * FROM Dotazione_Accessoria";
@@ -27,13 +28,46 @@ public class DotazioneAccessoriaImpl implements DotazioneAccessoriaDAO {
 			ResultSet rs = statementQuery.executeQuery(query);
 
 			while(rs.next()) {       
-				strumentoArray.add(new DotazioneAccessoria(rs.getString("nome"), rs.getString("descrizione"), rs.getInt("quantita"), null, rs.getInt("codD"), rs.getInt("codP"),rs.getInt("codStr")));
+				dotazioneArray.add(new DotazioneAccessoria(rs.getString("nome"), rs.getString("descrizione"), rs.getInt("quantita"), rs.getString("tipo"), rs.getInt("codD"), rs.getInt("codP"),rs.getInt("codStr")));
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return strumentoArray;
+		return dotazioneArray;
+	}
+	
+	@Override
+	public ArrayList<DotazioneAccessoria> getDotazioniBasedOnSede(int codPers, String nomeSede){
+		
+		ArrayList<DotazioneAccessoria> dotazioneArray = new ArrayList<DotazioneAccessoria>();
+
+		try {
+
+			String query = "SELECT D.nome, D.codD, D.tipo, D.descrizione, D.quantita, D.codP, D.codStr"
+					+ " FROM PersonaleSede AS P JOIN Sede AS S ON S.CodS = P.CodS"
+					+ " JOIN Postazione AS PO ON PO.CodS = S.CodS"
+					+ " JOIN StrumentoPostazione AS SP ON PO.CodPos = SP.CodPos"
+					+ " JOIN Strumento AS STR ON SP.CodStr = STR.CodStr"
+					+ " JOIN Dotazione_accessoria AS D ON D.CodStr = STR.CodStr"
+					+ " WHERE P.CodPers = ? AND S.nome LIKE ? AND D.tipo = 'altro'";
+
+			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
+
+			prepStatementQuery.setInt(1,codPers);
+			prepStatementQuery.setString(2,nomeSede);
+
+			ResultSet rs = prepStatementQuery.executeQuery();
+
+			while(rs.next()) {
+				dotazioneArray.add(new DotazioneAccessoria(rs.getString("nome"), rs.getString("descrizione"), rs.getInt("quantita"), rs.getString("tipo"), rs.getInt("codD"), rs.getInt("codP"), rs.getInt("codStr")));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return dotazioneArray;
 	}
 }

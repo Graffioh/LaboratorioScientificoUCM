@@ -1,14 +1,15 @@
 package model;
 import java.util.UUID;
 
-enum TypeDotazione{
-	solventi,
-	guantiLattice,
-	reagenti,
-	altro;
-}
 
 public class DotazioneAccessoria {
+	public enum TypeDotazione{
+		solventi,
+		guantiLattice,
+		reagenti,
+		altro;
+	}
+	
 	private String nome;
 	private String descrizione;
 	private Integer quantità;
@@ -17,12 +18,12 @@ public class DotazioneAccessoria {
 	private int codP;
 	private int codStr;
 	
-	public DotazioneAccessoria(String nome, String descrizione, Integer quantità, TypeDotazione tipoD, int codD, int codP, int codStr) {
+	public DotazioneAccessoria(String nome, String descrizione, Integer quantità, String tipoDStr, int codD, int codP, int codStr) {
 		super();
 		this.nome = nome;
 		this.descrizione = descrizione;
 		this.quantità = quantità;
-		this.tipoD = tipoD;
+		this.tipoD = TypeDotazione.valueOf(tipoDStr);
 		this.codD = codD;
 		this.codP = codP;
 		this.codStr = codStr;

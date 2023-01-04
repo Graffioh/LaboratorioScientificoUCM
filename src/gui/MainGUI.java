@@ -3,6 +3,9 @@ package gui;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controller.Controller;
+
 import javax.swing.JButton;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
@@ -17,7 +20,7 @@ public class MainGUI extends JFrame {
     public static final int WIDTH_HOMEPAGE_WINDOW = 1024;
 
 	private JPanel backgroundPane;
-	private JButton profiloPersonaleBtn, backBtn1, backBtn2, prenotazioneBtn, 
+	private JButton profiloPersonaleBtn, profileBackBtn, bookingBackBtn, prenotazioneBtn, 
 					riepilogoStrumentiBtn, riepilogoDotazioniBtn,
 					effettuaPrenotStrumentoBtn, effettuaPrenotDotazioneBtn,
 					modificaPrenotazioneBtn, cancellaPrenotazioneBtn,
@@ -28,8 +31,12 @@ public class MainGUI extends JFrame {
 	private ProfilePage profilePanel;
 
 	private BookingPage bookingPanel;
+	
+	private Controller controller;
 	 
 	public MainGUI() {
+		controller = new Controller();
+		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("LaboratorioScientificoUCM");
@@ -52,8 +59,7 @@ public class MainGUI extends JFrame {
 		profiloPersonaleBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				homepagePanel.setVisible(false);
-				profilePanel.setVisible(true);
+				controller.switchPage(profilePanel, homepagePanel);
 			}
 		});
 		homepagePanel.add(profiloPersonaleBtn);
@@ -64,8 +70,7 @@ public class MainGUI extends JFrame {
 		prenotazioneBtn.setFont(new Font("Tahoma", Font.BOLD, 25));
 		prenotazioneBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				homepagePanel.setVisible(false);
-				bookingPanel.setVisible(true);
+				controller.switchPage(bookingPanel, homepagePanel);
 			}
 		});
 		prenotazioneBtn.setBounds(300, 650, 400, 50);
@@ -91,76 +96,26 @@ public class MainGUI extends JFrame {
 		riepilogoDotazioniBtn.setBounds(820, 600, 150, 30);
 		homepagePanel.add(riepilogoDotazioniBtn);
 
-		backBtn1 = new JButton("Back");
-		backBtn1.addMouseListener(new MouseAdapter() {
+		profileBackBtn = new JButton("Back");
+		profileBackBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				homepagePanel.setVisible(true);
-				profilePanel.setVisible(false);
+				controller.switchPage(homepagePanel, profilePanel);
 			}
 		});
-		backBtn1.setBounds(25, 11, 89, 23);
-		profilePanel.add(backBtn1);
+		profileBackBtn.setBounds(25, 11, 89, 23);
+		profilePanel.add(profileBackBtn);
 
-		backBtn2 = new JButton("Back");
-		backBtn2.addMouseListener(new MouseAdapter() {
+		bookingBackBtn = new JButton("Back");
+		bookingBackBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				homepagePanel.setVisible(true);
 				bookingPanel.setVisible(false);
+				controller.switchPage(homepagePanel, bookingPanel);
 			}
 		});
-		backBtn2.setBounds(25, 11, 89, 23);
-		bookingPanel.add(backBtn2);
-		/*effettuaPrenotStrumentoBtn = new JButton("Prenota strumento");
-		effettuaPrenotStrumentoBtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		effettuaPrenotStrumentoBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//
-			}
-		});
-		effettuaPrenotStrumentoBtn.setBounds(25, 20, 150, 30);
-		bookingPanel.add(effettuaPrenotStrumentoBtn);
-
-		effettuaPrenotDotazioneBtn = new JButton("Prenota dotazione");
-		effettuaPrenotDotazioneBtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		effettuaPrenotDotazioneBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//
-			}
-		});
-		effettuaPrenotDotazioneBtn.setBounds(225, 20, 150, 30);
-		bookingPanel.add(effettuaPrenotDotazioneBtn);
-
-		modificaPrenotazioneBtn = new JButton("Modifica");
-		modificaPrenotazioneBtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		modificaPrenotazioneBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//
-			}
-		});
-		modificaPrenotazioneBtn.setBounds(425, 20, 150, 30);
-		bookingPanel.add(modificaPrenotazioneBtn);
-
-		cancellaPrenotazioneBtn = new JButton("Cancella");
-		cancellaPrenotazioneBtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		cancellaPrenotazioneBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//
-			}
-		});
-		cancellaPrenotazioneBtn.setBounds(625, 20, 150, 30);
-		bookingPanel.add(cancellaPrenotazioneBtn);
-
-		calendarioPrenotazioneBtn = new JButton("Calendario");
-		calendarioPrenotazioneBtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		calendarioPrenotazioneBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//
-			}
-		});
-		calendarioPrenotazioneBtn.setBounds(825, 20, 150, 30);
-		bookingPanel.add(calendarioPrenotazioneBtn);*/
-
+		bookingBackBtn.setBounds(25, 11, 89, 23);
+		bookingPanel.add(bookingBackBtn);
 	}
 }

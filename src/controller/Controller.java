@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import dao.PersonaleImpl;
 import gui.MainGUI;
@@ -36,5 +37,10 @@ public class Controller {
 		}
 
 		return tmpPersonale;
+	}
+	
+	public void switchPage(JPanel panelVisible, JPanel panelNotVisible) {
+		panelVisible.setVisible(true);
+		panelNotVisible.setVisible(false);
 	}
 }
