@@ -31,7 +31,8 @@ ArrayList<Strumento> strumentoArray = new ArrayList<Strumento>();
 			ResultSet rs = statementQuery.executeQuery(query);
 
 			while(rs.next()) {    
-				strumentoArray.add(new Strumento(rs.getString("nome"), rs.getString("descrizione"), rs.getString("caratteristiche_tecniche"), rs.getString("categoria"), rs.getInt("codstr"), null, null, rs.getInt("codp")));
+				strumentoArray.add(new Strumento(rs.getString("nome"), rs.getString("descrizione"), rs.getString("caratteristiche_tecniche"), rs.getString("categoria"), rs.
+				getInt("tempo_uso"), rs.getInt("codstr"), null, null, rs.getInt("codp")));
 			}
 
 		} catch (SQLException e) {
@@ -63,7 +64,7 @@ ArrayList<Strumento> strumentoArray = new ArrayList<Strumento>();
 			ResultSet rs = prepStatementQuery.executeQuery();
 
 			while(rs.next()) {
-				strumentoArray.add(new Strumento(rs.getString("nome"), rs.getString("descrizione"), rs.getString("caratteristiche_tecniche"), rs.getString("categoria"), rs.getInt("codstr"), null, null, rs.getInt("codp")));
+				strumentoArray.add(new Strumento(rs.getString("nome"), rs.getString("descrizione"), rs.getString("caratteristiche_tecniche"), rs.getString("categoria"), rs.getInt("tempo_uso"), rs.getInt("codstr"), null, null, rs.getInt("codp")));
 			}
 
 		} catch (SQLException e) {
