@@ -19,12 +19,13 @@ public class Strumento {
 	private TypeStrumento tipoStr;
 	private int tempoUso;
 	private int codStr;
-	private int codP;
+	
 	ArrayList<Postazione> postazioni = new ArrayList<Postazione>();
 	ArrayList<DotazioneAccessoria> dotazioniAccessorie = new ArrayList<DotazioneAccessoria>();
+	//ArrayList<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
 	
 	public Strumento(String nome, String descrizione, String caratteristicheTecniche, String tipoStrumentoStr, int tempoUso, int codStr,
-			ArrayList<Postazione> postazioni, ArrayList<DotazioneAccessoria> dotazioniAccessorie, int codP) {
+			ArrayList<Postazione> postazioni, ArrayList<DotazioneAccessoria> dotazioniAccessorie) {
 		this.nome = nome;
 		this.descrizione = descrizione;
 		this.caratteristicheTecniche = caratteristicheTecniche;
@@ -33,7 +34,7 @@ public class Strumento {
 		this.codStr = codStr;
 		this.postazioni = postazioni;
 		this.dotazioniAccessorie = dotazioniAccessorie;
-		this.codP = codP;
+		//this.prenotazioni = prenotazioni;
 	}
 	
 	public String getNome() {
@@ -84,4 +85,10 @@ public class Strumento {
 	public void setDotazioniAccessorie(ArrayList<DotazioneAccessoria> dotazioniAccessorie) {
 		this.dotazioniAccessorie = dotazioniAccessorie;
 	}
+	/*public ArrayList<Prenotazione> getPrenotazioni() {
+		return prenotazioni;
+	}
+	public void setPrenotazioni(ArrayList<Prenotazione> prenotazioni) {
+		this.prenotazioni = prenotazioni;
+	}*/
 }

@@ -1,25 +1,32 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
+import java.sql.Timestamp;
+//import java.sql.Date;
+import java.time.*;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import com.toedter.calendar.JDateChooser;
 
 import controller.Controller;
 import dao.DotazioneAccessoriaImpl;
 import dao.PersonaleImpl;
+import dao.PrenotazioneImpl;
 import dao.StrumentoImpl;
 import model.DotazioneAccessoria;
 import model.Personale;
@@ -28,7 +35,7 @@ import model.Strumento;
 
 public class EffettuaPrenotazionePage extends JPanel {
 
-	private JLabel selezionaStrumentoLabel, selezionaDotazioneLabel, selezionaSedeLabel, calendarioLabel, daOraLabel, aOraLabel;
+	private JLabel selezionaStrumentoLabel, selezionaDotazioneLabel, selezionaSedeLabel, calendarioLabel, daOraLabel, aOraLabel, descrizioneLabel;
 	private JButton selectStrumentoBtn, selectDotazioneBtn, confermaBtn;
 	private JTextArea descrizioneField;
 	private JDateChooser jDateChooser1; 
@@ -40,19 +47,23 @@ public class EffettuaPrenotazionePage extends JPanel {
 	private String[] sedi;
 	private String[] strumenti = {"ulala","stoh","SonoGhali"};
 	private String[] dotazioni = {"ciao","ciao2","SonoGeolier"};
+	private String descrizioneText = " Ahahahahah Ehi, gir pe Secondiglian \r\n Rind a n'Audi ner opac (rind a n'Audi ner opac) \r\n Ca m par n'astronav (ca m par n'astronav) \r\n Sceng o per na Balenciag (Bale) \r\n Ess vo nata Balenciag (Bale, Bale)";
 	
 	private PersonaleImpl personaleDAO;
 	private StrumentoImpl strumentoDAO;
 	private DotazioneAccessoriaImpl dotazioneDAO;
+	private PrenotazioneImpl prenotazioneDAO;
 
 	private Controller controller;
 	
 	private Personale filteredPersonale;
 	
-	private int countSedi = 0, countStrumenti = 0, countDotazioni = 0, countOra = 0;
+	private int countSedi = 0, countStrumenti = 0, countDotazioni = 0, countOra = 0, maxOra = 20, codP = 1;
 	private boolean isStrumento = false, isDotazione = false;
 
 	public EffettuaPrenotazionePage() {
+		setLayout(null);
+		
 		personaleDAO = new PersonaleImpl();
 		personaleArray = personaleDAO.populate();
 		
@@ -62,11 +73,11 @@ public class EffettuaPrenotazionePage extends JPanel {
 		dotazioneDAO = new DotazioneAccessoriaImpl();
 		dotazioneArray = new ArrayList<DotazioneAccessoria>();
 		
+		prenotazioneDAO = new PrenotazioneImpl();
+		
 		controller = new Controller();
 		filteredPersonale = controller.filterBasedOnMatricolaCodice(personaleArray, LoginPage.getMatricolaTextField(), LoginPage.getCodiceTextField());
 		
-		setLayout(null);
-
 		// SELEZIONA SEDE
 		selezionaSedeLabel = new JLabel("Seleziona sede");
 		selezionaSedeLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
@@ -88,11 +99,11 @@ public class EffettuaPrenotazionePage extends JPanel {
 		add(sediComboBox);
 		
 		selectStrumentoBtn = new JButton("Strumento");
-		selectStrumentoBtn.setBounds(365, 140, 100, 35);
+		selectStrumentoBtn.setBounds(365, 150, 100, 35);
 		add(selectStrumentoBtn);
 		
 		selectDotazioneBtn = new JButton("Dotazione");
-		selectDotazioneBtn.setBounds(500, 140, 100, 35);
+		selectDotazioneBtn.setBounds(500, 150, 100, 35);
 		add(selectDotazioneBtn);
 		
 		// SELEZIONA STRUMENTO
@@ -146,8 +157,76 @@ public class EffettuaPrenotazionePage extends JPanel {
 		
 		strumentiComboBox.setModel(new DefaultComboBoxModel<String>(strumenti));
 		dotazioniComboBox.setModel(new DefaultComboBoxModel<String>(dotazioni));
+		
+		// DESCRIZIONE STRUMENTO
+		descrizioneLabel = new JLabel("Descrizione");
+		descrizioneLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		descrizioneLabel.setBounds(735, 200, 100, 50);
+		add(descrizioneLabel);
+		
+		descrizioneField = new JTextArea();
+		descrizioneField.setText(descrizioneText);
+		//descrizioneField.setBounds(650, 240, 270, 100);
+		descrizioneField.setLineWrap(true);
+		descrizioneField.setWrapStyleWord(true);
+		
+		Border border = BorderFactory.createLineBorder(Color.BLACK);
+		descrizioneField.setBorder(BorderFactory.createCompoundBorder(border,
+	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+		
+		JScrollPane descrizioneScroll = new JScrollPane (descrizioneField, 
+				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		descrizioneScroll.setBounds(650, 240, 270, 100);
+		
+		add(descrizioneScroll);
 
-		// ACTION LISTENERS for dynamic content
+		// CALENDARIO (per data prenotazione)
+		calendarioLabel = new JLabel("Seleziona data");
+		calendarioLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		calendarioLabel.setBounds(420, 285, 150, 100);
+		add(calendarioLabel);
+		
+		jDateChooser1 = new JDateChooser();
+		jDateChooser1 = new com.toedter.calendar.JDateChooser();
+		jDateChooser1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+		jDateChooser1.setDateFormatString("dd/MM/yyyy");
+		jDateChooser1.setBounds(420, 360, 120, 20);
+		add(jDateChooser1);
+		
+	
+		
+		// DA - A
+		daOraLabel = new JLabel("DA:");
+		daOraLabel.setBounds(400, 390, 50, 50);
+		add(daOraLabel);
+		
+		aOraLabel = new JLabel("A:");
+		aOraLabel.setBounds(520, 390, 50, 50);
+		add(aOraLabel);
+		
+		String[] daOra = {"9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"};
+		String[] aOra = {"10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
+		
+		final JComboBox<String> cbDaOra = new JComboBox<String>(daOra);
+		cbDaOra.setBounds(400, 430, 50, 30);
+    	cbDaOra.setVisible(true);
+		add(cbDaOra);
+		
+		final JComboBox<String> cbAOra = new JComboBox<String>(aOra);
+		cbAOra.setBounds(520, 430, 50, 30);
+    	cbAOra.setVisible(true);
+		add(cbAOra);
+
+		// CONFERMA
+		confermaBtn = new JButton("Conferma");
+		confermaBtn.setFont(new Font("Tahoma", Font.BOLD, 24));
+		confermaBtn.setBounds(396, 530, 180, 40);
+		add(confermaBtn);
+		
+		
+		// DYNAMIC PART
+
+		// DYNAMIC Seleziona+Descrizione
 		selectStrumentoBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				selezionaStrumentoLabel.setVisible(true);
@@ -157,6 +236,15 @@ public class EffettuaPrenotazionePage extends JPanel {
 				
 				isStrumento = true;
 				isDotazione = false;
+				
+				// Descrizione
+				for(Strumento s : strumentoArray) {
+					if(s.getNome() == strumentiComboBox.getSelectedItem().toString()) {
+						descrizioneText = s.getDescrizione();
+					}
+				}
+				
+				descrizioneField.setText(descrizioneText);
 			}
 		});
 
@@ -169,10 +257,19 @@ public class EffettuaPrenotazionePage extends JPanel {
 				
 				isStrumento = false;
 				isDotazione = true;
+				
+				// Descrizione
+				for(DotazioneAccessoria d : dotazioneArray) {
+					if(d.getNome() == dotazioniComboBox.getSelectedItem().toString()) {
+						descrizioneText = d.getDescrizione();
+					}
+				}
+				
+				descrizioneField.setText(descrizioneText);
 			}
 		});
-
-		// Change dynamically the content of strumento/dotazione combo box based on selected sede
+		
+		// DYNAMIC strumenti/dotazioni combo box based on sede
 		sediComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				strumentoArray = strumentoDAO.getStrumentiBasedOnSede(filteredPersonale.getCodice(), sediComboBox.getSelectedItem().toString());
@@ -200,51 +297,52 @@ public class EffettuaPrenotazionePage extends JPanel {
 				
 				strumentiComboBox.setModel(new DefaultComboBoxModel<String>(strumenti));
 				dotazioniComboBox.setModel(new DefaultComboBoxModel<String>(dotazioni));
+				
+				// Descrizione
+				if(isStrumento) {
+					for(Strumento s : strumentoArray) {
+						if(s.getNome() == strumentiComboBox.getSelectedItem().toString()) {
+							descrizioneText = s.getDescrizione();
+						}
+					}
+				} else {
+					for(DotazioneAccessoria d : dotazioneArray) {
+						if(d.getNome() == dotazioniComboBox.getSelectedItem().toString()) {
+							descrizioneText = d.getDescrizione();
+						}
+					}
+				}
+				
+				descrizioneField.setText(descrizioneText);
+			}
+		});
+
+		// DYNAMIC descrizione (combo box)
+		strumentiComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				for(Strumento s : strumentoArray) {
+					if(s.getNome() == strumentiComboBox.getSelectedItem().toString()) {
+						descrizioneText = s.getDescrizione();
+					}
+				}
+			
+				descrizioneField.setText(descrizioneText);
 			}
 		});
 		
-		// DESCRIZIONE STRUMENTO
-		descrizioneField = new JTextArea();
-		descrizioneField.setText(" Ahahahahah Ehi, gir pe Secondiglian \r\n Rind a n'Audi ner opac (rind a n'Audi ner opac) \r\n Ca m par n'astronav (ca m par n'astronav) \r\n Sceng o per na Balenciag (Bale) \r\n Ess vo nata Balenciag (Bale, Bale)");
-		descrizioneField.setBounds(650, 240, 270, 100);
-		add(descrizioneField);
-
-		// CALENDARIO (per data prenotazione)
-		calendarioLabel = new JLabel("Seleziona data");
-		calendarioLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		calendarioLabel.setBounds(420, 285, 150, 100);
-		add(calendarioLabel);
+		dotazioniComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				for(DotazioneAccessoria d : dotazioneArray) {
+					if(d.getNome() == dotazioniComboBox.getSelectedItem().toString()) {
+						descrizioneText = d.getDescrizione();
+					}
+				}
+				
+				descrizioneField.setText(descrizioneText);
+			}
+		});
 		
-		jDateChooser1 = new JDateChooser();
-		jDateChooser1 = new com.toedter.calendar.JDateChooser();
-		jDateChooser1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-		jDateChooser1.setDateFormatString("dd/MM/yyyy");
-		jDateChooser1.setBounds(420, 360, 120, 20);
-		add(jDateChooser1);
-		
-		// DA - A
-		daOraLabel = new JLabel("DA:");
-		daOraLabel.setBounds(400, 390, 50, 50);
-		add(daOraLabel);
-		
-		aOraLabel = new JLabel("A:");
-		aOraLabel.setBounds(520, 390, 50, 50);
-		add(aOraLabel);
-		
-		String[] daOra = {"9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"};
-		String[] aOra = {"10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
-		
-		final JComboBox<String> cbDaOra = new JComboBox<String>(daOra);
-		cbDaOra.setBounds(400, 430, 50, 30);
-    	cbDaOra.setVisible(true);
-		add(cbDaOra);
-		
-		final JComboBox<String> cbAOra = new JComboBox<String>(aOra);
-		cbAOra.setBounds(520, 430, 50, 30);
-    	cbAOra.setVisible(true);
-		add(cbAOra);
-		
-		
+		// DYNAMIC Da - a ora prenotazione
 		cbDaOra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				String[] aOraArray;
@@ -258,25 +356,30 @@ public class EffettuaPrenotazionePage extends JPanel {
 				
 				aOraArray = new String[countOra - 1];
 				Integer daOra = Integer.parseInt(cbDaOra.getSelectedItem().toString());
-				for(Integer i = daOra + 1; i < 21; ++i) {
+				for(Integer i = daOra + 1; i <= maxOra; ++i) {
 					aOraArray[i - daOra - 1] = i.toString();
 				}
 				
 				cbAOra.setModel(new DefaultComboBoxModel<String>(aOraArray));
 			}
 		});
-
-		// CONFERMA
-		confermaBtn = new JButton("Conferma");
-		confermaBtn.setFont(new Font("Tahoma", Font.BOLD, 24));
-		confermaBtn.setBounds(396, 530, 180, 40);
-		add(confermaBtn);
-
+		
+		// CONFERMA prenotazione
 		confermaBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				//
+				int codStr = 0;
+				
+				for(Strumento s : strumentoArray) {
+					if(s.getNome() == strumentiComboBox.getSelectedItem().toString()) {
+						codStr = s.getCodStr();
+					}
+				}
+				
+				prenotazioneDAO.prenotazione(jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), jDateChooser1.getDate().getTime(), Integer.parseInt(cbAOra.getSelectedItem().toString()) - Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbAOra.getSelectedItem().toString()), codP, codStr, filteredPersonale.getCodice());
+				codP++;
 			}
 		});
+		
 	}
 
 }

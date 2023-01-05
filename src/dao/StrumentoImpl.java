@@ -32,7 +32,7 @@ ArrayList<Strumento> strumentoArray = new ArrayList<Strumento>();
 
 			while(rs.next()) {    
 				strumentoArray.add(new Strumento(rs.getString("nome"), rs.getString("descrizione"), rs.getString("caratteristiche_tecniche"), rs.getString("categoria"), rs.
-				getInt("tempo_uso"), rs.getInt("codstr"), null, null, rs.getInt("codp")));
+				getInt("tempo_uso"), rs.getInt("codstr"), null, null));
 			}
 
 		} catch (SQLException e) {
@@ -49,7 +49,7 @@ ArrayList<Strumento> strumentoArray = new ArrayList<Strumento>();
 
 		try {
 
-			String query = "SELECT STR.nome, STR.descrizione, STR.caratteristiche_tecniche, STR.tempo_uso, STR.categoria, STR.codstr, STR.codp"
+			String query = "SELECT STR.nome, STR.descrizione, STR.caratteristiche_tecniche, STR.tempo_uso, STR.categoria, STR.codstr"
 					+ " FROM PersonaleSede as P JOIN Sede as S ON S.CodS = P.CodS"
 					+ " JOIN Postazione as PO ON PO.CodS = S.CodS"
 					+ " JOIN StrumentoPostazione as SP ON PO.CodPos = SP.CodPos"
@@ -64,7 +64,7 @@ ArrayList<Strumento> strumentoArray = new ArrayList<Strumento>();
 			ResultSet rs = prepStatementQuery.executeQuery();
 
 			while(rs.next()) {
-				strumentoArray.add(new Strumento(rs.getString("nome"), rs.getString("descrizione"), rs.getString("caratteristiche_tecniche"), rs.getString("categoria"), rs.getInt("tempo_uso"), rs.getInt("codstr"), null, null, rs.getInt("codp")));
+				strumentoArray.add(new Strumento(rs.getString("nome"), rs.getString("descrizione"), rs.getString("caratteristiche_tecniche"), rs.getString("categoria"), rs.getInt("tempo_uso"), rs.getInt("codstr"), null, null));
 			}
 
 		} catch (SQLException e) {
