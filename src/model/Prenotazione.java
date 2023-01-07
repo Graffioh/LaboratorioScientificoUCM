@@ -10,17 +10,21 @@ public class Prenotazione {
 	private int tempoPrenotazione;
 	private int daOra;
 	private int aOra;
+	private int codP;
 	private int codStr;
+	private int codD;
 	private int codPers;
 	
-	public Prenotazione(LocalDate data, LocalTime oraPrenotazione, int tempoPrenotazione, int daOra, int aOra, int codStr, int codPers) {
+	public Prenotazione(LocalDate data, LocalTime oraPrenotazione, int tempoPrenotazione, int daOra, int aOra, int codP, int codStr, int codD, int codPers) {
 		super();
 		this.data = data;
 		this.oraPrenotazione = oraPrenotazione;
 		this.tempoPrenotazione = tempoPrenotazione;
 		this.daOra = daOra;
 		this.aOra = aOra;
+		this.codP = codP;
 		this.codStr = codStr;
+		this.codD = codD;
 		this.codPers = codPers;
 	}
 	
@@ -63,6 +67,14 @@ public class Prenotazione {
 	public void setAOra(int aOra) {
 		this.aOra = aOra;
 	}
+	
+	public int getCodP() {
+		return codP;
+	}
+
+	public void setCodP(int codP) {
+		this.codP = codP;
+	}
 
 	public int getCodStr() {
 		return codStr;
@@ -70,6 +82,14 @@ public class Prenotazione {
 
 	public void setCodStr(int codStr) {
 		this.codStr = codStr;
+	}
+	
+	public int getCodD() {
+		return codD;
+	}
+
+	public void setCodD(int codD) {
+		this.codD = codD;
 	}
 
 	public int getCodPers() {

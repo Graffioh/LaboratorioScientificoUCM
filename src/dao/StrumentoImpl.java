@@ -22,7 +22,7 @@ public class StrumentoImpl implements StrumentoDAO{
 	
 	@Override
 	public ArrayList<Strumento> populate(){
-ArrayList<Strumento> strumentoArray = new ArrayList<Strumento>();
+		ArrayList<Strumento> strumentoArray = new ArrayList<Strumento>();
 
 		try {
 

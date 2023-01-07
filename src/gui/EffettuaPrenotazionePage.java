@@ -14,6 +14,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -30,6 +31,7 @@ import dao.PrenotazioneImpl;
 import dao.StrumentoImpl;
 import model.DotazioneAccessoria;
 import model.Personale;
+import model.Prenotazione;
 import model.Sede;
 import model.Strumento;
 
@@ -368,15 +370,39 @@ public class EffettuaPrenotazionePage extends JPanel {
 		confermaBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				int codStr = 0;
+				int codD = 0;
 				
-				for(Strumento s : strumentoArray) {
-					if(s.getNome() == strumentiComboBox.getSelectedItem().toString()) {
-						codStr = s.getCodStr();
+
+				ArrayList<Prenotazione> prenotazioneArray = new ArrayList<Prenotazione>();
+				prenotazioneArray = prenotazioneDAO.populate();
+				
+				try {
+					for(Strumento s : strumentoArray) {
+						if(s.getNome() == strumentiComboBox.getSelectedItem().toString()) {
+							codStr = s.getCodStr();
+						}
 					}
+					
+					for(DotazioneAccessoria da : dotazioneArray) {
+						if(da.getNome() == dotazioniComboBox.getSelectedItem().toString()) {
+							codD = da.getCodD();
+						}
+					}
+					
+					// if prenotazioneArray is empty then codP is 1, otherwise it will calculate it dynamically based on the last codP
+					if(prenotazioneArray.isEmpty()) {
+						prenotazioneDAO.prenotazione(jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), jDateChooser1.getDate().getTime(), Integer.parseInt(cbAOra.getSelectedItem().toString()) - Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbAOra.getSelectedItem().toString()), codP, codStr, codD, filteredPersonale.getCodice());
+					} else {
+						codP = prenotazioneArray.get(prenotazioneArray.size() - 1).getCodP() + 1;
+						prenotazioneDAO.prenotazione(jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), jDateChooser1.getDate().getTime(), Integer.parseInt(cbAOra.getSelectedItem().toString()) - Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbAOra.getSelectedItem().toString()), codP, codStr, codD, filteredPersonale.getCodice());
+					}
+					
+					JOptionPane.showMessageDialog(null, "Prenotazione riuscita.");
+				} catch (Exception ee) {
+					ee.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Prenotazione non riuscita, riprova.");
 				}
 				
-				prenotazioneDAO.prenotazione(jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), jDateChooser1.getDate().getTime(), Integer.parseInt(cbAOra.getSelectedItem().toString()) - Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbAOra.getSelectedItem().toString()), codP, codStr, filteredPersonale.getCodice());
-				codP++;
 			}
 		});
 		
