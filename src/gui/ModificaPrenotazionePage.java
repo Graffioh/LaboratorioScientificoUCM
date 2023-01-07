@@ -1,53 +1,67 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.Date;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import com.toedter.calendar.JDateChooser;
 
 import controller.Controller;
 import dao.PersonaleImpl;
+import dao.PrenotazioneImpl;
 import dao.StrumentoImpl;
 import model.DotazioneAccessoria;
 import model.Personale;
+import model.Prenotazione;
 import model.Sede;
 import model.Strumento;
 
 public class ModificaPrenotazionePage extends JPanel {
 
 	private JLabel selezionaPrenotazioneLabel, selezionaSedeLabel, calendarioLabel, daOraLabel, aOraLabel;
-	private JButton confermaBtn;
+	private JButton eliminaBtn, modificaBtn;
+	private JTextArea descrizioneFieldPrenotazione;
 	
 	private ArrayList<Personale> personaleArray;
+	private ArrayList<Prenotazione> prenotazioneArray;
 	
 	private String[] sedi;
 	private String[] prenotazioni = {"1","2","69"};
+	private String descrizioneTextPrenotazione = "Ciao";
 	
 	private PersonaleImpl personaleDAO;
+	private PrenotazioneImpl prenotazioneDAO;
 
 	private Controller controller;
 	
 	private Personale filteredPersonale;
 	
 	private int countSedi = 0;
-	private int countStrumenti = 0;
-	private JDateChooser jDateChooser1; 
+	private int countPrenotazioni = 0;
+	private JDateChooser jDateChooserPrenotazione; 
 
 	public ModificaPrenotazionePage() {
 		personaleDAO = new PersonaleImpl();
 		personaleArray = personaleDAO.populate();
+
+		prenotazioneDAO = new PrenotazioneImpl();
 		
 		controller = new Controller();
 		filteredPersonale = controller.filterBasedOnMatricolaCodice(personaleArray, LoginPage.getMatricolaTextField(), LoginPage.getCodiceTextField());
@@ -69,10 +83,10 @@ public class ModificaPrenotazionePage extends JPanel {
 			sedi[i] = filteredPersonale.getSediDoveLavora().get(i).getNome();
 		}
 		
-		final JComboBox<String> cb1 = new JComboBox<String>(sedi);
-		cb1.setBounds(355,80,250,40);
-    	cb1.setVisible(true);
-		add(cb1);
+		final JComboBox<String> sediComboBoxModifica = new JComboBox<String>(sedi);
+		sediComboBoxModifica.setBounds(355,80,250,40);
+    	sediComboBoxModifica.setVisible(true);
+		add(sediComboBoxModifica);
 
 		// SELEZIONA PRENOTAZIONE
 		selezionaPrenotazioneLabel = new JLabel("Seleziona prenotazione");
@@ -81,10 +95,26 @@ public class ModificaPrenotazionePage extends JPanel {
 		selezionaPrenotazioneLabel.setVisible(true);
 		add(selezionaPrenotazioneLabel);
 		
-		final JComboBox<String> cb2 = new JComboBox<String>(prenotazioni);
-		cb2.setBounds(355,220,250,40);
-    	cb2.setVisible(true);
-		add(cb2);
+		final JComboBox<String> prenotazioniComboBox = new JComboBox<String>(prenotazioni);
+		prenotazioniComboBox.setBounds(355,220,250,40);
+    	prenotazioniComboBox.setVisible(true);
+		add(prenotazioniComboBox);
+
+		descrizioneFieldPrenotazione = new JTextArea();
+		descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
+		//descrizioneField.setBounds(650, 240, 270, 100);
+		descrizioneFieldPrenotazione.setLineWrap(true);
+		descrizioneFieldPrenotazione.setWrapStyleWord(true);
+		
+		Border border = BorderFactory.createLineBorder(Color.BLACK);
+		descrizioneFieldPrenotazione.setBorder(BorderFactory.createCompoundBorder(border,
+	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+		
+		JScrollPane descrizionePrenotazioneTextScroll = new JScrollPane (descrizioneFieldPrenotazione, 
+				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		descrizionePrenotazioneTextScroll.setBounds(650, 240, 270, 100);
+		
+		add(descrizionePrenotazioneTextScroll);
 
 		// CALENDARIO (per data prenotazione)
 		calendarioLabel = new JLabel("Seleziona data");
@@ -92,12 +122,12 @@ public class ModificaPrenotazionePage extends JPanel {
 		calendarioLabel.setBounds(420, 265, 150, 100);
 		add(calendarioLabel);
 		
-		jDateChooser1 = new JDateChooser();
-		jDateChooser1 = new com.toedter.calendar.JDateChooser();
-		jDateChooser1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-		jDateChooser1.setDateFormatString("dd/MM/yyyy");
-		jDateChooser1.setBounds(420, 350, 120, 20);
-		add(jDateChooser1);
+		jDateChooserPrenotazione = new JDateChooser();
+		jDateChooserPrenotazione = new com.toedter.calendar.JDateChooser();
+		jDateChooserPrenotazione.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+		jDateChooserPrenotazione.setDateFormatString("dd/MM/yyyy");
+		jDateChooserPrenotazione.setBounds(420, 350, 120, 20);
+		add(jDateChooserPrenotazione);
 		
 		// DA - A
 		daOraLabel = new JLabel("DA:");
@@ -122,26 +152,107 @@ public class ModificaPrenotazionePage extends JPanel {
 		add(cbAOra);
 
 		// MODIFICA
-		confermaBtn = new JButton("Modifica");
-		confermaBtn.setFont(new Font("Tahoma", Font.BOLD, 24));
-		confermaBtn.setBounds(396, 490, 180, 40);
-		add(confermaBtn);
+		modificaBtn = new JButton("Modifica");
+		modificaBtn.setFont(new Font("Tahoma", Font.BOLD, 24));
+		modificaBtn.setBounds(396, 490, 180, 40);
+		add(modificaBtn);
 
-		confermaBtn.addActionListener(new ActionListener() {
+		modificaBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				System.out.println(jDateChooser1.getDate().toString());
+				System.out.println(jDateChooserPrenotazione.getDate().toString());
 			}
 		});
 		
 		// ELIMINA
-		confermaBtn = new JButton("Elimina");
-		confermaBtn.setFont(new Font("Tahoma", Font.BOLD, 24));
-		confermaBtn.setBounds(396, 550, 180, 40);
-		add(confermaBtn);
+		eliminaBtn = new JButton("Elimina");
+		eliminaBtn.setFont(new Font("Tahoma", Font.BOLD, 24));
+		eliminaBtn.setBounds(396, 550, 180, 40);
+		add(eliminaBtn);
 
-		confermaBtn.addActionListener(new ActionListener() {
+		// PRESET PART
+		// used for the first start of the app
+		
+		prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
+		
+		countPrenotazioni = 0;
+		for(Prenotazione pr : prenotazioneArray) {
+			countPrenotazioni += 1;
+		}
+
+		prenotazioni = new String[countPrenotazioni];
+		for(int i = 0; i < prenotazioneArray.size(); ++i) {
+			prenotazioni[i] = Integer.valueOf(prenotazioneArray.get(i).getCodP()).toString();
+		}
+		
+		prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioni));
+		
+		descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
+		
+
+		// DYNAMIC PART
+		addComponentListener(new ComponentAdapter () {
+			public void componentShown ( ComponentEvent e ) {
+				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
+				
+				countPrenotazioni = 0;
+				for(Prenotazione pr : prenotazioneArray) {
+					countPrenotazioni += 1;
+				}
+
+				prenotazioni = new String[countPrenotazioni];
+				for(int i = 0; i < prenotazioneArray.size(); ++i) {
+					prenotazioni[i] = Integer.valueOf(prenotazioneArray.get(i).getCodP()).toString();
+					System.out.println(Integer.valueOf(prenotazioneArray.get(i).getCodP()).toString());
+				}
+				
+				prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioni));
+				
+				descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
+			}
+		});
+
+		sediComboBoxModifica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				System.out.println(jDateChooser1.getDate().toString());
+				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
+				
+				countPrenotazioni = 0;
+				for(Prenotazione pr : prenotazioneArray) {
+					countPrenotazioni += 1;
+				}
+
+				prenotazioni = new String[countPrenotazioni];
+				for(int i = 0; i < prenotazioneArray.size(); ++i) {
+					prenotazioni[i] = Integer.valueOf(prenotazioneArray.get(i).getCodP()).toString();
+					System.out.println(Integer.valueOf(prenotazioneArray.get(i).getCodP()).toString());
+				}
+				
+				prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioni));
+				
+				descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
+			}
+		});
+
+		eliminaBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				prenotazioneDAO.eliminaPrenotazione(Integer.parseInt(prenotazioniComboBox.getSelectedItem().toString()));
+
+				// Update the combo box everytime a prenotazione is deleted
+				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
+				
+				countPrenotazioni = 0;
+				for(Prenotazione pr : prenotazioneArray) {
+					countPrenotazioni += 1;
+				}
+
+				prenotazioni = new String[countPrenotazioni];
+				for(int i = 0; i < prenotazioneArray.size(); ++i) {
+					prenotazioni[i] = Integer.valueOf(prenotazioneArray.get(i).getCodP()).toString();
+					System.out.println(Integer.valueOf(prenotazioneArray.get(i).getCodP()).toString());
+				}
+				
+				prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioni));
+				
+				descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
 			}
 		});
 	}

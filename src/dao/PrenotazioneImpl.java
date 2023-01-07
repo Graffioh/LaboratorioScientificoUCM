@@ -12,6 +12,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 
 import database.DB;
+import model.DotazioneAccessoria;
 import model.Prenotazione;
 import model.Strumento;
 
@@ -49,11 +50,13 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
 
 		try {
 
-			String query = "SELECT PR.datap, PR.ora, PR.tempo_prenotazione, PR.codP, PR.codPers, PR.codStr"
-					+ " FROM PersonaleSede as P JOIN Sede as S ON S.CodS = P.CodS"
-					+ " NATURAL JOIN Prenotazione as PR"
-					+ " WHERE P.CodPers = ? AND S.nome LIKE ?"; // SBAGLIATA
-
+			String query = "SELECT PR.datap, PR.ora, PR.tempo_prenotazione, PR.codP, PR.codPers, PR.codStr, PR.codD, PR.DaOra, PR.AOra"
+			+ " FROM PersonaleSede as P"
+			+ " JOIN Sede as S ON P.CodS = S.CodS"
+			+ " JOIN Personale as PE ON P.CodPers = PE.CodPers"
+			+ " JOIN Prenotazione AS PR ON PE.CodPers = PR.CodPers"
+            + " WHERE P.CodPers = ? AND S.nome LIKE ?";
+    
 			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
 
 			prepStatementQuery.setInt(1,codPers);
@@ -71,6 +74,53 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
 
 		return prenotazioneArray;
 	}
+
+	public String getNomeBasedOnPrenotazione(Prenotazione pr){
+		String nomeStrumento = "";
+
+		/*try {
+
+			String query = ;
+
+			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
+
+			prepStatementQuery.setInt(1,codPers);
+			prepStatementQuery.setString(2,nomeSede);
+
+			ResultSet rs = prepStatementQuery.executeQuery();
+
+			nomeStrumento = rs.getString("nome");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}*/
+
+		return nomeStrumento;
+	}
+
+	public String getNomeBasedOnPrenotazione(DotazioneAccessoria dot){
+		String nomeDotazione = "";
+
+		/*try {
+
+			String query = ;
+
+			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
+
+			prepStatementQuery.setInt(1,codPers);
+			prepStatementQuery.setString(2,nomeSede);
+
+			ResultSet rs = prepStatementQuery.executeQuery();
+
+			nomeDotazione = rs.getString("nome");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}*/
+
+		return nomeDotazione;
+	}
+	
 	
 	public void prenotazione(LocalDate data, long timestampLong, int tempoPrenotazione, int daOra, int aOra, int codP, int codStr, int codD, int codPers) {
 		try {
@@ -92,6 +142,22 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
 			prepStatementQuery.setInt(9,codPers);
 
 			prepStatementQuery.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void eliminaPrenotazione(int codP){
+		try {
+			
+			String query = "DELETE FROM Prenotazione WHERE CodP = ?";
+
+			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
+
+			prepStatementQuery.setInt(1,codP);
+
+			prepStatementQuery.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
