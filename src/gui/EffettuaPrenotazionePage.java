@@ -83,15 +83,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		selezionaSedeLabel.setBounds(400, 20, 220, 50);
 		add(selezionaSedeLabel);
 		
-		sedi = new ArrayList<String>();
-		
-		// Getting names from array<Object>
-		sedi = controller.getNomiFromArray(filteredPersonale.getSediDoveLavora());
-
-		sediStringArray = new String[sedi.size()];
-		
-		// Converting the arraylist into string[] to use it in combo box
-		sediStringArray = sedi.toArray(sediStringArray);
+		sediStringArray = controller.fromArrayListToStringArray(filteredPersonale.getSediDoveLavora());
 		
 		final JComboBox<String> sediComboBoxEffettua = new JComboBox<String>(sediStringArray);
 		sediComboBoxEffettua.setBounds(355,80,250,40);
@@ -216,22 +208,12 @@ public class EffettuaPrenotazionePage extends JPanel {
 		strumentoArray = strumentoDAO.getStrumentiBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());
 		dotazioneArray = dotazioneDAO.getDotazioniBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());
 		
-		strumenti = new ArrayList<String>();
-		dotazioni = new ArrayList<String>();
-		
-		strumenti = controller.getNomiFromArray(strumentoArray);
-		dotazioni = controller.getNomiFromArray(dotazioneArray);
-		
-		strumentiStringArray = new String[strumenti.size()];
-		dotazioniStringArray = new String[dotazioni.size()];
-		
-		strumentiStringArray = strumenti.toArray(strumentiStringArray);
-		dotazioniStringArray = dotazioni.toArray(dotazioniStringArray);
+		strumentiStringArray = controller.fromArrayListToStringArray(strumentoArray);
+		dotazioniStringArray = controller.fromArrayListToStringArray(dotazioneArray);
 		
 		strumentiComboBox.setModel(new DefaultComboBoxModel<String>(strumentiStringArray));
 		dotazioniComboBox.setModel(new DefaultComboBoxModel<String>(dotazioniStringArray));
 		
-
 		// DYNAMIC PART
 
 		// DYNAMIC Seleziona+Descrizione
@@ -279,7 +261,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 				dotazioniStringArray = controller.fromArrayListToStringArray(dotazioneArray);
 				
 				strumentiComboBox.setModel(new DefaultComboBoxModel<String>(strumentiStringArray));
-				dotazioniComboBox.setModel(new DefaultComboBoxModel<String>(dotazioniStringArray));
+				dotazioniComboBox.setModel(new DefaultComboBoxModel<String>(dotazioniStringArray));	
 				
 				// Descrizione
 				if(isStrumento) {

@@ -14,6 +14,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -90,8 +91,10 @@ public class ModificaPrenotazionePage extends JPanel {
 		add(selezionaPrenotazioneLabel);
 		
 		prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
-	
-		prenotazioniStringArray = controller.fromArrayListToStringArray(prenotazioneArray);
+		
+		if(!prenotazioneArray.isEmpty()) {
+			prenotazioniStringArray = controller.fromArrayListToStringArray(prenotazioneArray);
+		}
 		
 		final JComboBox<String> prenotazioniComboBox = new JComboBox<String>(prenotazioniStringArray);
 		prenotazioniComboBox.setBounds(355,220,250,40);
@@ -180,22 +183,27 @@ public class ModificaPrenotazionePage extends JPanel {
 		
 		prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
 		
-		prenotazioniStringArray = controller.fromArrayListToStringArray(prenotazioneArray);
-		
-		prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioniStringArray));
-		
-		descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
+		if(!prenotazioneArray.isEmpty()) {
+			prenotazioniStringArray = controller.fromArrayListToStringArray(prenotazioneArray);
+			
+			prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioniStringArray));
+			
+			descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
+		}
 		
 		// DYNAMIC PART
 		addComponentListener(new ComponentAdapter () {
 			public void componentShown ( ComponentEvent e ) {
 				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
 				
-				prenotazioniStringArray = controller.fromArrayListToStringArray(prenotazioneArray);
+				if(!prenotazioneArray.isEmpty()) {
+					prenotazioniStringArray = controller.fromArrayListToStringArray(prenotazioneArray);
+					
+					prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioniStringArray));
+					
+					descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
+				}
 				
-				prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioniStringArray));
-				
-				descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
 			}
 		});
 
@@ -203,27 +211,55 @@ public class ModificaPrenotazionePage extends JPanel {
 			public void actionPerformed(ActionEvent e){
 				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
 				
-				prenotazioniStringArray = controller.fromArrayListToStringArray(prenotazioneArray);
-				
-				prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioniStringArray));
-				
-				descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
+				if(!prenotazioneArray.isEmpty()) {
+					prenotazioniStringArray = controller.fromArrayListToStringArray(prenotazioneArray);
+					
+					prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioniStringArray));
+					
+					descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
+				}
+			}
+		});
+		
+		modificaBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				try {
+					// Modifica prenotazione
+					//prenotazioneDAO.
+
+				} catch (Exception ee) {
+					ee.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Operazione non riuscita, riprova.");
+				}
 			}
 		});
 
 		eliminaBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				// Delete prenotazione
-				prenotazioneDAO.eliminaPrenotazione(Integer.parseInt(prenotazioniComboBox.getSelectedItem().toString()));
-
-				// Update the combo box
-				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
+				try {
+					prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
 				
-				prenotazioniStringArray = controller.fromArrayListToStringArray(prenotazioneArray);
-				
-				prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioniStringArray));
-				
-				descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
+					if(!prenotazioneArray.isEmpty()) {
+						// Delete prenotazione
+						prenotazioneDAO.eliminaPrenotazione(Integer.parseInt(prenotazioniComboBox.getSelectedItem().toString()));
+						// Update the combo box
+						prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
+						
+						// if eliminaBtn delete the last prenotazione, then show an empty combobox otherwise update it
+						if(prenotazioneArray.isEmpty()) {
+							prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>());
+						} else {
+							prenotazioniStringArray = controller.fromArrayListToStringArray(prenotazioneArray);
+							prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioniStringArray));
+						}
+						
+						descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
+					}
+					
+				} catch (Exception ee) {
+					ee.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Operazione non riuscita, riprova.");
+				}
 			}
 		});
 	}

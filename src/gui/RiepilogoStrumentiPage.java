@@ -39,14 +39,14 @@ public class RiepilogoStrumentiPage extends JPanel {
 		setLayout(null);
 		
 		listaStrumenti = new JTextArea();
-		listaStrumenti.setBounds(42, 205, 368, 500);
+		listaStrumenti.setBounds(50, 168, 368, 500);
 		add(listaStrumenti);
 
 		listaStrumentiLabel = new JLabel("RIEPILOGO");
 		listaStrumentiLabel.setForeground(new Color(0, 0, 0));
 //		listaStrumentiLabel.setBackground(new Color(171, 165, 255));
 		listaStrumentiLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
-		listaStrumentiLabel.setBounds(152, 73, 150, 54);
+		listaStrumentiLabel.setBounds(166, 38, 150, 54);
 //		listaStrumentiLabel.setOpaque(true);
 //		listaStrumentiLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		add(listaStrumentiLabel);
@@ -67,7 +67,7 @@ public class RiepilogoStrumentiPage extends JPanel {
 		riepilogoMensileBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
 		riepilogoMensileBtn.setBackground(new Color(171, 165, 255));
 		riepilogoMensileBtn.setOpaque(true);	
-		riepilogoMensileBtn.setBounds(255, 131, 125, 63);
+		riepilogoMensileBtn.setBounds(263, 94, 125, 63);
 		riepilogoMensileBtn.setBorderPainted(true);
 		riepilogoMensileBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		riepilogoMensileBtn.addActionListener(new ActionListener() {
@@ -79,7 +79,7 @@ public class RiepilogoStrumentiPage extends JPanel {
 		riepilogoAnnualeBtn = new JButton("<html>RIEPILOGO<br />&nbsp;&nbsp;ANNUALE</html>");
 		riepilogoAnnualeBtn.setBackground(new Color(171, 165, 255));
 		riepilogoAnnualeBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
-		riepilogoAnnualeBtn.setBounds(72, 131, 125, 63);
+		riepilogoAnnualeBtn.setBounds(80, 94, 125, 63);
 		riepilogoAnnualeBtn.setOpaque(true);
 		riepilogoAnnualeBtn.setBorderPainted(true);
 		riepilogoAnnualeBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
