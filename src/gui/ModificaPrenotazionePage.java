@@ -42,8 +42,9 @@ public class ModificaPrenotazionePage extends JPanel {
 	private ArrayList<Personale> personaleArray;
 	private ArrayList<Prenotazione> prenotazioneArray;
 	
-	private String[] sedi;
-	private String[] prenotazioni = {"1","2","69"};
+	ArrayList<String> sedi, dotazioni, prenotazioni;
+	String[] sediStringArray = {"none"}, prenotazioniStringArray = {"none"}, dotazioniStringArray = {"none"};
+	
 	private String descrizioneTextPrenotazione = "Ciao";
 	
 	private PersonaleImpl personaleDAO;
@@ -53,8 +54,6 @@ public class ModificaPrenotazionePage extends JPanel {
 	
 	private Personale filteredPersonale;
 	
-	private int countSedi = 0;
-	private int countPrenotazioni = 0;
 	private JDateChooser jDateChooserPrenotazione; 
 
 	public ModificaPrenotazionePage() {
@@ -74,16 +73,9 @@ public class ModificaPrenotazionePage extends JPanel {
 		selezionaSedeLabel.setBounds(400, 20, 220, 50);
 		add(selezionaSedeLabel);
 		
-		for(Sede s : filteredPersonale.getSediDoveLavora()) {
-			countSedi += 1;
-		}
-
-		sedi = new String[countSedi];
-		for(int i = 0; i < filteredPersonale.getSediDoveLavora().size(); ++i) {
-			sedi[i] = filteredPersonale.getSediDoveLavora().get(i).getNome();
-		}
+		sediStringArray = controller.fromArrayListToStringArray(filteredPersonale.getSediDoveLavora());
 		
-		final JComboBox<String> sediComboBoxModifica = new JComboBox<String>(sedi);
+		final JComboBox<String> sediComboBoxModifica = new JComboBox<String>(sediStringArray);
 		sediComboBoxModifica.setBounds(355,80,250,40);
     	sediComboBoxModifica.setVisible(true);
 		add(sediComboBoxModifica);
@@ -95,7 +87,11 @@ public class ModificaPrenotazionePage extends JPanel {
 		selezionaPrenotazioneLabel.setVisible(true);
 		add(selezionaPrenotazioneLabel);
 		
-		final JComboBox<String> prenotazioniComboBox = new JComboBox<String>(prenotazioni);
+		prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
+	
+		prenotazioniStringArray = controller.fromArrayListToStringArray(prenotazioneArray);
+		
+		final JComboBox<String> prenotazioniComboBox = new JComboBox<String>(prenotazioniStringArray);
 		prenotazioniComboBox.setBounds(355,220,250,40);
     	prenotazioniComboBox.setVisible(true);
 		add(prenotazioniComboBox);
@@ -174,38 +170,20 @@ public class ModificaPrenotazionePage extends JPanel {
 		
 		prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
 		
-		countPrenotazioni = 0;
-		for(Prenotazione pr : prenotazioneArray) {
-			countPrenotazioni += 1;
-		}
-
-		prenotazioni = new String[countPrenotazioni];
-		for(int i = 0; i < prenotazioneArray.size(); ++i) {
-			prenotazioni[i] = Integer.valueOf(prenotazioneArray.get(i).getCodP()).toString();
-		}
+		prenotazioniStringArray = controller.fromArrayListToStringArray(prenotazioneArray);
 		
-		prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioni));
+		prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioniStringArray));
 		
 		descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
 		
-
 		// DYNAMIC PART
 		addComponentListener(new ComponentAdapter () {
 			public void componentShown ( ComponentEvent e ) {
 				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
 				
-				countPrenotazioni = 0;
-				for(Prenotazione pr : prenotazioneArray) {
-					countPrenotazioni += 1;
-				}
-
-				prenotazioni = new String[countPrenotazioni];
-				for(int i = 0; i < prenotazioneArray.size(); ++i) {
-					prenotazioni[i] = Integer.valueOf(prenotazioneArray.get(i).getCodP()).toString();
-					System.out.println(Integer.valueOf(prenotazioneArray.get(i).getCodP()).toString());
-				}
+				prenotazioniStringArray = controller.fromArrayListToStringArray(prenotazioneArray);
 				
-				prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioni));
+				prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioniStringArray));
 				
 				descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
 			}
@@ -215,18 +193,9 @@ public class ModificaPrenotazionePage extends JPanel {
 			public void actionPerformed(ActionEvent e){
 				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
 				
-				countPrenotazioni = 0;
-				for(Prenotazione pr : prenotazioneArray) {
-					countPrenotazioni += 1;
-				}
-
-				prenotazioni = new String[countPrenotazioni];
-				for(int i = 0; i < prenotazioneArray.size(); ++i) {
-					prenotazioni[i] = Integer.valueOf(prenotazioneArray.get(i).getCodP()).toString();
-					System.out.println(Integer.valueOf(prenotazioneArray.get(i).getCodP()).toString());
-				}
+				prenotazioniStringArray = controller.fromArrayListToStringArray(prenotazioneArray);
 				
-				prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioni));
+				prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioniStringArray));
 				
 				descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
 			}
@@ -234,23 +203,15 @@ public class ModificaPrenotazionePage extends JPanel {
 
 		eliminaBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
+				// Delete prenotazione
 				prenotazioneDAO.eliminaPrenotazione(Integer.parseInt(prenotazioniComboBox.getSelectedItem().toString()));
 
-				// Update the combo box everytime a prenotazione is deleted
+				// Update the combo box
 				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
 				
-				countPrenotazioni = 0;
-				for(Prenotazione pr : prenotazioneArray) {
-					countPrenotazioni += 1;
-				}
-
-				prenotazioni = new String[countPrenotazioni];
-				for(int i = 0; i < prenotazioneArray.size(); ++i) {
-					prenotazioni[i] = Integer.valueOf(prenotazioneArray.get(i).getCodP()).toString();
-					System.out.println(Integer.valueOf(prenotazioneArray.get(i).getCodP()).toString());
-				}
+				prenotazioniStringArray = controller.fromArrayListToStringArray(prenotazioneArray);
 				
-				prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioni));
+				prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioniStringArray));
 				
 				descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
 			}

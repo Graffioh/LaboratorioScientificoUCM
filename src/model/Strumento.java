@@ -67,10 +67,10 @@ public class Strumento {
 	public void setTempoUso(int tempoUso) {
 		this.tempoUso = tempoUso;
 	}
-	public int getCodStr() {
+	public int getCodice() {
 		return codStr;
 	}
-	public void setCodStr(int codStr) {
+	public void setCodice(int codStr) {
 		this.codStr = codStr;
 	}
 	public ArrayList<Postazione> getPostazioni() {

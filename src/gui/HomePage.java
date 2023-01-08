@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class HomePage extends JPanel {
 	
 	private JList listaStrumenti, listaDotazioni;
-	private JLabel labelListaStrumenti, labelListaDotazioni;
+	private JLabel listaStrumentiLabel, listaDotazioniLabel;
 	
 	private DefaultListModel<String> l1;
 	private DefaultListModel<String> l2;
@@ -49,10 +49,10 @@ public class HomePage extends JPanel {
 		listaStrumenti.setBounds(30, 100, 450, 500);
 		add(listaStrumenti);
 
-		labelListaStrumenti = new JLabel("Strumenti");
-		labelListaStrumenti.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		labelListaStrumenti.setBounds(220, 80, 90, 15);
-		add(labelListaStrumenti);
+		listaStrumentiLabel = new JLabel("Strumenti");
+		listaStrumentiLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		listaStrumentiLabel.setBounds(220, 80, 90, 15);
+		add(listaStrumentiLabel);
 		
 		dotazioneDAO = new DotazioneAccessoriaImpl();
 		dotazioneArray = dotazioneDAO.populate();
@@ -66,9 +66,9 @@ public class HomePage extends JPanel {
 		listaDotazioni.setBounds(520, 100, 450, 500);
 		add(listaDotazioni);
 
-		labelListaDotazioni = new JLabel("Dotazioni Accessorie");
-		labelListaDotazioni.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		labelListaDotazioni.setBounds(675, 80, 200, 15);
-		add(labelListaDotazioni);
+		listaDotazioniLabel = new JLabel("Dotazioni Accessorie");
+		listaDotazioniLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		listaDotazioniLabel.setBounds(675, 80, 200, 15);
+		add(listaDotazioniLabel);
 	}
 }

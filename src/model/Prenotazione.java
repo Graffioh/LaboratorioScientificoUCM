@@ -68,11 +68,11 @@ public class Prenotazione {
 		this.aOra = aOra;
 	}
 	
-	public int getCodP() {
+	public int getCodice() {
 		return codP;
 	}
 
-	public void setCodP(int codP) {
+	public void setCodice(int codP) {
 		this.codP = codP;
 	}
 

@@ -1,14 +1,24 @@
 package controller;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.toedter.calendar.JDateChooser;
+
 import dao.PersonaleImpl;
+import dao.PrenotazioneImpl;
 import gui.MainGUI;
+import model.DotazioneAccessoria;
 import model.Personale;
+import model.Prenotazione;
+import model.Sede;
+import model.Strumento;
 
 public class Controller {
 	// Switch to the main page when login button is pressed & the login is successful
@@ -43,4 +53,144 @@ public class Controller {
 		panelVisible.setVisible(true);
 		panelNotVisible.setVisible(false);
 	}
+	
+	public <T> ArrayList<String> getNomiFromArray(ArrayList<T> al) {
+
+		ArrayList<String> nomi = new ArrayList<String>();
+		for(T el : al) {
+			// Based on the instace of d, cast it to get the desired method.
+			if(el instanceof Strumento)
+				nomi.add(((Strumento)el).getNome());
+			else if(el instanceof DotazioneAccessoria)
+				nomi.add(((DotazioneAccessoria)el).getNome());
+			else if(el instanceof Sede)
+				nomi.add(((Sede)el).getNome());
+		}
+		
+		return nomi;
+	}
+	
+	public <T> ArrayList<String> getCodiciFromArray(ArrayList<T> al) {
+
+		ArrayList<String> codici = new ArrayList<String>();
+		for(T el : al) {
+			// Based on the instace of d, cast it to get the desired method.
+			if(el instanceof Strumento)
+				codici.add(Integer.valueOf(((Strumento)el).getCodice()).toString());
+			else if(el instanceof DotazioneAccessoria)
+				codici.add(Integer.valueOf(((DotazioneAccessoria)el).getCodice()).toString());
+			else if(el instanceof Sede)
+				codici.add(Integer.valueOf(((Sede)el).getCodice()).toString());
+			else if(el instanceof Prenotazione)
+				codici.add(Integer.valueOf(((Prenotazione)el).getCodice()).toString());
+		}
+		
+		return codici;
+	}
+	
+	public <T> String getDescrizioneFromNome(ArrayList<T> al, String comboBoxStr) {
+
+		String descrizione = new String();
+		
+		for(T el : al) {
+			if(el instanceof Strumento) {
+				if(((Strumento)el).getNome().equals(comboBoxStr)) {
+					descrizione = ((Strumento)el).getDescrizione();
+				}
+			}
+			
+			else if(el instanceof DotazioneAccessoria) {
+				if(((DotazioneAccessoria)el).getNome().equals(comboBoxStr)) {
+					descrizione = ((DotazioneAccessoria)el).getDescrizione();
+				}
+			}
+		}
+		
+		return descrizione;
+	}
+	
+	public <T> int getCodiceFromNome(ArrayList<T> al, String comboBoxStr) {
+
+		int codice = 0;
+		
+		for(T el : al) {
+			if(el instanceof Strumento) {
+				if(((Strumento)el).getNome().equals(comboBoxStr)) {
+					 codice = ((Strumento)el).getCodice();
+				}
+			}
+			
+			else if(el instanceof DotazioneAccessoria) {
+				if(((DotazioneAccessoria)el).getNome().equals(comboBoxStr)) {
+					codice = ((DotazioneAccessoria)el).getCodice();
+				}
+			}
+		}
+		
+		return codice;
+	}
+	
+	public void setPrenotazione(LocalDate data, long timestampLong, int tempoPrenotazione, int daOra, int aOra, int codP, int codStr, int codD, int codPers, boolean isStrumento) {
+		
+		PrenotazioneImpl prenotazioneDAO = new PrenotazioneImpl();
+		
+		ArrayList<Prenotazione> prenotazioneArray = new ArrayList<Prenotazione>();
+		prenotazioneArray = prenotazioneDAO.populate();
+		
+		if(isStrumento) {
+			if(prenotazioneArray.isEmpty()) {
+				prenotazioneDAO.prenotazione(data, timestampLong, tempoPrenotazione, daOra, aOra, codP, codStr, 0, codPers);
+			} else {
+				codP = prenotazioneArray.get(prenotazioneArray.size() - 1).getCodice() + 1;
+				prenotazioneDAO.prenotazione(data, timestampLong, tempoPrenotazione, daOra, aOra, codP, codStr, 0, codPers);
+			}
+		} else {
+			if(prenotazioneArray.isEmpty()) {
+				prenotazioneDAO.prenotazione(data, timestampLong, tempoPrenotazione, daOra, aOra, codP, codStr, codD, codPers);
+			} else {
+				codP = prenotazioneArray.get(prenotazioneArray.size() - 1).getCodice() + 1;
+				prenotazioneDAO.prenotazione(data, timestampLong, tempoPrenotazione, daOra, aOra, codP, codStr, codD, codPers);
+			}
+		}
+		
+	}
+	
+	public String[] getAOraBasedOnDaOra(int selectedItem) {
+		String[] aOraArray;
+		
+		int countOra = 0;
+		for(Integer i = selectedItem; i <= 20; ++i) {
+			countOra += 1;
+		}
+		
+		System.out.println(countOra);
+		
+		aOraArray = new String[countOra - 1];
+		Integer daOra = selectedItem;
+		for(Integer i = daOra + 1; i <= 20; ++i) {
+			aOraArray[i - daOra - 1] = i.toString();
+		}
+		
+		return aOraArray;
+	}
+	
+	public <T> String[] fromArrayListToStringArray(ArrayList<T> al) {
+		
+		Controller controller = new Controller();
+		ArrayList<String> alString = new ArrayList<String>();
+		String[] stringArray;
+		
+		if(al.get(0) instanceof Prenotazione)
+			alString = controller.getCodiciFromArray(al);
+		else
+			alString = controller.getNomiFromArray(al);
+		
+		stringArray = new String[alString.size()];
+		
+		stringArray = alString.toArray(stringArray);
+		
+		return stringArray;
+	}
+	
+	
 }

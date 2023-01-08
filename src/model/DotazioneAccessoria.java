@@ -61,11 +61,11 @@ public class DotazioneAccessoria {
 		this.tipoD = tipoD;
 	}
 
-	public Integer getCodD() {
+	public Integer getCodice() {
 		return codD;
 	}
 
-	public void setCodD(int codD) {
+	public void setCodice(int codD) {
 		this.codD = codD;
 	}
 	

@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.sql.Timestamp;
 //import java.sql.Date;
 import java.time.*;
@@ -46,9 +48,8 @@ public class EffettuaPrenotazionePage extends JPanel {
 	private ArrayList<DotazioneAccessoria> dotazioneArray;
 	private ArrayList<Personale> personaleArray;
 	
-	private String[] sedi;
-	private String[] strumenti = {"ulala","stoh","SonoGhali"};
-	private String[] dotazioni = {"ciao","ciao2","SonoGeolier"};
+	ArrayList<String> sedi, strumenti, dotazioni;
+	String[] sediStringArray = {"none"}, strumentiStringArray = {"none"}, dotazioniStringArray = {"none"};
 	private String descrizioneTextStrumentoDotazione = " Ahahahahah Ehi, gir pe Secondiglian \r\n Rind a n'Audi ner opac (rind a n'Audi ner opac) \r\n Ca m par n'astronav (ca m par n'astronav) \r\n Sceng o per na Balenciag (Bale) \r\n Ess vo nata Balenciag (Bale, Bale)";
 	
 	private PersonaleImpl personaleDAO;
@@ -60,7 +61,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 	
 	private Personale filteredPersonale;
 	
-	private int countSedi = 0, countStrumenti = 0, countDotazioni = 0, countOra = 0, maxOra = 20, codP = 1;
+	private int codStr = 0, codD = 0, codP = 1;
 	private boolean isStrumento = false, isDotazione = false;
 
 	public EffettuaPrenotazionePage() {
@@ -86,16 +87,17 @@ public class EffettuaPrenotazionePage extends JPanel {
 		selezionaSedeLabel.setBounds(400, 20, 220, 50);
 		add(selezionaSedeLabel);
 		
-		for(Sede s : filteredPersonale.getSediDoveLavora()) {
-			countSedi += 1;
-		}
-
-		sedi = new String[countSedi];
-		for(int i = 0; i < filteredPersonale.getSediDoveLavora().size(); ++i) {
-			sedi[i] = filteredPersonale.getSediDoveLavora().get(i).getNome();
-		}
+		sedi = new ArrayList<String>();
 		
-		final JComboBox<String> sediComboBoxEffettua = new JComboBox<String>(sedi);
+		// Getting names from array<Object>
+		sedi = controller.getNomiFromArray(filteredPersonale.getSediDoveLavora());
+
+		sediStringArray = new String[sedi.size()];
+		
+		// Converting the arraylist into string[] to use it in combo box
+		sediStringArray = sedi.toArray(sediStringArray);
+		
+		final JComboBox<String> sediComboBoxEffettua = new JComboBox<String>(sediStringArray);
 		sediComboBoxEffettua.setBounds(355,80,250,40);
     	sediComboBoxEffettua.setVisible(true);
 		add(sediComboBoxEffettua);
@@ -114,7 +116,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		selezionaStrumentoLabel.setBounds(372, 200, 220, 50);
 		add(selezionaStrumentoLabel);
 		
-		final JComboBox<String> strumentiComboBox = new JComboBox<String>(strumenti);
+		final JComboBox<String> strumentiComboBox = new JComboBox<String>(strumentiStringArray);
 		strumentiComboBox.setBounds(355,260,250,40);
 		add(strumentiComboBox);
 
@@ -124,7 +126,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		selezionaDotazioneLabel.setBounds(375, 200, 220, 50);
 		add(selezionaDotazioneLabel);
 		
-		final JComboBox<String> dotazioniComboBox = new JComboBox<String>(dotazioni);
+		final JComboBox<String> dotazioniComboBox = new JComboBox<String>(dotazioniStringArray);
 		dotazioniComboBox.setBounds(355,260,250,40);
 		add(dotazioniComboBox);
 		
@@ -136,7 +138,6 @@ public class EffettuaPrenotazionePage extends JPanel {
 		
 		descrizioneFieldStrumentoDotazione = new JTextArea();
 		descrizioneFieldStrumentoDotazione.setText(descrizioneTextStrumentoDotazione);
-		//descrizioneField.setBounds(650, 240, 270, 100);
 		descrizioneFieldStrumentoDotazione.setLineWrap(true);
 		descrizioneFieldStrumentoDotazione.setWrapStyleWord(true);
 		
@@ -150,7 +151,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		
 		add(descrizioneStrumentoDotazioneTextScroll);
 
-		// CALENDARIO (per data prenotazione)
+		// CALENDARIO (for prenotazione)
 		calendarioLabel = new JLabel("Seleziona data");
 		calendarioLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		calendarioLabel.setBounds(420, 285, 150, 100);
@@ -191,7 +192,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		confermaBtn.setBounds(396, 530, 180, 40);
 		add(confermaBtn);
 
-		// PRESET PART
+		// PRESET PART (SETUP)
 		// used for the first start of the app
 		selezionaStrumentoLabel.setVisible(false);
 		strumentiComboBox.setVisible(false);
@@ -201,29 +202,22 @@ public class EffettuaPrenotazionePage extends JPanel {
 		strumentoArray = strumentoDAO.getStrumentiBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());
 		dotazioneArray = dotazioneDAO.getDotazioniBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());
 		
-		countStrumenti = 0;
-		for(Strumento s : strumentoArray) {
-			countStrumenti += 1;
-		}
-
-		strumenti = new String[countStrumenti];
-		for(int i = 0; i < strumentoArray.size(); ++i) {
-			strumenti[i] = strumentoArray.get(i).getNome();
-		}
-
-		countDotazioni = 0;
-		for(DotazioneAccessoria d : dotazioneArray) {
-			countDotazioni += 1;
-		}
-
-		dotazioni = new String[countDotazioni];
-		for(int i = 0; i < dotazioneArray.size(); ++i) {
-			dotazioni[i] = dotazioneArray.get(i).getNome();
-		}
+		strumenti = new ArrayList<String>();
+		dotazioni = new ArrayList<String>();
 		
-		strumentiComboBox.setModel(new DefaultComboBoxModel<String>(strumenti));
-		dotazioniComboBox.setModel(new DefaultComboBoxModel<String>(dotazioni));
+		strumenti = controller.getNomiFromArray(strumentoArray);
+		dotazioni = controller.getNomiFromArray(dotazioneArray);
 		
+		strumentiStringArray = new String[strumenti.size()];
+		dotazioniStringArray = new String[dotazioni.size()];
+		
+		strumentiStringArray = strumenti.toArray(strumentiStringArray);
+		dotazioniStringArray = dotazioni.toArray(dotazioniStringArray);
+		
+		strumentiComboBox.setModel(new DefaultComboBoxModel<String>(strumentiStringArray));
+		dotazioniComboBox.setModel(new DefaultComboBoxModel<String>(dotazioniStringArray));
+		
+
 		// DYNAMIC PART
 
 		// DYNAMIC Seleziona+Descrizione
@@ -238,11 +232,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 				isDotazione = false;
 				
 				// Descrizione
-				for(Strumento s : strumentoArray) {
-					if(s.getNome() == strumentiComboBox.getSelectedItem().toString()) {
-						descrizioneTextStrumentoDotazione = s.getDescrizione();
-					}
-				}
+				descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(strumentoArray, strumentiComboBox.getSelectedItem().toString());
 				
 				descrizioneFieldStrumentoDotazione.setText(descrizioneTextStrumentoDotazione);
 			}
@@ -259,11 +249,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 				isDotazione = true;
 				
 				// Descrizione
-				for(DotazioneAccessoria d : dotazioneArray) {
-					if(d.getNome() == dotazioniComboBox.getSelectedItem().toString()) {
-						descrizioneTextStrumentoDotazione = d.getDescrizione();
-					}
-				}
+				descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
 				
 				descrizioneFieldStrumentoDotazione.setText(descrizioneTextStrumentoDotazione);
 			}
@@ -275,42 +261,17 @@ public class EffettuaPrenotazionePage extends JPanel {
 				strumentoArray = strumentoDAO.getStrumentiBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());
 				dotazioneArray = dotazioneDAO.getDotazioniBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());
 				
-				countStrumenti = 0;
-				for(Strumento s : strumentoArray) {
-					countStrumenti += 1;
-				}
-
-				strumenti = new String[countStrumenti];
-				for(int i = 0; i < strumentoArray.size(); ++i) {
-					strumenti[i] = strumentoArray.get(i).getNome();
-				}
+				strumentiStringArray = controller.fromArrayListToStringArray(strumentoArray);
+				dotazioniStringArray = controller.fromArrayListToStringArray(dotazioneArray);
 				
-				countDotazioni = 0;
-				for(DotazioneAccessoria d : dotazioneArray) {
-					countDotazioni += 1;
-				}
-
-				dotazioni = new String[countDotazioni];
-				for(int i = 0; i < dotazioneArray.size(); ++i) {
-					dotazioni[i] = dotazioneArray.get(i).getNome();
-				}
-				
-				strumentiComboBox.setModel(new DefaultComboBoxModel<String>(strumenti));
-				dotazioniComboBox.setModel(new DefaultComboBoxModel<String>(dotazioni));
+				strumentiComboBox.setModel(new DefaultComboBoxModel<String>(strumentiStringArray));
+				dotazioniComboBox.setModel(new DefaultComboBoxModel<String>(dotazioniStringArray));
 				
 				// Descrizione
 				if(isStrumento) {
-					for(Strumento s : strumentoArray) {
-						if(s.getNome() == strumentiComboBox.getSelectedItem().toString()) {
-							descrizioneTextStrumentoDotazione = s.getDescrizione();
-						}
-					}
+					descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(strumentoArray, strumentiComboBox.getSelectedItem().toString());
 				} else {
-					for(DotazioneAccessoria d : dotazioneArray) {
-						if(d.getNome() == dotazioniComboBox.getSelectedItem().toString()) {
-							descrizioneTextStrumentoDotazione = d.getDescrizione();
-						}
-					}
+					descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
 				}
 				
 				descrizioneFieldStrumentoDotazione.setText(descrizioneTextStrumentoDotazione);
@@ -320,11 +281,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		// DYNAMIC descrizione (combo box)
 		strumentiComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				for(Strumento s : strumentoArray) {
-					if(s.getNome() == strumentiComboBox.getSelectedItem().toString()) {
-						descrizioneTextStrumentoDotazione = s.getDescrizione();
-					}
-				}
+				descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(strumentoArray, strumentiComboBox.getSelectedItem().toString());
 			
 				descrizioneFieldStrumentoDotazione.setText(descrizioneTextStrumentoDotazione);
 			}
@@ -332,11 +289,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		
 		dotazioniComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				for(DotazioneAccessoria d : dotazioneArray) {
-					if(d.getNome() == dotazioniComboBox.getSelectedItem().toString()) {
-						descrizioneTextStrumentoDotazione = d.getDescrizione();
-					}
-				}
+				descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
 				
 				descrizioneFieldStrumentoDotazione.setText(descrizioneTextStrumentoDotazione);
 			}
@@ -347,18 +300,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 			public void actionPerformed(ActionEvent e){
 				String[] aOraArray;
 				
-				countOra = 0;
-				for(Integer i = Integer.parseInt(cbDaOra.getSelectedItem().toString()); i < 21; ++i) {
-					countOra += 1;
-				}
-				
-				System.out.println(countOra);
-				
-				aOraArray = new String[countOra - 1];
-				Integer daOra = Integer.parseInt(cbDaOra.getSelectedItem().toString());
-				for(Integer i = daOra + 1; i <= maxOra; ++i) {
-					aOraArray[i - daOra - 1] = i.toString();
-				}
+				aOraArray = controller.getAOraBasedOnDaOra(Integer.parseInt(cbDaOra.getSelectedItem().toString()));
 				
 				cbAOra.setModel(new DefaultComboBoxModel<String>(aOraArray));
 			}
@@ -367,33 +309,17 @@ public class EffettuaPrenotazionePage extends JPanel {
 		// CONFERMA prenotazione
 		confermaBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				int codStr = 0;
-				int codD = 0;
 				
-
-				ArrayList<Prenotazione> prenotazioneArray = new ArrayList<Prenotazione>();
-				prenotazioneArray = prenotazioneDAO.populate();
+				strumentoArray = strumentoDAO.getStrumentiBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());
+				dotazioneArray = dotazioneDAO.getDotazioniBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());
 				
 				try {
-					for(Strumento s : strumentoArray) {
-						if(s.getNome() == strumentiComboBox.getSelectedItem().toString()) {
-							codStr = s.getCodStr();
-						}
-					}
+					codStr = controller.getCodiceFromNome(strumentoArray, strumentiComboBox.getSelectedItem().toString());
 					
-					for(DotazioneAccessoria da : dotazioneArray) {
-						if(da.getNome() == dotazioniComboBox.getSelectedItem().toString()) {
-							codD = da.getCodD();
-						}
-					}
+					codD = controller.getCodiceFromNome(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
 					
 					// if prenotazioneArray is empty then codP is 1, otherwise it will calculate it dynamically based on the last codP
-					if(prenotazioneArray.isEmpty()) {
-						prenotazioneDAO.prenotazione(jDateChooserStrumentoDotazione.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), jDateChooserStrumentoDotazione.getDate().getTime(), Integer.parseInt(cbAOra.getSelectedItem().toString()) - Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbAOra.getSelectedItem().toString()), codP, codStr, codD, filteredPersonale.getCodice());
-					} else {
-						codP = prenotazioneArray.get(prenotazioneArray.size() - 1).getCodP() + 1;
-						prenotazioneDAO.prenotazione(jDateChooserStrumentoDotazione.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), jDateChooserStrumentoDotazione.getDate().getTime(), Integer.parseInt(cbAOra.getSelectedItem().toString()) - Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbAOra.getSelectedItem().toString()), codP, codStr, codD, filteredPersonale.getCodice());
-					}
+					controller.setPrenotazione(jDateChooserStrumentoDotazione.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), jDateChooserStrumentoDotazione.getDate().getTime(), Integer.parseInt(cbAOra.getSelectedItem().toString()) - Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbAOra.getSelectedItem().toString()), codP, codStr, codD, filteredPersonale.getCodice(), isStrumento);					
 					
 					JOptionPane.showMessageDialog(null, "Prenotazione riuscita.");
 				} catch (Exception ee) {

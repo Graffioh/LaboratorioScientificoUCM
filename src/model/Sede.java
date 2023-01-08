@@ -63,11 +63,11 @@ public class Sede {
 		this.regione = regione;
 	}
 
-	public int getCodS() {
+	public int getCodice() {
 		return codS;
 	}
 
-	public void setCodS(int codS) {
+	public void setCodice(int codS) {
 		this.codS = codS;
 	}
 

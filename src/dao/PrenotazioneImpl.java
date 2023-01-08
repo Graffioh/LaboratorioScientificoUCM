@@ -75,9 +75,10 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
 		return prenotazioneArray;
 	}
 
-	public String getNomeBasedOnPrenotazione(Prenotazione pr){
-		String nomeStrumento = "";
-
+	public <T> String getNomeBasedOnPrenotazione(T pr){
+		String nome = "";
+		
+		// get nome based on strumento OR dotazione
 		/*try {
 
 			String query = ;
@@ -95,32 +96,8 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
 			e.printStackTrace();
 		}*/
 
-		return nomeStrumento;
+		return nome;
 	}
-
-	public String getNomeBasedOnPrenotazione(DotazioneAccessoria dot){
-		String nomeDotazione = "";
-
-		/*try {
-
-			String query = ;
-
-			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
-
-			prepStatementQuery.setInt(1,codPers);
-			prepStatementQuery.setString(2,nomeSede);
-
-			ResultSet rs = prepStatementQuery.executeQuery();
-
-			nomeDotazione = rs.getString("nome");
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}*/
-
-		return nomeDotazione;
-	}
-	
 	
 	public void prenotazione(LocalDate data, long timestampLong, int tempoPrenotazione, int daOra, int aOra, int codP, int codStr, int codD, int codPers) {
 		try {
@@ -138,7 +115,10 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
 			prepStatementQuery.setInt(5,aOra);
 			prepStatementQuery.setInt(6,codP);
 			prepStatementQuery.setInt(7,codStr);
-			prepStatementQuery.setInt(8,codD);
+			if(codD == 0)
+				prepStatementQuery.setObject(8, null);
+			else
+				prepStatementQuery.setInt(8,codD);
 			prepStatementQuery.setInt(9,codPers);
 
 			prepStatementQuery.executeQuery();
