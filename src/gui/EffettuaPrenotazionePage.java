@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -71,12 +72,6 @@ public class EffettuaPrenotazionePage extends JPanel {
 		personaleDAO = new PersonaleImpl();
 		personaleArray = personaleDAO.populate();
 		
-		strumentoDAO = new StrumentoImpl();
-		strumentoArray = new ArrayList<Strumento>();
-		
-		dotazioneDAO = new DotazioneAccessoriaImpl();
-		dotazioneArray = new ArrayList<DotazioneAccessoria>();
-		
 		prenotazioneDAO = new PrenotazioneImpl();
 		
 		controller = new Controller();
@@ -104,10 +99,18 @@ public class EffettuaPrenotazionePage extends JPanel {
 		add(sediComboBoxEffettua);
 		
 		selectStrumentoBtn = new JButton("Strumento");
+		selectStrumentoBtn.setBackground(new Color(171, 165, 255));
+		selectStrumentoBtn.setOpaque(true);
+		selectStrumentoBtn.setBorderPainted(true);
+		selectStrumentoBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		selectStrumentoBtn.setBounds(365, 150, 100, 35);
 		add(selectStrumentoBtn);
 		
 		selectDotazioneBtn = new JButton("Dotazione");
+		selectDotazioneBtn.setBackground(new Color(171, 165, 255));
+		selectDotazioneBtn.setOpaque(true);
+		selectDotazioneBtn.setBorderPainted(true);
+		selectDotazioneBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		selectDotazioneBtn.setBounds(500, 150, 100, 35);
 		add(selectDotazioneBtn);
 		
@@ -190,6 +193,10 @@ public class EffettuaPrenotazionePage extends JPanel {
 		// CONFERMA
 		confermaBtn = new JButton("Conferma");
 		confermaBtn.setFont(new Font("Tahoma", Font.BOLD, 24));
+		confermaBtn.setBackground(new Color(171, 165, 255));
+		confermaBtn.setOpaque(true);
+		confermaBtn.setBorderPainted(true);
+		confermaBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		confermaBtn.setBounds(396, 530, 180, 40);
 		add(confermaBtn);
 
@@ -199,6 +206,12 @@ public class EffettuaPrenotazionePage extends JPanel {
 		strumentiComboBox.setVisible(false);
 		selezionaDotazioneLabel.setVisible(false);
 		dotazioniComboBox.setVisible(false);
+		
+		strumentoDAO = new StrumentoImpl();
+		dotazioneDAO = new DotazioneAccessoriaImpl();
+		
+		strumentoArray = new ArrayList<Strumento>();
+		dotazioneArray = new ArrayList<DotazioneAccessoria>();
 
 		strumentoArray = strumentoDAO.getStrumentiBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());
 		dotazioneArray = dotazioneDAO.getDotazioniBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());

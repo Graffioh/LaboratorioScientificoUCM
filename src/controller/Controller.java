@@ -58,7 +58,7 @@ public class Controller {
 
 		ArrayList<String> nomi = new ArrayList<String>();
 		for(T el : al) {
-			// Based on the instace of d, cast it to get the desired method.
+			// Based on the instance of d, cast it to get the desired method.
 			if(el instanceof Strumento)
 				nomi.add(((Strumento)el).getNome());
 			else if(el instanceof DotazioneAccessoria)
@@ -74,7 +74,7 @@ public class Controller {
 
 		ArrayList<String> codici = new ArrayList<String>();
 		for(T el : al) {
-			// Based on the instace of d, cast it to get the desired method.
+			// Based on the instance of d, cast it to get the desired method.
 			if(el instanceof Strumento)
 				codici.add(Integer.valueOf(((Strumento)el).getCodice()).toString());
 			else if(el instanceof DotazioneAccessoria)

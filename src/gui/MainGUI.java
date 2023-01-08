@@ -3,6 +3,7 @@ package gui;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import controller.Controller;
 
@@ -60,6 +61,10 @@ public class MainGUI extends JFrame {
 		
 		profiloPersonaleBtn = new JButton("Profilo");
 		profiloPersonaleBtn.setBounds(880, 20, 89, 23);
+		profiloPersonaleBtn.setBackground(new Color(171, 165, 255));
+		profiloPersonaleBtn.setOpaque(true);
+		profiloPersonaleBtn.setBorderPainted(true);
+		profiloPersonaleBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		profiloPersonaleBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -71,6 +76,10 @@ public class MainGUI extends JFrame {
 		
 		prenotazioneBtn = new JButton("Prenotazione");
 		prenotazioneBtn.setFont(new Font("Tahoma", Font.BOLD, 25));
+		prenotazioneBtn.setBackground(new Color(171, 165, 255));
+		prenotazioneBtn.setOpaque(true);
+		prenotazioneBtn.setBorderPainted(true);
+		prenotazioneBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		prenotazioneBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.switchPage(bookingPanel, homepagePanel);
@@ -81,6 +90,10 @@ public class MainGUI extends JFrame {
 
 		riepilogoStrumentiBtn = new JButton("Riepilogo strumenti");
 		riepilogoStrumentiBtn.setFont(new Font("Tahoma", Font.BOLD, 11));
+		riepilogoStrumentiBtn.setBackground(new Color(171, 165, 255));
+		riepilogoStrumentiBtn.setOpaque(true);
+		riepilogoStrumentiBtn.setBorderPainted(true);
+		riepilogoStrumentiBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		riepilogoStrumentiBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.switchPage(riepilogoStrumentiPanel, homepagePanel);
@@ -91,6 +104,10 @@ public class MainGUI extends JFrame {
 
 		riepilogoDotazioniBtn = new JButton("Riepilogo dotazioni");
 		riepilogoDotazioniBtn.setFont(new Font("Tahoma", Font.BOLD, 11));
+		riepilogoDotazioniBtn.setBackground(new Color(171, 165, 255));
+		riepilogoDotazioniBtn.setOpaque(true);
+		riepilogoDotazioniBtn.setBorderPainted(true);
+		riepilogoDotazioniBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		riepilogoDotazioniBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//
@@ -100,6 +117,10 @@ public class MainGUI extends JFrame {
 		homepagePanel.add(riepilogoDotazioniBtn);
 
 		profileBackBtn = new JButton("Back");
+		profileBackBtn.setBackground(new Color(171, 165, 255));
+		profileBackBtn.setOpaque(true);
+		profileBackBtn.setBorderPainted(true);
+		profileBackBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		profileBackBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -110,6 +131,10 @@ public class MainGUI extends JFrame {
 		profilePanel.add(profileBackBtn);
 
 		bookingBackBtn = new JButton("Back");
+		bookingBackBtn.setBackground(new Color(171, 165, 255));
+		bookingBackBtn.setOpaque(true);
+		bookingBackBtn.setBorderPainted(true);
+		bookingBackBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		bookingBackBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -122,6 +147,10 @@ public class MainGUI extends JFrame {
 		bookingPanel.add(bookingBackBtn);
 		
 		riepilogoStrumentiBackBtn = new JButton("Back");
+		riepilogoStrumentiBackBtn.setBackground(new Color(171, 165, 255));
+		riepilogoStrumentiBackBtn.setOpaque(true);
+		riepilogoStrumentiBackBtn.setBorderPainted(true);
+		riepilogoStrumentiBackBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		riepilogoStrumentiBackBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {

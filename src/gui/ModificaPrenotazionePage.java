@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -151,6 +152,10 @@ public class ModificaPrenotazionePage extends JPanel {
 		// MODIFICA
 		modificaBtn = new JButton("Modifica");
 		modificaBtn.setFont(new Font("Tahoma", Font.BOLD, 24));
+		modificaBtn.setBackground(new Color(171, 165, 255));
+		modificaBtn.setOpaque(true);
+		modificaBtn.setBorderPainted(true);
+		modificaBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		modificaBtn.setBounds(396, 490, 180, 40);
 		add(modificaBtn);
 
@@ -163,6 +168,10 @@ public class ModificaPrenotazionePage extends JPanel {
 		// ELIMINA
 		eliminaBtn = new JButton("Elimina");
 		eliminaBtn.setFont(new Font("Tahoma", Font.BOLD, 24));
+		eliminaBtn.setBackground(new Color(171, 165, 255));
+		eliminaBtn.setOpaque(true);
+		eliminaBtn.setBorderPainted(true);
+		eliminaBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		eliminaBtn.setBounds(396, 550, 180, 40);
 		add(eliminaBtn);
 

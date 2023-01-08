@@ -3,6 +3,7 @@ package gui;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class LoginPage extends JFrame {
 		// Panel
 		loginPagePanel = new JPanel();
 		loginPagePanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		loginPagePanel.setBackground(new Color(171, 191, 244));
 		setContentPane(loginPagePanel);
 		loginPagePanel.setLayout(null); // Absolute layout
 
@@ -62,6 +64,11 @@ public class LoginPage extends JFrame {
 		controller = new Controller();
 		// Button
 		loginBtn = new JButton("Login");
+		loginBtn.setBackground(new Color(171, 165, 255));
+		loginBtn.setOpaque(true);
+		loginBtn.setBorderPainted(true);
+		loginBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
+		loginBtn.setBounds(99, 189, 227, 43);
 		loginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -75,7 +82,6 @@ public class LoginPage extends JFrame {
 				}
 			}
 		});
-		loginBtn.setBounds(99, 189, 227, 43);
 		loginPagePanel.add(loginBtn);
 
 		// Label
@@ -86,6 +92,8 @@ public class LoginPage extends JFrame {
 		codiceLabel = new JLabel("Codice");
 		codiceLabel.setBounds(193, 96, 46, 14);
 		loginPagePanel.add(codiceLabel);
+		
+		
 	}
 
 	public static String getMatricolaTextField(){

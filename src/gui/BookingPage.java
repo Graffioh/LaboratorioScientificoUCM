@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 public class BookingPage extends JPanel {
 
@@ -45,6 +46,10 @@ public class BookingPage extends JPanel {
 
 		prenotaBtn = new JButton("Prenota");
 		prenotaBtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		prenotaBtn.setBackground(new Color(171, 165, 255));
+		prenotaBtn.setOpaque(true);
+		prenotaBtn.setBorderPainted(true);
+		prenotaBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		prenotaBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				emptyPanel.setVisible(false);
@@ -58,6 +63,10 @@ public class BookingPage extends JPanel {
 
 		modificaPrenotazioneBtn = new JButton("Modifica");
 		modificaPrenotazioneBtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		modificaPrenotazioneBtn.setBackground(new Color(171, 165, 255));
+		modificaPrenotazioneBtn.setOpaque(true);
+		modificaPrenotazioneBtn.setBorderPainted(true);
+		modificaPrenotazioneBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		modificaPrenotazioneBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				emptyPanel.setVisible(false);
@@ -71,6 +80,10 @@ public class BookingPage extends JPanel {
 
 		calendarioPrenotazioneBtn = new JButton("Calendario");
 		calendarioPrenotazioneBtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		calendarioPrenotazioneBtn.setBackground(new Color(171, 165, 255));
+		calendarioPrenotazioneBtn.setOpaque(true);
+		calendarioPrenotazioneBtn.setBorderPainted(true);
+		calendarioPrenotazioneBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		calendarioPrenotazioneBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//
