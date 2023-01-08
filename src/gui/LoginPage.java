@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -32,7 +33,7 @@ public class LoginPage extends JFrame {
 	
 	
 	public LoginPage() {
-		
+		setBackground(new Color(171, 191, 244));
 		// LoginPage frame
 		setResizable(false);
 		setTitle("LaboratorioScientificoUCM (login)");

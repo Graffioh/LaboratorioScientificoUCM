@@ -6,6 +6,8 @@ import dao.PersonaleImpl;
 import model.Personale;
 
 import javax.swing.JLabel;
+
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.LayoutManager;
 import java.awt.image.BufferedImage;
@@ -44,7 +46,7 @@ public class ProfilePage extends JPanel {
 		System.out.println("Codice:");
 		System.out.println(loginpageobj.getCodiceTextField());*/
 		
-		
+		setBackground(new Color(171, 191, 244));
 		setLayout(null);
 		
 		// Personale dao implementation used to populate personale array list from database datas
@@ -62,10 +64,12 @@ public class ProfilePage extends JPanel {
 		
 		textPanelHeader = new JPanel();
 		textPanelHeader.setBounds(0,86,1020,139);
+		textPanelHeader.setBackground(new Color(171, 191, 244));
 		add(textPanelHeader);
 		
 		textPanelNormal = new JPanel();
 		textPanelNormal.setBounds(515,300,300,172);
+		textPanelNormal.setBackground(new Color(171, 191, 244));
 		add(textPanelNormal);
 		
 		layout1 = new BoxLayout(textPanelHeader, BoxLayout.PAGE_AXIS);  
@@ -106,6 +110,7 @@ public class ProfilePage extends JPanel {
 		// profile image
 		profilePicPanel = new JPanel();
 		profilePicPanel.setBounds(330, 253, 175, 172);
+		profilePicPanel.setBackground(new Color(171, 191, 244));
 		add(profilePicPanel);
 		
 		try {

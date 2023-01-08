@@ -8,6 +8,7 @@ import controller.Controller;
 
 import javax.swing.JButton;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -19,12 +20,9 @@ public class MainGUI extends JFrame {
 	public static final int HEIGHT_HOMEPAGE_WINDOW = 768;
     public static final int WIDTH_HOMEPAGE_WINDOW = 1024;
 
-	private JPanel backgroundPane;
+	private JPanel backgroundPanel;
 	private JButton profiloPersonaleBtn, profileBackBtn, bookingBackBtn, prenotazioneBtn, 
-					riepilogoStrumentiBtn, riepilogoDotazioniBtn,
-					effettuaPrenotStrumentoBtn, effettuaPrenotDotazioneBtn,
-					modificaPrenotazioneBtn, cancellaPrenotazioneBtn,
-					calendarioPrenotazioneBtn;
+					riepilogoStrumentiBtn, riepilogoDotazioniBtn, riepilogoStrumentiBackBtn;
 	
 	private HomePage homepagePanel;
 	
@@ -32,27 +30,33 @@ public class MainGUI extends JFrame {
 
 	private BookingPage bookingPanel;
 	
+	private RiepilogoStrumentiPage riepilogoStrumentiPanel;
+	
 	private Controller controller;
 	 
 	public MainGUI() {
 		controller = new Controller();
 		
+		setBackground(new Color(171, 191, 244));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("LaboratorioScientificoUCM");
 		setBounds(100, 100, WIDTH_HOMEPAGE_WINDOW, HEIGHT_HOMEPAGE_WINDOW);
 		setLocationRelativeTo(null);
-		backgroundPane = new JPanel();
-		backgroundPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(backgroundPane);
-		backgroundPane.setLayout(new CardLayout(0, 0));
+		backgroundPanel = new JPanel();
+		backgroundPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		backgroundPanel.setBackground(new Color(171, 191, 244));
+		setContentPane(backgroundPanel);
+		backgroundPanel.setLayout(new CardLayout(0, 0));
 		
 		homepagePanel = new HomePage();
 		profilePanel = new ProfilePage();
 		bookingPanel = new BookingPage();
-		backgroundPane.add(homepagePanel);
-		backgroundPane.add(profilePanel);
-		backgroundPane.add(bookingPanel);
+		riepilogoStrumentiPanel = new RiepilogoStrumentiPage();
+		backgroundPanel.add(homepagePanel);
+		backgroundPanel.add(profilePanel);
+		backgroundPanel.add(bookingPanel);
+		backgroundPanel.add(riepilogoStrumentiPanel);
 		
 		profiloPersonaleBtn = new JButton("Profilo");
 		profiloPersonaleBtn.setBounds(880, 20, 89, 23);
@@ -65,7 +69,6 @@ public class MainGUI extends JFrame {
 		homepagePanel.add(profiloPersonaleBtn);
 		
 		
-		
 		prenotazioneBtn = new JButton("Prenotazione");
 		prenotazioneBtn.setFont(new Font("Tahoma", Font.BOLD, 25));
 		prenotazioneBtn.addActionListener(new ActionListener() {
@@ -76,24 +79,24 @@ public class MainGUI extends JFrame {
 		prenotazioneBtn.setBounds(300, 650, 400, 50);
 		homepagePanel.add(prenotazioneBtn);
 
-		riepilogoStrumentiBtn = new JButton("RiepilogoS");
-		riepilogoStrumentiBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
+		riepilogoStrumentiBtn = new JButton("Riepilogo strumenti");
+		riepilogoStrumentiBtn.setFont(new Font("Tahoma", Font.BOLD, 11));
 		riepilogoStrumentiBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//
+				controller.switchPage(riepilogoStrumentiPanel, homepagePanel);
 			}
 		});
-		riepilogoStrumentiBtn.setBounds(30, 600, 150, 30);
+		riepilogoStrumentiBtn.setBounds(160, 600, 180, 25);
 		homepagePanel.add(riepilogoStrumentiBtn);
 
-		riepilogoDotazioniBtn = new JButton("RiepilogoD");
-		riepilogoDotazioniBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
+		riepilogoDotazioniBtn = new JButton("Riepilogo dotazioni");
+		riepilogoDotazioniBtn.setFont(new Font("Tahoma", Font.BOLD, 11));
 		riepilogoDotazioniBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//
 			}
 		});
-		riepilogoDotazioniBtn.setBounds(820, 600, 150, 30);
+		riepilogoDotazioniBtn.setBounds(650, 600, 180, 25);
 		homepagePanel.add(riepilogoDotazioniBtn);
 
 		profileBackBtn = new JButton("Back");
@@ -117,5 +120,17 @@ public class MainGUI extends JFrame {
 		});
 		bookingBackBtn.setBounds(25, 11, 89, 23);
 		bookingPanel.add(bookingBackBtn);
+		
+		riepilogoStrumentiBackBtn = new JButton("Back");
+		riepilogoStrumentiBackBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				homepagePanel.setVisible(true);
+				bookingPanel.setVisible(false);
+				controller.switchPage(homepagePanel, riepilogoStrumentiPanel);
+			}
+		});
+		riepilogoStrumentiBackBtn.setBounds(25, 11, 89, 23);
+		riepilogoStrumentiPanel.add(riepilogoStrumentiBackBtn);
 	}
 }

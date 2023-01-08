@@ -65,6 +65,7 @@ public class ModificaPrenotazionePage extends JPanel {
 		controller = new Controller();
 		filteredPersonale = controller.filterBasedOnMatricolaCodice(personaleArray, LoginPage.getMatricolaTextField(), LoginPage.getCodiceTextField());
 		
+		setBackground(new Color(171, 191, 244));
 		setLayout(null);
 
 		// SELEZIONA SEDE

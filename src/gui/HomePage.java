@@ -15,6 +15,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+
+import java.awt.Color;
 import java.awt.Font;
 import javax.swing.DefaultListModel;
 import java.lang.String;
@@ -35,6 +37,7 @@ public class HomePage extends JPanel {
 	private ArrayList<DotazioneAccessoria> dotazioneArray;
 	
 	public HomePage() {
+		setBackground(new Color(171, 191, 244));
 		setLayout(null);
 		
 		strumentoDAO = new StrumentoImpl();

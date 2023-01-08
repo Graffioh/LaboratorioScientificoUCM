@@ -65,6 +65,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 	private boolean isStrumento = false, isDotazione = false;
 
 	public EffettuaPrenotazionePage() {
+		setBackground(new Color(171, 191, 244));
 		setLayout(null);
 		
 		personaleDAO = new PersonaleImpl();
