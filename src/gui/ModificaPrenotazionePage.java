@@ -118,7 +118,7 @@ public class ModificaPrenotazionePage extends JPanel {
 		add(descrizionePrenotazioneTextScroll);
 
 		// CALENDARIO (per data prenotazione)
-		calendarioLabel = new JLabel("Seleziona data");
+		calendarioLabel = new JLabel("Seleziona nuova data");
 		calendarioLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		calendarioLabel.setBounds(420, 265, 150, 100);
 		add(calendarioLabel);
@@ -225,7 +225,7 @@ public class ModificaPrenotazionePage extends JPanel {
 			public void actionPerformed(ActionEvent e){
 				try {
 					// Modifica prenotazione
-					//prenotazioneDAO.
+					//prenotazioneDAO.modificaPrenotazione(jDateChooserStrumentoDotazione.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), jDateChooserStrumentoDotazione.getDate().getTime(), Integer.parseInt(cbAOra.getSelectedItem().toString()) - Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbAOra.getSelectedItem().toString()), codP, codStr, codD, filteredPersonale.getCodice(), isStrumento);
 
 				} catch (Exception ee) {
 					ee.printStackTrace();

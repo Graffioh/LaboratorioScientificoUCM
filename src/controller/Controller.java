@@ -54,7 +54,7 @@ public class Controller {
 		panelNotVisible.setVisible(false);
 	}
 	
-	public <T> ArrayList<String> getNomiFromArray(ArrayList<T> al) {
+	public <T> ArrayList<String> getNomiFromArrayList(ArrayList<T> al) {
 
 		ArrayList<String> nomi = new ArrayList<String>();
 		for(T el : al) {
@@ -70,7 +70,7 @@ public class Controller {
 		return nomi;
 	}
 	
-	public <T> ArrayList<String> getCodiciFromArray(ArrayList<T> al) {
+	public <T> ArrayList<String> getCodiciFromArrayList(ArrayList<T> al) {
 
 		ArrayList<String> codici = new ArrayList<String>();
 		for(T el : al) {
@@ -130,7 +130,7 @@ public class Controller {
 		return codice;
 	}
 	
-	public void setPrenotazione(LocalDate data, long timestampLong, int tempoPrenotazione, int daOra, int aOra, int codP, int codStr, int codD, int codPers, boolean isStrumento) {
+	public void effettuaPrenotazione(LocalDate data, long timestampLong, int tempoPrenotazione, int daOra, int aOra, int codP, int codStr, int codD, int codPers, boolean isStrumento) {
 		
 		PrenotazioneImpl prenotazioneDAO = new PrenotazioneImpl();
 		
@@ -174,6 +174,7 @@ public class Controller {
 		return aOraArray;
 	}
 	
+	// Used for combobox items
 	public <T> String[] fromArrayListToStringArray(ArrayList<T> al) {
 		
 		Controller controller = new Controller();
@@ -181,9 +182,9 @@ public class Controller {
 		String[] stringArray;
 		
 		if(al.get(0) instanceof Prenotazione)
-			alString = controller.getCodiciFromArray(al);
+			alString = controller.getCodiciFromArrayList(al);
 		else
-			alString = controller.getNomiFromArray(al);
+			alString = controller.getNomiFromArrayList(al);
 		
 		stringArray = new String[alString.size()];
 		
@@ -191,8 +192,5 @@ public class Controller {
 		
 		return stringArray;
 	}
-	
-	
-	
 	
 }

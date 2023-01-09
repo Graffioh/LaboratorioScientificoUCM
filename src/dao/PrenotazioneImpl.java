@@ -50,12 +50,14 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
 
 		try {
 
-			String query = "SELECT PR.datap, PR.ora, PR.tempo_prenotazione, PR.codP, PR.codPers, PR.codStr, PR.codD, PR.DaOra, PR.AOra"
-			+ " FROM PersonaleSede as P"
-			+ " JOIN Sede as S ON P.CodS = S.CodS"
-			+ " JOIN Personale as PE ON P.CodPers = PE.CodPers"
-			+ " JOIN Prenotazione AS PR ON PE.CodPers = PR.CodPers"
-            + " WHERE P.CodPers = ? AND S.nome LIKE ?";
+			String query = "SELECT DISTINCT PR.datap, PR.ora, PR.tempo_prenotazione, PR.codP, PR.codPers, PR.codStr, PR.codD, PR.DaOra, PR.AOra"
+				+ " FROM PersonaleSede AS P JOIN Sede AS S ON P.CodS = S.CodS"
+                + " JOIN Postazione AS PO ON PO.CodS = S.CodS"
+                + " JOIN StrumentoPostazione AS SP ON PO.CodPos = SP.CodPos"
+                + " JOIN Strumento AS STR ON SP.CodStr = STR.CodStr"
+                + " JOIN Prenotazione AS PR ON STR.CodStr = PR.CodStr"
+                + " WHERE PR.CodPers = ? AND S.nome LIKE ?"
+				+ " ORDER BY(PR.codP)";
     
 			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
 
@@ -138,6 +140,32 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
 			prepStatementQuery.setInt(1,codP);
 
 			prepStatementQuery.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void modificaPrenotazione(int codP, LocalDate data, long timestampLong, int tempoPrenotazione, int daOra, int aOra) {
+		try {
+
+			Timestamp timestamp1 = new Timestamp(timestampLong);
+			
+			String query = "UPDATE Prenotazione"
+			+ " SET datap = ?, ora = ?, tempo_prenotazione = ?, daOra = ?, aOra = ?"
+			+ " WHERE codP = ?";
+
+
+			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
+
+			prepStatementQuery.setDate(1,java.sql.Date.valueOf(data));
+			prepStatementQuery.setTimestamp(2,timestamp1);
+			prepStatementQuery.setInt(3,tempoPrenotazione);
+			prepStatementQuery.setInt(4,daOra);
+			prepStatementQuery.setInt(5,aOra);
+			prepStatementQuery.setInt(6,codP);
+
+			prepStatementQuery.executeQuery();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
