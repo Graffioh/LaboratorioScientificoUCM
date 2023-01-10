@@ -104,17 +104,36 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
 		return nome;
 	}
 	
-	public void prenotazione(LocalDate data, long timestampLong, int tempoPrenotazione, int daOra, int aOra, int codP, int codStr, int codD, int codPers) {
+	public int getMaxCodP() {
+		int codP = 0;
+		
+		try {
+			String query = "SELECT MAX(P.codP) as max_cod_p FROM Prenotazione AS P";
+			Statement statementQueryLogin = connection.createStatement();
+			ResultSet rs = statementQueryLogin.executeQuery(query);
+			
+			if(rs.next()) {
+				codP = rs.getInt("max_cod_p");
+			}
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
+		
+		return codP;
+	}
+	
+	public void prenotazione(LocalDate data, LocalTime localTime, int tempoPrenotazione, int daOra, int aOra, int codP, int codStr, int codD, int codPers) {
 		try {
 
-			Timestamp timestamp1 = new Timestamp(timestampLong);
+			Time time = Time.valueOf(localTime);
 			
 			String query = "INSERT INTO Prenotazione(datap, ora, tempo_prenotazione, DaOra, AOra, codP, codStr, codD, codPers) VALUES (?,?,?,?,?,?,?,?,?)";
 
 			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
 
 			prepStatementQuery.setDate(1,java.sql.Date.valueOf(data));
-			prepStatementQuery.setTimestamp(2,timestamp1);
+			prepStatementQuery.setTime(2,time);
 			prepStatementQuery.setInt(3,tempoPrenotazione);
 			prepStatementQuery.setInt(4,daOra);
 			prepStatementQuery.setInt(5,aOra);

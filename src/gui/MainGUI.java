@@ -23,7 +23,8 @@ public class MainGUI extends JFrame {
 
 	private JPanel backgroundPanel;
 	private JButton profiloPersonaleBtn, profileBackBtn, bookingBackBtn, prenotazioneBtn, 
-					riepilogoStrumentiBtn, riepilogoDotazioniBtn, riepilogoStrumentiBackBtn;
+					riepilogoStrumentiBtn, riepilogoDotazioniBtn, riepilogoStrumentiBackBtn,
+					riepilogoDotazioniBackBtn;
 	
 	private HomePage homepagePanel;
 	
@@ -32,6 +33,8 @@ public class MainGUI extends JFrame {
 	private BookingPage bookingPanel;
 	
 	private RiepilogoStrumentiPage riepilogoStrumentiPanel;
+	
+	private RiepilogoDotazioniPage riepilogoDotazioniPanel;
 	
 	private Controller controller;
 	 
@@ -54,10 +57,13 @@ public class MainGUI extends JFrame {
 		profilePanel = new ProfilePage();
 		bookingPanel = new BookingPage();
 		riepilogoStrumentiPanel = new RiepilogoStrumentiPage();
+		riepilogoDotazioniPanel = new RiepilogoDotazioniPage();
+		
 		backgroundPanel.add(homepagePanel);
 		backgroundPanel.add(profilePanel);
 		backgroundPanel.add(bookingPanel);
 		backgroundPanel.add(riepilogoStrumentiPanel);
+		backgroundPanel.add(riepilogoDotazioniPanel);
 		
 		profiloPersonaleBtn = new JButton("Profilo");
 		profiloPersonaleBtn.setBounds(880, 20, 89, 23);
@@ -110,7 +116,7 @@ public class MainGUI extends JFrame {
 		riepilogoDotazioniBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		riepilogoDotazioniBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//
+				controller.switchPage(riepilogoDotazioniPanel, homepagePanel);
 			}
 		});
 		riepilogoDotazioniBtn.setBounds(650, 600, 180, 25);
@@ -161,5 +167,21 @@ public class MainGUI extends JFrame {
 		});
 		riepilogoStrumentiBackBtn.setBounds(25, 11, 89, 23);
 		riepilogoStrumentiPanel.add(riepilogoStrumentiBackBtn);
+		
+		riepilogoDotazioniBackBtn = new JButton("Back");
+		riepilogoDotazioniBackBtn.setBackground(new Color(171, 165, 255));
+		riepilogoDotazioniBackBtn.setOpaque(true);
+		riepilogoDotazioniBackBtn.setBorderPainted(true);
+		riepilogoDotazioniBackBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
+		riepilogoDotazioniBackBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				homepagePanel.setVisible(true);
+				bookingPanel.setVisible(false);
+				controller.switchPage(homepagePanel, riepilogoDotazioniPanel);
+			}
+		});
+		riepilogoDotazioniBackBtn.setBounds(25, 11, 89, 23);
+		riepilogoDotazioniPanel.add(riepilogoDotazioniBackBtn);
 	}
 }

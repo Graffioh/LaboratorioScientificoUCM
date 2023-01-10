@@ -1,6 +1,7 @@
 package controller;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -130,7 +131,7 @@ public class Controller {
 		return codice;
 	}
 	
-	public void effettuaPrenotazione(LocalDate data, long timestampLong, int tempoPrenotazione, int daOra, int aOra, int codP, int codStr, int codD, int codPers, boolean isStrumento) {
+	public void effettuaPrenotazione(LocalDate data, LocalTime localTime, int tempoPrenotazione, int daOra, int aOra, int codP, int codStr, int codD, int codPers, boolean isStrumento) {
 		
 		PrenotazioneImpl prenotazioneDAO = new PrenotazioneImpl();
 		
@@ -140,17 +141,17 @@ public class Controller {
 		if(isStrumento) {
 			// if prenotazioneArray is empty then codP is 1, otherwise it will calculate it dynamically based on the last codP
 			if(prenotazioneArray.isEmpty()) {
-				prenotazioneDAO.prenotazione(data, timestampLong, tempoPrenotazione, daOra, aOra, codP, codStr, 0, codPers);
+				prenotazioneDAO.prenotazione(data, localTime, tempoPrenotazione, daOra, aOra, codP, codStr, 0, codPers);
 			} else {
-				codP = prenotazioneArray.get(prenotazioneArray.size() - 1).getCodice() + 1;
-				prenotazioneDAO.prenotazione(data, timestampLong, tempoPrenotazione, daOra, aOra, codP, codStr, 0, codPers);
+				codP = prenotazioneDAO.getMaxCodP() + 1;
+				prenotazioneDAO.prenotazione(data, localTime, tempoPrenotazione, daOra, aOra, codP, codStr, 0, codPers);
 			}
 		} else {
 			if(prenotazioneArray.isEmpty()) {
-				prenotazioneDAO.prenotazione(data, timestampLong, tempoPrenotazione, daOra, aOra, codP, codStr, codD, codPers);
+				prenotazioneDAO.prenotazione(data, localTime, tempoPrenotazione, daOra, aOra, codP, codStr, codD, codPers);
 			} else {
-				codP = prenotazioneArray.get(prenotazioneArray.size() - 1).getCodice() + 1;
-				prenotazioneDAO.prenotazione(data, timestampLong, tempoPrenotazione, daOra, aOra, codP, codStr, codD, codPers);
+				codP = prenotazioneDAO.getMaxCodP() + 1;
+				prenotazioneDAO.prenotazione(data, localTime, tempoPrenotazione, daOra, aOra, codP, codStr, codD, codPers);
 			}
 		}
 		
