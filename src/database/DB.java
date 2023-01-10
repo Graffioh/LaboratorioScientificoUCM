@@ -30,7 +30,7 @@ public class DB {
 			if(conn==null || conn.isClosed()) {   
 				// Reading password from file for security reasons
 				try {
-					b = new BufferedReader(new FileReader(new File("C:\\Users\\chiar\\OneDrive\\Desktop\\PROGETTO\\pwd_database.txt")));
+					b = new BufferedReader(new FileReader(new File("C:\\Users\\bregl\\Desktop\\pwd_database.txt")));
 					pwd = b.readLine();
 				} catch (IOException e) {
 					e.printStackTrace();

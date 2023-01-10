@@ -4,6 +4,9 @@ import java.sql.Connection;
 //import java.sql.Date;
 import java.time.*;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -123,10 +126,12 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
 				prepStatementQuery.setInt(8,codD);
 			prepStatementQuery.setInt(9,codPers);
 
-			prepStatementQuery.executeQuery();
+			prepStatementQuery.executeUpdate();
 
+			JOptionPane.showMessageDialog(null, "Prenotazione riuscita.");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Prenotazione non riuscita, riprova.");
 		}
 	}
 
@@ -141,8 +146,10 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
 
 			prepStatementQuery.executeUpdate();
 
+			JOptionPane.showMessageDialog(null, "Operazione riuscita.");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Operazione non riuscita, riprova.");
 		}
 	}
 
@@ -165,10 +172,12 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
 			prepStatementQuery.setInt(5,aOra);
 			prepStatementQuery.setInt(6,codP);
 
-			prepStatementQuery.executeQuery();
-
+			prepStatementQuery.executeUpdate();
+			
+			JOptionPane.showMessageDialog(null, "Operazione riuscita.");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Operazione non riuscita, riprova.");
 		}
 	}
 }

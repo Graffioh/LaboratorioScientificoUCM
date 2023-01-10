@@ -138,6 +138,7 @@ public class Controller {
 		prenotazioneArray = prenotazioneDAO.populate();
 		
 		if(isStrumento) {
+			// if prenotazioneArray is empty then codP is 1, otherwise it will calculate it dynamically based on the last codP
 			if(prenotazioneArray.isEmpty()) {
 				prenotazioneDAO.prenotazione(data, timestampLong, tempoPrenotazione, daOra, aOra, codP, codStr, 0, codPers);
 			} else {
