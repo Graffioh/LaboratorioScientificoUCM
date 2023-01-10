@@ -48,12 +48,14 @@ public class HomePage extends JPanel {
 			l1.add(i, strumentoArray.get(i).getNome());
 		}
 		
-		listaStrumenti = new JList<String>(l1);
+		listaStrumenti = new JList<String>(l1);		
+		listaStrumenti.setBackground(new Color(213, 223, 255));
+		listaStrumenti.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		listaStrumenti.setBounds(30, 100, 450, 500);
 		add(listaStrumenti);
 
-		listaStrumentiLabel = new JLabel("Strumenti");
-		listaStrumentiLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		listaStrumentiLabel = new JLabel("STRUMENTI");
+		listaStrumentiLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
 		listaStrumentiLabel.setBounds(220, 80, 90, 15);
 		add(listaStrumentiLabel);
 		
@@ -67,10 +69,12 @@ public class HomePage extends JPanel {
 		
 		listaDotazioni = new JList<String>(l2);
 		listaDotazioni.setBounds(520, 100, 450, 500);
+		listaDotazioni.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		listaDotazioni.setBackground(new Color(213, 223, 255));
 		add(listaDotazioni);
 
-		listaDotazioniLabel = new JLabel("Dotazioni Accessorie");
-		listaDotazioniLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		listaDotazioniLabel = new JLabel("DOTAZIONI ACCESSORIE");
+		listaDotazioniLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
 		listaDotazioniLabel.setBounds(675, 80, 200, 15);
 		add(listaDotazioniLabel);
 	}

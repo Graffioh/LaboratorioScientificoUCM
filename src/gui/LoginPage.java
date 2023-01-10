@@ -13,7 +13,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
+import java.awt.Font;
 import dao.*;
 import model.Personale;
 import controller.*;
@@ -51,19 +51,21 @@ public class LoginPage extends JFrame {
 
 		// Text field
 		matricolaTextField = new JTextField();
+		matricolaTextField.setBackground(new Color(213, 223, 255));
 		matricolaTextField.setBounds(54, 36, 316, 43);
 		matricolaTextField.setColumns(10);
 		loginPagePanel.add(matricolaTextField);
 
-
 		codiceTextField = new JTextField();
+		codiceTextField.setBackground(new Color(213, 223, 255));
 		codiceTextField.setBounds(54, 121, 316, 43);
 		codiceTextField.setColumns(10);
 		loginPagePanel.add(codiceTextField);
 
 		controller = new Controller();
 		// Button
-		loginBtn = new JButton("Login");
+		loginBtn = new JButton("LOGIN");
+		loginBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
 		loginBtn.setBackground(new Color(171, 165, 255));
 		loginBtn.setOpaque(true);
 		loginBtn.setBorderPainted(true);
@@ -85,14 +87,15 @@ public class LoginPage extends JFrame {
 		loginPagePanel.add(loginBtn);
 
 		// Label
-		matricolaLabel = new JLabel("Matricola");
-		matricolaLabel.setBounds(186, 11, 81, 14);
+		matricolaLabel = new JLabel("MATRICOLA");
+		matricolaLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		matricolaLabel.setBounds(166, 11, 101, 14);
 		loginPagePanel.add(matricolaLabel);
 
-		codiceLabel = new JLabel("Codice");
-		codiceLabel.setBounds(193, 96, 46, 14);
+		codiceLabel = new JLabel("CODICE");
+		codiceLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		codiceLabel.setBounds(181, 96, 58, 14);
 		loginPagePanel.add(codiceLabel);
-		
 		
 	}
 

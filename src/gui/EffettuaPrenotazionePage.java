@@ -78,18 +78,19 @@ public class EffettuaPrenotazionePage extends JPanel {
 		filteredPersonale = controller.filterBasedOnMatricolaCodice(personaleArray, LoginPage.getMatricolaTextField(), LoginPage.getCodiceTextField());
 		
 		// SELEZIONA SEDE
-		selezionaSedeLabel = new JLabel("Seleziona sede");
-		selezionaSedeLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		selezionaSedeLabel.setBounds(400, 20, 220, 50);
+		selezionaSedeLabel = new JLabel("SELEZIONA SEDE");
+		selezionaSedeLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
+		selezionaSedeLabel.setBounds(372, 20, 220, 50);
 		add(selezionaSedeLabel);
 		
 		sediStringArray = controller.fromArrayListToStringArray(filteredPersonale.getSediDoveLavora());
 		
 		final JComboBox<String> sediComboBoxEffettua = new JComboBox<String>(sediStringArray);
+		sediComboBoxEffettua.setBackground(new Color(213, 223, 255));
 		sediComboBoxEffettua.setBounds(355,80,250,40);
-    	sediComboBoxEffettua.setVisible(true);
+    		sediComboBoxEffettua.setVisible(true);
 		add(sediComboBoxEffettua);
-		
+			
 		selectStrumentoBtn = new JButton("Strumento");
 		selectStrumentoBtn.setBackground(new Color(171, 165, 255));
 		selectStrumentoBtn.setOpaque(true);
@@ -107,22 +108,24 @@ public class EffettuaPrenotazionePage extends JPanel {
 		add(selectDotazioneBtn);
 		
 		// SELEZIONA STRUMENTO
-		selezionaStrumentoLabel = new JLabel("Seleziona strumento");
-		selezionaStrumentoLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		selezionaStrumentoLabel = new JLabel("SELEZIONA STRUMENTO");
+		selezionaStrumentoLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
 		selezionaStrumentoLabel.setBounds(372, 200, 220, 50);
 		add(selezionaStrumentoLabel);
 		
 		final JComboBox<String> strumentiComboBox = new JComboBox<String>(strumentiStringArray);
+		strumentiComboBox.setBackground(new Color(213, 223, 255));
 		strumentiComboBox.setBounds(355,260,250,40);
 		add(strumentiComboBox);
 
 		// SELEZIONA DOTAZIONE
-		selezionaDotazioneLabel = new JLabel("Seleziona dotazione");
-		selezionaDotazioneLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		selezionaDotazioneLabel = new JLabel("SELEZIONA DOTAZIONE");
+		selezionaDotazioneLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
 		selezionaDotazioneLabel.setBounds(375, 200, 220, 50);
 		add(selezionaDotazioneLabel);
 		
 		final JComboBox<String> dotazioniComboBox = new JComboBox<String>(dotazioniStringArray);
+		dotazioniComboBox.setBackground(new Color(213, 223, 255));
 		dotazioniComboBox.setBounds(355,260,250,40);
 		add(dotazioniComboBox);
 		
@@ -133,6 +136,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		add(descrizioneLabel);
 		
 		descrizioneFieldStrumentoDotazione = new JTextArea();
+		descrizioneFieldStrumentoDotazione.setBackground(new Color(255, 255, 255));
 		descrizioneFieldStrumentoDotazione.setText(descrizioneTextStrumentoDotazione);
 		descrizioneFieldStrumentoDotazione.setLineWrap(true);
 		descrizioneFieldStrumentoDotazione.setWrapStyleWord(true);
@@ -148,8 +152,8 @@ public class EffettuaPrenotazionePage extends JPanel {
 		add(descrizioneStrumentoDotazioneTextScroll);
 
 		// CALENDARIO (for prenotazione)
-		calendarioLabel = new JLabel("Seleziona data");
-		calendarioLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		calendarioLabel = new JLabel("SELEZIONA DATA");
+		calendarioLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		calendarioLabel.setBounds(420, 285, 150, 100);
 		add(calendarioLabel);
 		
@@ -173,11 +177,13 @@ public class EffettuaPrenotazionePage extends JPanel {
 		String[] aOra = {"10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
 		
 		final JComboBox<String> cbDaOra = new JComboBox<String>(daOra);
+		cbDaOra.setBackground(new Color(213, 223, 255));
 		cbDaOra.setBounds(400, 430, 50, 30);
     	cbDaOra.setVisible(true);
 		add(cbDaOra);
 		
 		final JComboBox<String> cbAOra = new JComboBox<String>(aOra);
+		cbAOra.setBackground(new Color(213, 223, 255));
 		cbAOra.setBounds(520, 430, 50, 30);
     	cbAOra.setVisible(true);
 		add(cbAOra);
