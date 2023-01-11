@@ -6,6 +6,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.awt.Color;
@@ -54,12 +56,32 @@ public class LoginPage extends JFrame {
 		matricolaTextField.setBackground(new Color(213, 223, 255));
 		matricolaTextField.setBounds(54, 36, 316, 43);
 		matricolaTextField.setColumns(10);
+		matricolaTextField.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				matricolaTextField.setBackground(new Color(200, 215, 245));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				matricolaTextField.setBackground(new Color(213, 223, 255));
+			}
+		});
 		loginPagePanel.add(matricolaTextField);
 
 		codiceTextField = new JTextField();
 		codiceTextField.setBackground(new Color(213, 223, 255));
 		codiceTextField.setBounds(54, 121, 316, 43);
 		codiceTextField.setColumns(10);
+		codiceTextField.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				codiceTextField.setBackground(new Color(200, 215, 245));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				codiceTextField.setBackground(new Color(213, 223, 255));
+			}
+		});
 		loginPagePanel.add(codiceTextField);
 
 		controller = new Controller();
@@ -97,6 +119,17 @@ public class LoginPage extends JFrame {
 		codiceLabel.setBounds(181, 96, 58, 14);
 		loginPagePanel.add(codiceLabel);
 		
+		//ActionListeners for loginBtn
+		loginBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				loginBtn.setBackground(new Color(157,149,255));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				loginBtn.setBackground(new Color(171, 165, 255));
+			}
+		});
 	}
 
 	public static String getMatricolaTextField(){

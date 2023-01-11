@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.sql.Timestamp;
@@ -88,58 +90,110 @@ public class EffettuaPrenotazionePage extends JPanel {
 		final JComboBox<String> sediComboBoxEffettua = new JComboBox<String>(sediStringArray);
 		sediComboBoxEffettua.setBackground(new Color(213, 223, 255));
 		sediComboBoxEffettua.setBounds(355,80,250,40);
-    		sediComboBoxEffettua.setVisible(true);
+    	sediComboBoxEffettua.setVisible(true);
+    	sediComboBoxEffettua.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				sediComboBoxEffettua.setBackground(new Color(200, 215, 245));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				sediComboBoxEffettua.setBackground(new Color(213, 223, 255));
+			}
+		});
 		add(sediComboBoxEffettua);
 			
-		selectStrumentoBtn = new JButton("Strumento");
+		selectStrumentoBtn = new JButton("STRUMENTO");
 		selectStrumentoBtn.setBackground(new Color(171, 165, 255));
 		selectStrumentoBtn.setOpaque(true);
 		selectStrumentoBtn.setBorderPainted(true);
 		selectStrumentoBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		selectStrumentoBtn.setBounds(365, 150, 100, 35);
+		selectStrumentoBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				selectStrumentoBtn.setBackground(new Color(157,149,255));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				selectStrumentoBtn.setBackground(new Color(171, 165, 255));
+			}
+		});
 		add(selectStrumentoBtn);
 		
-		selectDotazioneBtn = new JButton("Dotazione");
+		selectDotazioneBtn = new JButton("DOTAZIONE");
 		selectDotazioneBtn.setBackground(new Color(171, 165, 255));
 		selectDotazioneBtn.setOpaque(true);
 		selectDotazioneBtn.setBorderPainted(true);
 		selectDotazioneBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		selectDotazioneBtn.setBounds(500, 150, 100, 35);
+		selectDotazioneBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				selectDotazioneBtn.setBackground(new Color(157,149,255));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				selectDotazioneBtn.setBackground(new Color(171, 165, 255));
+			}
+		});
 		add(selectDotazioneBtn);
 		
 		// SELEZIONA STRUMENTO
 		selezionaStrumentoLabel = new JLabel("SELEZIONA STRUMENTO");
 		selezionaStrumentoLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
-		selezionaStrumentoLabel.setBounds(372, 200, 220, 50);
+		selezionaStrumentoLabel.setBounds(342, 200, 298, 50);
 		add(selezionaStrumentoLabel);
 		
 		final JComboBox<String> strumentiComboBox = new JComboBox<String>(strumentiStringArray);
 		strumentiComboBox.setBackground(new Color(213, 223, 255));
 		strumentiComboBox.setBounds(355,260,250,40);
+		strumentiComboBox.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				strumentiComboBox.setBackground(new Color(200, 215, 245));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				strumentiComboBox.setBackground(new Color(213, 223, 255));
+			}
+		});
 		add(strumentiComboBox);
 
 		// SELEZIONA DOTAZIONE
 		selezionaDotazioneLabel = new JLabel("SELEZIONA DOTAZIONE");
 		selezionaDotazioneLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
-		selezionaDotazioneLabel.setBounds(375, 200, 220, 50);
+		selezionaDotazioneLabel.setBounds(342, 200, 298, 50);
 		add(selezionaDotazioneLabel);
 		
 		final JComboBox<String> dotazioniComboBox = new JComboBox<String>(dotazioniStringArray);
 		dotazioniComboBox.setBackground(new Color(213, 223, 255));
 		dotazioniComboBox.setBounds(355,260,250,40);
+		dotazioniComboBox.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				dotazioniComboBox.setBackground(new Color(200, 215, 245));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				dotazioniComboBox.setBackground(new Color(213, 223, 255));
+			}
+		});
 		add(dotazioniComboBox);
 		
 		// DESCRIZIONE STRUMENTO
 		descrizioneLabel = new JLabel("Descrizione");
-		descrizioneLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		descrizioneLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		descrizioneLabel.setBounds(735, 200, 100, 50);
 		add(descrizioneLabel);
 		
 		descrizioneFieldStrumentoDotazione = new JTextArea();
-		descrizioneFieldStrumentoDotazione.setBackground(new Color(255, 255, 255));
 		descrizioneFieldStrumentoDotazione.setText(descrizioneTextStrumentoDotazione);
 		descrizioneFieldStrumentoDotazione.setLineWrap(true);
 		descrizioneFieldStrumentoDotazione.setWrapStyleWord(true);
+		descrizioneFieldStrumentoDotazione.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		descrizioneFieldStrumentoDotazione.setBackground(new Color(213,223,255));
+		descrizioneFieldStrumentoDotazione.setEditable(false);
 		
 		Border border = BorderFactory.createLineBorder(Color.BLACK);
 		descrizioneFieldStrumentoDotazione.setBorder(BorderFactory.createCompoundBorder(border,
@@ -154,7 +208,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		// CALENDARIO (for prenotazione)
 		calendarioLabel = new JLabel("SELEZIONA DATA");
 		calendarioLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
-		calendarioLabel.setBounds(420, 285, 150, 100);
+		calendarioLabel.setBounds(400, 291, 172, 100);
 		add(calendarioLabel);
 		
 		jDateChooserStrumentoDotazione = new JDateChooser();
@@ -167,10 +221,12 @@ public class EffettuaPrenotazionePage extends JPanel {
 		// DA - A
 		daOraLabel = new JLabel("DA:");
 		daOraLabel.setBounds(400, 390, 50, 50);
+		daOraLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		add(daOraLabel);
 		
 		aOraLabel = new JLabel("A:");
 		aOraLabel.setBounds(520, 390, 50, 50);
+		aOraLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		add(aOraLabel);
 		
 		String[] daOra = {"9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"};
@@ -180,22 +236,52 @@ public class EffettuaPrenotazionePage extends JPanel {
 		cbDaOra.setBackground(new Color(213, 223, 255));
 		cbDaOra.setBounds(400, 430, 50, 30);
     	cbDaOra.setVisible(true);
+    	cbDaOra.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				cbDaOra.setBackground(new Color(200, 215, 245));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				cbDaOra.setBackground(new Color(213, 223, 255));
+			}
+		});
 		add(cbDaOra);
 		
 		final JComboBox<String> cbAOra = new JComboBox<String>(aOra);
 		cbAOra.setBackground(new Color(213, 223, 255));
 		cbAOra.setBounds(520, 430, 50, 30);
     	cbAOra.setVisible(true);
+    	cbAOra.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				cbAOra.setBackground(new Color(200, 215, 245));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				cbAOra.setBackground(new Color(213, 223, 255));
+			}
+		});
 		add(cbAOra);
 
 		// CONFERMA
-		confermaBtn = new JButton("Conferma");
+		confermaBtn = new JButton("CONFERMA");
 		confermaBtn.setFont(new Font("Tahoma", Font.BOLD, 24));
 		confermaBtn.setBackground(new Color(171, 165, 255));
 		confermaBtn.setOpaque(true);
 		confermaBtn.setBorderPainted(true);
 		confermaBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		confermaBtn.setBounds(396, 530, 180, 40);
+		confermaBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				confermaBtn.setBackground(new Color(157,149,255));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				confermaBtn.setBackground(new Color(171, 165, 255));
+			}
+		});
 		add(confermaBtn);
 
 		// PRESET PART (SETUP)

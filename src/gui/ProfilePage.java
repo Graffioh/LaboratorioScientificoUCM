@@ -1,6 +1,8 @@
 package gui;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import dao.PersonaleImpl;
 import model.Personale;
@@ -16,10 +18,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 
 import controller.*;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 public class ProfilePage extends JPanel {
 
@@ -36,7 +41,9 @@ public class ProfilePage extends JPanel {
 	private Personale filteredPersonale;
 	
 	private BufferedImage myPicture;
+	private JTextArea descrizioneFieldLaboratorio;
 
+	private String descrizioneTextStrumentoDotazione = " Ahahahahah Ehi, gir pe Secondiglian \r\n Rind a n'Audi ner opac (rind a n'Audi ner opac) \r\n Ca m par n'astronav (ca m par n'astronav) \r\n Sceng o per na Balenciag (Bale) \r\n Ess vo nata Balenciag (Bale, Bale)";
 
 	public ProfilePage() {
 		// debug
@@ -68,7 +75,7 @@ public class ProfilePage extends JPanel {
 		add(textPanelHeader);
 		
 		textPanelNormal = new JPanel();
-		textPanelNormal.setBounds(515,300,300,172);
+		textPanelNormal.setBounds(515,300,324,125);
 		textPanelNormal.setBackground(new Color(171, 191, 244));
 		add(textPanelNormal);
 		
@@ -93,18 +100,23 @@ public class ProfilePage extends JPanel {
 		textPanelHeader.add(ruoloLabel);
 		
 		numeroTelefonoLabel = new JLabel("recapito telefonico: " + filteredPersonale.getRecapitoTel());
+		numeroTelefonoLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textPanelNormal.add(numeroTelefonoLabel);
 		
 		emailLabel = new JLabel("email: " + filteredPersonale.getEmail());
+		emailLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textPanelNormal.add(emailLabel);
 		
 		recapitoAziendaleLabel = new JLabel("recapito aziendale: " + filteredPersonale.getRecapitoTelAziendale());
+		recapitoAziendaleLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textPanelNormal.add(recapitoAziendaleLabel);
 		
 		dataNascitaLabel = new JLabel("data di nascita: " + filteredPersonale.getDataNascita());
+		dataNascitaLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textPanelNormal.add(dataNascitaLabel);
 		
 		residenzaLabel = new JLabel("residenza: " + filteredPersonale.getVia() + ", " + filteredPersonale.getRegione());
+		residenzaLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textPanelNormal.add(residenzaLabel);
 		
 		// profile image
@@ -122,6 +134,29 @@ public class ProfilePage extends JPanel {
 		picLabel = new JLabel(new ImageIcon(myPicture));
 		profilePicPanel.add(picLabel);
 		
-	}
+		descrizioneFieldLaboratorio = new JTextArea();
+		descrizioneFieldLaboratorio.setBackground(new Color(213, 223, 255));
+		descrizioneFieldLaboratorio.setColumns(10);
+		descrizioneFieldLaboratorio.setText(descrizioneTextStrumentoDotazione);
+		descrizioneFieldLaboratorio.setLineWrap(true);
+		descrizioneFieldLaboratorio.setWrapStyleWord(true);
+		descrizioneFieldLaboratorio.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		descrizioneFieldLaboratorio.setEditable(false);
+		add(descrizioneFieldLaboratorio);
+		
+		Border border = BorderFactory.createLineBorder(Color.BLACK);
+		descrizioneFieldLaboratorio.setBorder(BorderFactory.createCompoundBorder(border,
+	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+		
+		JScrollPane descrizioneLaboratorioTextScroll = new JScrollPane (descrizioneFieldLaboratorio, 
+				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		descrizioneLaboratorioTextScroll.setBounds(255, 465, 529, 184);
+		add(descrizioneLaboratorioTextScroll);
 
+		JLabel descrizioneLaboratorioLabel = new JLabel("Descrizione Laboratorio");
+		descrizioneLaboratorioLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		descrizioneLaboratorioLabel.setBounds(415, 435, 193, 28);
+		add(descrizioneLaboratorioLabel);
+		
+	}
 }

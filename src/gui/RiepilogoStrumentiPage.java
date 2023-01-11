@@ -26,6 +26,8 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class RiepilogoStrumentiPage extends JPanel {
 	
@@ -39,19 +41,21 @@ public class RiepilogoStrumentiPage extends JPanel {
 		setLayout(null);
 		
 		listaStrumenti = new JTextArea();
+		listaStrumenti.setBackground(new Color(213, 223, 255));
 		listaStrumenti.setBounds(50, 168, 368, 500);
 		add(listaStrumenti);
 
-		listaStrumentiLabel = new JLabel("RIEPILOGO");
+		listaStrumentiLabel = new JLabel("RIEPILOGO STRUMENTI");
 		listaStrumentiLabel.setForeground(new Color(0, 0, 0));
 //		listaStrumentiLabel.setBackground(new Color(171, 165, 255));
 		listaStrumentiLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
-		listaStrumentiLabel.setBounds(166, 38, 150, 54);
+		listaStrumentiLabel.setBounds(85, 38, 293, 54);
 //		listaStrumentiLabel.setOpaque(true);
 //		listaStrumentiLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		add(listaStrumentiLabel);
 		
 		listaDotazioni = new JTextArea();
+		listaDotazioni.setBackground(new Color(213, 223, 255));
 		listaDotazioni.setBounds(521, 94, 450, 500);
 		add(listaDotazioni);
 
@@ -64,6 +68,16 @@ public class RiepilogoStrumentiPage extends JPanel {
 		add(listaDotazioniLabel);
 		
 		riepilogoMensileBtn = new JButton("<html>RIEPILOGO<br />&nbsp;&nbsp;MENSILE</html>");
+		riepilogoMensileBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				riepilogoMensileBtn.setBackground(new Color(157,149,255));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				riepilogoMensileBtn.setBackground(new Color(171, 165, 255));
+			}
+		});
 		riepilogoMensileBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
 		riepilogoMensileBtn.setBackground(new Color(171, 165, 255));
 		riepilogoMensileBtn.setOpaque(true);	
@@ -77,6 +91,16 @@ public class RiepilogoStrumentiPage extends JPanel {
 		add(riepilogoMensileBtn);
 		
 		riepilogoAnnualeBtn = new JButton("<html>RIEPILOGO<br />&nbsp;&nbsp;ANNUALE</html>");
+		riepilogoAnnualeBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				riepilogoAnnualeBtn.setBackground(new Color(157,149,255));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				riepilogoAnnualeBtn.setBackground(new Color(171, 165, 255));
+			}
+		});
 		riepilogoAnnualeBtn.setBackground(new Color(171, 165, 255));
 		riepilogoAnnualeBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
 		riepilogoAnnualeBtn.setBounds(80, 94, 125, 63);
@@ -90,6 +114,16 @@ public class RiepilogoStrumentiPage extends JPanel {
 		add(riepilogoAnnualeBtn);
 		
 		consumoMensileBtn = new JButton("<html>CONSUMO<br />&nbsp;MENSILE</html>");
+		consumoMensileBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				consumoMensileBtn.setBackground(new Color(157,149,255));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				consumoMensileBtn.setBackground(new Color(171, 165, 255));
+			}
+		});
 		consumoMensileBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
 		consumoMensileBtn.setBackground(new Color(171, 165, 255));
 		consumoMensileBtn.setBounds(581, 605, 125, 63);
@@ -103,6 +137,16 @@ public class RiepilogoStrumentiPage extends JPanel {
 		add(consumoMensileBtn);
 
 		consumoAnnualeBtn = new JButton("<html>CONSUMO<br />&nbsp;ANNUALE</html>");
+		consumoAnnualeBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				consumoAnnualeBtn.setBackground(new Color(157,149,255));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				consumoAnnualeBtn.setBackground(new Color(171, 165, 255));
+			}
+		});
 		consumoAnnualeBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
 		consumoAnnualeBtn.setBackground(new Color(171, 165, 255));
 		consumoAnnualeBtn.setBounds(786, 605, 125, 63);

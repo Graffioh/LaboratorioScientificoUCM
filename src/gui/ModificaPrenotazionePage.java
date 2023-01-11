@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.ArrayList;
@@ -80,15 +82,25 @@ public class ModificaPrenotazionePage extends JPanel {
 		sediStringArray = controller.fromArrayListToStringArray(filteredPersonale.getSediDoveLavora());
 		
 		final JComboBox<String> sediComboBoxModifica = new JComboBox<String>(sediStringArray);
+		sediComboBoxModifica.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				sediComboBoxModifica.setBackground(new Color(200, 215, 245));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				sediComboBoxModifica.setBackground(new Color(213, 223, 255));
+			}
+		});
 		sediComboBoxModifica.setBackground(new Color(213, 223, 255));
 		sediComboBoxModifica.setBounds(355,80,250,40);
     	sediComboBoxModifica.setVisible(true);
 		add(sediComboBoxModifica);
 
 		// SELEZIONA PRENOTAZIONE
-		selezionaPrenotazioneLabel = new JLabel("Seleziona prenotazione");
-		selezionaPrenotazioneLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		selezionaPrenotazioneLabel.setBounds(360, 160, 260, 50);
+		selezionaPrenotazioneLabel = new JLabel("SELEZIONA PRENOTAZIONE");
+		selezionaPrenotazioneLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
+		selezionaPrenotazioneLabel.setBounds(315, 160, 340, 50);
 		selezionaPrenotazioneLabel.setVisible(true);
 		add(selezionaPrenotazioneLabel);
 		
@@ -102,13 +114,26 @@ public class ModificaPrenotazionePage extends JPanel {
 		prenotazioniComboBox.setBackground(new Color(213, 223, 255));
 		prenotazioniComboBox.setBounds(355,220,250,40);
     	prenotazioniComboBox.setVisible(true);
+    	prenotazioniComboBox.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				prenotazioniComboBox.setBackground(new Color(200, 215, 245));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				prenotazioniComboBox.setBackground(new Color(213, 223, 255));
+			}
+		});
 		add(prenotazioniComboBox);
 
 		descrizioneFieldPrenotazione = new JTextArea();
 		descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
+		descrizioneFieldPrenotazione.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		descrizioneFieldPrenotazione.setBackground(new Color(213,223,255));
 		//descrizioneField.setBounds(650, 240, 270, 100);
 		descrizioneFieldPrenotazione.setLineWrap(true);
 		descrizioneFieldPrenotazione.setWrapStyleWord(true);
+		descrizioneFieldPrenotazione.setEditable(false);
 		
 		Border border = BorderFactory.createLineBorder(Color.BLACK);
 		descrizioneFieldPrenotazione.setBorder(BorderFactory.createCompoundBorder(border,
@@ -121,14 +146,13 @@ public class ModificaPrenotazionePage extends JPanel {
 		add(descrizionePrenotazioneTextScroll);
 
 		// CALENDARIO (per data prenotazione)
-		calendarioLabel = new JLabel("Seleziona nuova data");
-		calendarioLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		calendarioLabel.setBounds(420, 265, 150, 100);
+		calendarioLabel = new JLabel("SELEZIONA NUOVA DATA");
+		calendarioLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
+		calendarioLabel.setBounds(363, 281, 242, 100);
 		add(calendarioLabel);
 		
 		jDateChooserPrenotazione = new JDateChooser();
 		jDateChooserPrenotazione = new com.toedter.calendar.JDateChooser();
-		jDateChooserPrenotazione.setBackground(new Color(213, 223, 255));
 		jDateChooserPrenotazione.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 		jDateChooserPrenotazione.setDateFormatString("dd/MM/yyyy");
 		jDateChooserPrenotazione.setBounds(420, 350, 120, 20);
@@ -137,10 +161,12 @@ public class ModificaPrenotazionePage extends JPanel {
 		// DA - A
 		daOraLabel = new JLabel("DA:");
 		daOraLabel.setBounds(400, 370, 50, 50);
+		daOraLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		add(daOraLabel);
 		
 		aOraLabel = new JLabel("A:");
 		aOraLabel.setBounds(520, 370, 50, 50);
+		aOraLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		add(aOraLabel);
 		
 		String[] daOra = {"9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"};
@@ -150,33 +176,78 @@ public class ModificaPrenotazionePage extends JPanel {
 		cbDaOra.setBackground(new Color(213, 223, 255));
 		cbDaOra.setBounds(400, 410, 50, 30);
     	cbDaOra.setVisible(true);
+    	cbDaOra.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				cbDaOra.setBackground(new Color(200, 215, 245));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				cbDaOra.setBackground(new Color(213, 223, 255));
+			}
+		});
 		add(cbDaOra);
 		
 		final JComboBox<String> cbAOra = new JComboBox<String>(aOra);
 		cbAOra.setBackground(new Color(213, 223, 255));
 		cbAOra.setBounds(520, 410, 50, 30);
     	cbAOra.setVisible(true);
+    	cbAOra.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				cbAOra.setBackground(new Color(200, 215, 245));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				cbAOra.setBackground(new Color(213, 223, 255));
+			}
+		});
 		add(cbAOra);
 
 		// MODIFICA
-		modificaBtn = new JButton("Modifica");
+		modificaBtn = new JButton("MODIFICA");
 		modificaBtn.setFont(new Font("Tahoma", Font.BOLD, 24));
 		modificaBtn.setBackground(new Color(171, 165, 255));
 		modificaBtn.setOpaque(true);
 		modificaBtn.setBorderPainted(true);
 		modificaBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		modificaBtn.setBounds(396, 490, 180, 40);
+		modificaBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				modificaBtn.setBackground(new Color(157,149,255));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				modificaBtn.setBackground(new Color(171, 165, 255));
+			}
+		});
 		add(modificaBtn);
 		
 		// ELIMINA
-		eliminaBtn = new JButton("Elimina");
+		eliminaBtn = new JButton("ELIMINA");
 		eliminaBtn.setFont(new Font("Tahoma", Font.BOLD, 24));
 		eliminaBtn.setBackground(new Color(171, 165, 255));
 		eliminaBtn.setOpaque(true);
 		eliminaBtn.setBorderPainted(true);
 		eliminaBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		eliminaBtn.setBounds(396, 550, 180, 40);
+		eliminaBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				eliminaBtn.setBackground(new Color(157,149,255));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				eliminaBtn.setBackground(new Color(171, 165, 255));
+			}
+		});
 		add(eliminaBtn);
+		
+		JLabel lblNewLabel = new JLabel("Informazioni Prenotazione");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel.setBounds(696, 200, 194, 50);
+		add(lblNewLabel);
 
 		// PRESET PART
 		// used for the first start of the app

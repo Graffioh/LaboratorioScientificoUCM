@@ -56,7 +56,7 @@ public class HomePage extends JPanel {
 
 		listaStrumentiLabel = new JLabel("STRUMENTI");
 		listaStrumentiLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
-		listaStrumentiLabel.setBounds(220, 80, 90, 15);
+		listaStrumentiLabel.setBounds(164, 59, 146, 36);
 		add(listaStrumentiLabel);
 		
 		dotazioneDAO = new DotazioneAccessoriaImpl();
@@ -75,7 +75,8 @@ public class HomePage extends JPanel {
 
 		listaDotazioniLabel = new JLabel("DOTAZIONI ACCESSORIE");
 		listaDotazioniLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
-		listaDotazioniLabel.setBounds(675, 80, 200, 15);
+		listaDotazioniLabel.setBounds(589, 59, 321, 36);
 		add(listaDotazioniLabel);
+
 	}
 }
