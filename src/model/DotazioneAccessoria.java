@@ -15,17 +15,15 @@ public class DotazioneAccessoria {
 	private Integer quantità;
 	private TypeDotazione tipoD;
 	private int codD;
-	private int codP;
 	private int codStr;
 	
-	public DotazioneAccessoria(String nome, String descrizione, Integer quantità, String tipoDStr, int codD, int codP, int codStr) {
+	public DotazioneAccessoria(String nome, String descrizione, Integer quantità, String tipoDStr, int codD, int codStr) {
 		super();
 		this.nome = nome;
 		this.descrizione = descrizione;
 		this.quantità = quantità;
 		this.tipoD = TypeDotazione.valueOf(tipoDStr);
 		this.codD = codD;
-		this.codP = codP;
 		this.codStr = codStr;
 	}
 	
@@ -67,14 +65,6 @@ public class DotazioneAccessoria {
 
 	public void setCodice(int codD) {
 		this.codD = codD;
-	}
-	
-	public int getCodP() {
-		return codP;
-	}
-
-	public void setCodP(int codP) {
-		this.codP = codP;
 	}
 	
 	public int getCodStr() {

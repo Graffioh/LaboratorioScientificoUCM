@@ -37,7 +37,7 @@ public class Controller {
 	}
 	
 	// Filter personale based on matricola and codice from login
-	public Personale filterBasedOnMatricolaCodice(ArrayList<Personale> personaleArray, String matricola, int codice){
+	public Personale filterPersonaleBasedOnMatricolaCodice(ArrayList<Personale> personaleArray, String matricola, int codice){
 		Personale tmpPersonale = new Personale("", "", "", "", "", "", null, "", "", "", "tecnico", 0, null, null);
 
 		// For each personale object inside the array list, check for the one with the same matricola and codice as the one in the login phase

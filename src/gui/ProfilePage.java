@@ -62,7 +62,7 @@ public class ProfilePage extends JPanel {
 		
 		
 		controller = new Controller();
-		filteredPersonale = controller.filterBasedOnMatricolaCodice(personaleArray, LoginPage.getMatricolaTextField(), LoginPage.getCodiceTextField());
+		filteredPersonale = controller.filterPersonaleBasedOnMatricolaCodice(personaleArray, LoginPage.getMatricolaTextField(), LoginPage.getCodiceTextField());
 
 		System.out.println(filteredPersonale.getSediDoveLavora().toString());
 		
@@ -89,7 +89,7 @@ public class ProfilePage extends JPanel {
 		nomeEcognomeLabel.setFont(new Font("Tahoma", Font.BOLD, 45));
 		textPanelHeader.add(nomeEcognomeLabel);
 
-		laboratorioLabel = new JLabel("Sede + Laboratorio");
+		laboratorioLabel = new JLabel("Laboratorio"); // "Laboratorio " + laboratorioDAO.getLaboratorioBasedOnSede(filteredPersonale.getSediDoveLavora().first());
 		laboratorioLabel.setAlignmentX(CENTER_ALIGNMENT);
 		laboratorioLabel.setFont(new Font("Tahoma", Font.PLAIN, 35));
 		textPanelHeader.add(laboratorioLabel);

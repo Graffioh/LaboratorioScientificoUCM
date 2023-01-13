@@ -28,7 +28,7 @@ public class DotazioneAccessoriaImpl implements DotazioneAccessoriaDAO {
 			ResultSet rs = statementQuery.executeQuery(query);
 
 			while(rs.next()) {       
-				dotazioneArray.add(new DotazioneAccessoria(rs.getString("nome"), rs.getString("descrizione"), rs.getInt("quantita"), rs.getString("tipo"), rs.getInt("codD"), rs.getInt("codP"),rs.getInt("codStr")));
+				dotazioneArray.add(new DotazioneAccessoria(rs.getString("nome"), rs.getString("descrizione"), rs.getInt("quantita"), rs.getString("tipo"), rs.getInt("codD"), rs.getInt("codStr")));
 			}
 
 		} catch (SQLException e) {
@@ -45,7 +45,7 @@ public class DotazioneAccessoriaImpl implements DotazioneAccessoriaDAO {
 
 		try {
 
-			String query = "SELECT D.nome, D.codD, D.tipo, D.descrizione, D.quantita, D.codP, D.codStr"
+			String query = "SELECT D.nome, D.codD, D.tipo, D.descrizione, D.quantita, D.codStr"
 					+ " FROM PersonaleSede AS P JOIN Sede AS S ON S.CodS = P.CodS"
 					+ " JOIN Postazione AS PO ON PO.CodS = S.CodS"
 					+ " JOIN StrumentoPostazione AS SP ON PO.CodPos = SP.CodPos"
@@ -61,7 +61,7 @@ public class DotazioneAccessoriaImpl implements DotazioneAccessoriaDAO {
 			ResultSet rs = prepStatementQuery.executeQuery();
 
 			while(rs.next()) {
-				dotazioneArray.add(new DotazioneAccessoria(rs.getString("nome"), rs.getString("descrizione"), rs.getInt("quantita"), rs.getString("tipo"), rs.getInt("codD"), rs.getInt("codP"), rs.getInt("codStr")));
+				dotazioneArray.add(new DotazioneAccessoria(rs.getString("nome"), rs.getString("descrizione"), rs.getInt("quantita"), rs.getString("tipo"), rs.getInt("codD"), rs.getInt("codStr")));
 			}
 
 		} catch (SQLException e) {

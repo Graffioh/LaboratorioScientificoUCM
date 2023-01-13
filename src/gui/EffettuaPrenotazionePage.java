@@ -77,7 +77,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		prenotazioneDAO = new PrenotazioneImpl();
 		
 		controller = new Controller();
-		filteredPersonale = controller.filterBasedOnMatricolaCodice(personaleArray, LoginPage.getMatricolaTextField(), LoginPage.getCodiceTextField());
+		filteredPersonale = controller.filterPersonaleBasedOnMatricolaCodice(personaleArray, LoginPage.getMatricolaTextField(), LoginPage.getCodiceTextField());
 		
 		// SELEZIONA SEDE
 		selezionaSedeLabel = new JLabel("SELEZIONA SEDE");

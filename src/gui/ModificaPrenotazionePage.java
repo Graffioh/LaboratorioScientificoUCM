@@ -68,7 +68,7 @@ public class ModificaPrenotazionePage extends JPanel {
 		prenotazioneDAO = new PrenotazioneImpl();
 		
 		controller = new Controller();
-		filteredPersonale = controller.filterBasedOnMatricolaCodice(personaleArray, LoginPage.getMatricolaTextField(), LoginPage.getCodiceTextField());
+		filteredPersonale = controller.filterPersonaleBasedOnMatricolaCodice(personaleArray, LoginPage.getMatricolaTextField(), LoginPage.getCodiceTextField());
 		
 		setBackground(new Color(171, 191, 244));
 		setLayout(null);
