@@ -35,7 +35,7 @@ public class RiepilogoStrumentiPage extends JPanel {
 		listaStrumentiLabel.setForeground(new Color(0, 0, 0));
 //		listaStrumentiLabel.setBackground(new Color(171, 165, 255));
 		listaStrumentiLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
-		listaStrumentiLabel.setBounds(85, 38, 293, 54);
+		listaStrumentiLabel.setBounds(85, 38, 333, 54);
 //		listaStrumentiLabel.setOpaque(true);
 //		listaStrumentiLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		add(listaStrumentiLabel);

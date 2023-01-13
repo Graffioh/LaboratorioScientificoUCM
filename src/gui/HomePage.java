@@ -50,7 +50,7 @@ public class HomePage extends JPanel {
 
 		listaStrumentiLabel = new JLabel("STRUMENTI");
 		listaStrumentiLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
-		listaStrumentiLabel.setBounds(164, 59, 146, 36);
+		listaStrumentiLabel.setBounds(180, 59, 171, 36);
 		add(listaStrumentiLabel);
 		
 		dotazioneDAO = new DotazioneAccessoriaImpl();

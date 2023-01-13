@@ -4,10 +4,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
@@ -18,10 +23,10 @@ import controller.*;
 
 public class LoginPage extends JFrame {
 
-	private JPanel loginPagePanel;
+	private JPanel loginPagePanel, imgPanel;
 	private JButton loginBtn;
 	private JTextField matricolaTextField, codiceTextField;
-	private JLabel matricolaLabel, codiceLabel;
+	private JLabel matricolaLabel, codiceLabel, picLabel;
 	
 	private static String matricola;
 	private static int codice;
@@ -29,6 +34,8 @@ public class LoginPage extends JFrame {
 	private MainGUI mainPage;
 	
 	private Controller controller;
+	
+	private BufferedImage picture;
 	
 	
 	public LoginPage() {
@@ -63,6 +70,19 @@ public class LoginPage extends JFrame {
 			}
 		});
 		loginPagePanel.add(matricolaTextField);
+		
+		imgPanel = new JPanel();
+		imgPanel.setBounds(348, 175, 76, 72);
+		imgPanel.setBackground(new Color(171, 191, 244));
+		try {
+			picture = ImageIO.read(new File("./img/lab-flask.png"));
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		picLabel = new JLabel(new ImageIcon(picture));
+		imgPanel.add(picLabel);
+		loginPagePanel.add(imgPanel);
 
 		codiceTextField = new JTextField();
 		codiceTextField.setBackground(new Color(213, 223, 255));

@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -93,7 +94,7 @@ public class ModificaPrenotazionePage extends JPanel {
 		// SELEZIONA PRENOTAZIONE
 		selezionaPrenotazioneLabel = new JLabel("SELEZIONA PRENOTAZIONE");
 		selezionaPrenotazioneLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
-		selezionaPrenotazioneLabel.setBounds(315, 160, 340, 50);
+		selezionaPrenotazioneLabel.setBounds(315, 160, 371, 50);
 		selezionaPrenotazioneLabel.setVisible(true);
 		add(selezionaPrenotazioneLabel);
 		
@@ -146,6 +147,7 @@ public class ModificaPrenotazionePage extends JPanel {
 		
 		jDateChooserPrenotazione = new JDateChooser();
 		jDateChooserPrenotazione = new com.toedter.calendar.JDateChooser();
+		jDateChooserPrenotazione.getJCalendar().setMinSelectableDate(new Date());
 		jDateChooserPrenotazione.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 		jDateChooserPrenotazione.setDateFormatString("dd/MM/yyyy");
 		jDateChooserPrenotazione.setBounds(420, 350, 120, 20);

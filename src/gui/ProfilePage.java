@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import dao.LaboratorioImpl;
 import dao.PersonaleImpl;
 import model.Personale;
 
@@ -34,6 +35,7 @@ public class ProfilePage extends JPanel {
 	private ArrayList<Personale> personaleArray;
 
 	private PersonaleImpl personaleDAO;
+	private LaboratorioImpl laboratorioDAO;
 
 	private Controller controller;
 	
@@ -58,6 +60,8 @@ public class ProfilePage extends JPanel {
 		// Personale dao implementation used to populate personale array list from database datas
 		personaleDAO = new PersonaleImpl();
 		personaleArray = personaleDAO.populate();
+		
+		laboratorioDAO = new LaboratorioImpl();
 		
 		
 		controller = new Controller();
@@ -88,7 +92,7 @@ public class ProfilePage extends JPanel {
 		nomeEcognomeLabel.setFont(new Font("Tahoma", Font.BOLD, 45));
 		textPanelHeader.add(nomeEcognomeLabel);
 
-		laboratorioLabel = new JLabel("Laboratorio"); // "Laboratorio " + laboratorioDAO.getLaboratorioBasedOnSede(filteredPersonale.getSediDoveLavora().first());
+		laboratorioLabel = new JLabel(laboratorioDAO.getLaboratorioBasedOnPersonale(filteredPersonale.getCodice()));
 		laboratorioLabel.setAlignmentX(CENTER_ALIGNMENT);
 		laboratorioLabel.setFont(new Font("Tahoma", Font.PLAIN, 35));
 		textPanelHeader.add(laboratorioLabel);
@@ -136,6 +140,7 @@ public class ProfilePage extends JPanel {
 		descrizioneFieldLaboratorio = new JTextArea();
 		descrizioneFieldLaboratorio.setBackground(new Color(213, 223, 255));
 		descrizioneFieldLaboratorio.setColumns(10);
+		descrizioneTextStrumentoDotazione = laboratorioDAO.getDescrizioneBasedOnPersonale(filteredPersonale.getCodice());
 		descrizioneFieldLaboratorio.setText(descrizioneTextStrumentoDotazione);
 		descrizioneFieldLaboratorio.setLineWrap(true);
 		descrizioneFieldLaboratorio.setWrapStyleWord(true);

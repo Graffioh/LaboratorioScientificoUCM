@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.*;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -131,7 +132,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		// SELEZIONA STRUMENTO
 		selezionaStrumentoLabel = new JLabel("SELEZIONA STRUMENTO");
 		selezionaStrumentoLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
-		selezionaStrumentoLabel.setBounds(342, 200, 298, 50);
+		selezionaStrumentoLabel.setBounds(342, 200, 314, 50);
 		add(selezionaStrumentoLabel);
 		
 		final JComboBox<String> strumentiComboBox = new JComboBox<String>(strumentiStringArray);
@@ -202,6 +203,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		
 		jDateChooserStrumentoDotazione = new JDateChooser();
 		jDateChooserStrumentoDotazione = new com.toedter.calendar.JDateChooser();
+		jDateChooserStrumentoDotazione.getJCalendar().setMinSelectableDate(new Date());
 		jDateChooserStrumentoDotazione.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 		jDateChooserStrumentoDotazione.setDateFormatString("dd/MM/yyyy");
 		jDateChooserStrumentoDotazione.setBounds(420, 360, 120, 20);

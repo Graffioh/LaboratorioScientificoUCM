@@ -1,7 +1,8 @@
 package dao;
 
-import java.beans.Statement;
+import java.sql.Statement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class LaboratorioImpl implements LaboratorioDAO {
 	public ArrayList<Laboratorio> populate() {
 		ArrayList<Laboratorio> laboratorioArray = new ArrayList<Laboratorio>();
 
-		/*try {
+		try {
 			String query = "SELECT * FROM Laboratorio";
 			Statement statementQuery = connection.createStatement();
 			ResultSet rs = statementQuery.executeQuery(query);
@@ -32,30 +33,61 @@ public class LaboratorioImpl implements LaboratorioDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}*/
+		}
 
 		return laboratorioArray;
 	}
 
-     @Override
-	public String getLaboratorioBasedOnSede() {
+    @Override
+	public String getLaboratorioBasedOnPersonale(int codPers) {
 		String str = new String();
 
-		/*try { 	
-			String query = "SELECT DISTINCT L.nome"
+		try { 	
+			String query = "SELECT DISTINCT L.nome, L.tipo"
                             +  " FROM Laboratorio as L JOIN Sede as S On L.codL = S.codL"
                             +  " JOIN PersonaleSede as P ON S.codS = P.codS"
                             +  " WHERE P.codPers = ?";
-			Statement statementQuery = connection.createStatement();
-			ResultSet rs = statementQuery.executeQuery(query);
-
+			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
+			
+			prepStatementQuery.setInt(1,codPers);
+			
+			ResultSet rs = prepStatementQuery.executeQuery();
+			
+			
 			if(rs.next()) {
-				str = rs.getString("nome");
+				str = rs.getString("nome") + " (" + rs.getString("tipo") + ")";
 			}
 
 		} catch (SQLException e) {
 			e.getStackTrace();
-		}*/
+		}
+
+		return str;
+	}
+    
+    @Override
+	public String getDescrizioneBasedOnPersonale(int codPers) {
+		String str = new String();
+
+		try { 	
+			String query = "SELECT DISTINCT L.descrizione"
+                            +  " FROM Laboratorio as L JOIN Sede as S On L.codL = S.codL"
+                            +  " JOIN PersonaleSede as P ON S.codS = P.codS"
+                            +  " WHERE P.codPers = ?";
+			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
+			
+			prepStatementQuery.setInt(1,codPers);
+			
+			ResultSet rs = prepStatementQuery.executeQuery();
+			
+			
+			if(rs.next()) {
+				str = rs.getString("descrizione");
+			}
+
+		} catch (SQLException e) {
+			e.getStackTrace();
+		}
 
 		return str;
 	}
