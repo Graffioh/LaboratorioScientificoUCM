@@ -23,7 +23,6 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 
 import controller.*;
-import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 public class ProfilePage extends JPanel {

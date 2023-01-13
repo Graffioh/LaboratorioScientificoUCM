@@ -9,7 +9,6 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.ZoneId;
-import java.util.Date;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -19,10 +18,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
@@ -31,12 +28,8 @@ import com.toedter.calendar.JDateChooser;
 import controller.Controller;
 import dao.PersonaleImpl;
 import dao.PrenotazioneImpl;
-import dao.StrumentoImpl;
-import model.DotazioneAccessoria;
 import model.Personale;
 import model.Prenotazione;
-import model.Sede;
-import model.Strumento;
 
 public class ModificaPrenotazionePage extends JPanel {
 
@@ -264,6 +257,7 @@ public class ModificaPrenotazionePage extends JPanel {
 		
 		// DYNAMIC PART
 		addComponentListener(new ComponentAdapter () {
+			@Override
 			public void componentShown ( ComponentEvent e ) {
 				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
 				
@@ -279,6 +273,7 @@ public class ModificaPrenotazionePage extends JPanel {
 		});
 
 		sediComboBoxModifica.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e){
 				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
 				
@@ -293,6 +288,7 @@ public class ModificaPrenotazionePage extends JPanel {
 		});
 		
 		modificaBtn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e){
 				try {
 					// Modifica prenotazione
@@ -305,6 +301,7 @@ public class ModificaPrenotazionePage extends JPanel {
 		});
 
 		eliminaBtn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e){	
 				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
 			
