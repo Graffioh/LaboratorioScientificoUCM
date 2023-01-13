@@ -1,7 +1,6 @@
 package dao;
 
 import java.util.ArrayList;
-import javafx.util.Pair;
 
 import database.DB;
 import model.Personale;

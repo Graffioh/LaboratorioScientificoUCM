@@ -21,7 +21,7 @@ public class LaboratorioImpl implements LaboratorioDAO {
 	public ArrayList<Laboratorio> populate() {
 		ArrayList<Laboratorio> laboratorioArray = new ArrayList<Laboratorio>();
 
-		try {
+		/*try {
 			String query = "SELECT * FROM Laboratorio";
 			Statement statementQuery = connection.createStatement();
 			ResultSet rs = statementQuery.executeQuery(query);
@@ -32,7 +32,7 @@ public class LaboratorioImpl implements LaboratorioDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}*/
 
 		return laboratorioArray;
 	}
@@ -41,7 +41,7 @@ public class LaboratorioImpl implements LaboratorioDAO {
 	public String getLaboratorioBasedOnSede() {
 		String str = new String();
 
-		try { 	
+		/*try { 	
 			String query = "SELECT DISTINCT L.nome"
                             +  " FROM Laboratorio as L JOIN Sede as S On L.codL = S.codL"
                             +  " JOIN PersonaleSede as P ON S.codS = P.codS"
@@ -55,7 +55,7 @@ public class LaboratorioImpl implements LaboratorioDAO {
 
 		} catch (SQLException e) {
 			e.getStackTrace();
-		}
+		}*/
 
 		return str;
 	}
