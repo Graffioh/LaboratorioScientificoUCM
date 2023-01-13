@@ -8,16 +8,12 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.Font;
-import dao.*;
-import model.Personale;
 import controller.*;
 
 public class LoginPage extends JFrame {
@@ -94,6 +90,7 @@ public class LoginPage extends JFrame {
 		loginBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		loginBtn.setBounds(99, 189, 227, 43);
 		loginBtn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					matricola = matricolaTextField.getText();
@@ -139,5 +136,4 @@ public class LoginPage extends JFrame {
 	public static int getCodiceTextField(){
 		return codice;
 	}
-
 }

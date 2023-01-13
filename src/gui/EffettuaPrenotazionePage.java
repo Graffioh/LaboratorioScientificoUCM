@@ -6,10 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.sql.Timestamp;
-//import java.sql.Date;
 import java.time.*;
 import java.util.ArrayList;
 
@@ -18,12 +14,9 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
@@ -36,8 +29,6 @@ import dao.PrenotazioneImpl;
 import dao.StrumentoImpl;
 import model.DotazioneAccessoria;
 import model.Personale;
-import model.Prenotazione;
-import model.Sede;
 import model.Strumento;
 
 public class EffettuaPrenotazionePage extends JPanel {
@@ -58,14 +49,12 @@ public class EffettuaPrenotazionePage extends JPanel {
 	private PersonaleImpl personaleDAO;
 	private StrumentoImpl strumentoDAO;
 	private DotazioneAccessoriaImpl dotazioneDAO;
-	private PrenotazioneImpl prenotazioneDAO;
-
 	private Controller controller;
 	
 	private Personale filteredPersonale;
 	
 	private int codStr = 0, codD = 0, codP = 1;
-	private boolean isStrumento = false, isDotazione = false;
+	private boolean isStrumento = false;
 
 	public EffettuaPrenotazionePage() {
 		setBackground(new Color(171, 191, 244));
@@ -74,7 +63,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		personaleDAO = new PersonaleImpl();
 		personaleArray = personaleDAO.populate();
 		
-		prenotazioneDAO = new PrenotazioneImpl();
+		new PrenotazioneImpl();
 		
 		controller = new Controller();
 		filteredPersonale = controller.filterBasedOnMatricolaCodice(personaleArray, LoginPage.getMatricolaTextField(), LoginPage.getCodiceTextField());
@@ -310,6 +299,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 
 		// DYNAMIC Seleziona+Descrizione
 		selectStrumentoBtn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e){
 				selezionaStrumentoLabel.setVisible(true);
 				strumentiComboBox.setVisible(true);
@@ -317,8 +307,6 @@ public class EffettuaPrenotazionePage extends JPanel {
 				dotazioniComboBox.setVisible(false);
 				
 				isStrumento = true;
-				isDotazione = false;
-				
 				// Descrizione
 				descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(strumentoArray, strumentiComboBox.getSelectedItem().toString());
 				
@@ -327,6 +315,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		});
 
 		selectDotazioneBtn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e){
 				selezionaStrumentoLabel.setVisible(false);
 				strumentiComboBox.setVisible(false);
@@ -334,8 +323,6 @@ public class EffettuaPrenotazionePage extends JPanel {
 				dotazioniComboBox.setVisible(true);
 				
 				isStrumento = false;
-				isDotazione = true;
-				
 				// Descrizione
 				descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
 				
@@ -345,6 +332,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		
 		// DYNAMIC strumenti/dotazioni combo box based on sede
 		sediComboBoxEffettua.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e){
 				strumentoArray = strumentoDAO.getStrumentiBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());
 				dotazioneArray = dotazioneDAO.getDotazioniBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());
@@ -368,6 +356,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 
 		// DYNAMIC descrizione (combo box)
 		strumentiComboBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e){
 				descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(strumentoArray, strumentiComboBox.getSelectedItem().toString());
 			
@@ -376,6 +365,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		});
 		
 		dotazioniComboBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e){
 				descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
 				
@@ -385,6 +375,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		
 		// DYNAMIC Da - a ora prenotazione
 		cbDaOra.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e){
 				String[] aOraArray;
 				
@@ -396,6 +387,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		
 		// CONFERMA prenotazione
 		confermaBtn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e){
 				
 				strumentoArray = strumentoDAO.getStrumentiBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());

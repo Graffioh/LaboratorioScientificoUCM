@@ -3,16 +3,10 @@ package gui;
 import javax.swing.JPanel;
 
 import dao.DotazioneAccessoriaImpl;
-import dao.PersonaleImpl;
 import dao.StrumentoImpl;
 import model.DotazioneAccessoria;
-import model.Personale;
 import model.Strumento;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 

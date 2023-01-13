@@ -3,28 +3,14 @@ package gui;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import dao.DotazioneAccessoriaImpl;
-import dao.PersonaleImpl;
-import dao.StrumentoImpl;
-import model.DotazioneAccessoria;
-import model.Personale;
-import model.Strumento;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import java.awt.Font;
 
-import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
-import java.lang.String;
-import java.util.ArrayList;
 import java.awt.Color;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -85,6 +71,7 @@ public class RiepilogoStrumentiPage extends JPanel {
 		riepilogoMensileBtn.setBorderPainted(true);
 		riepilogoMensileBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		riepilogoMensileBtn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
@@ -108,6 +95,7 @@ public class RiepilogoStrumentiPage extends JPanel {
 		riepilogoAnnualeBtn.setBorderPainted(true);
 		riepilogoAnnualeBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		riepilogoAnnualeBtn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
@@ -131,6 +119,7 @@ public class RiepilogoStrumentiPage extends JPanel {
 		consumoMensileBtn.setBorderPainted(true);
 		consumoMensileBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		consumoMensileBtn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 			}
 		});

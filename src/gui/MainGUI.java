@@ -24,7 +24,7 @@ public class MainGUI extends JFrame {
 	private JPanel backgroundPanel;
 	private JButton profiloPersonaleBtn, profileBackBtn, bookingBackBtn, prenotazioneBtn, 
 					riepilogoStrumentiBtn, riepilogoDotazioniBtn, riepilogoStrumentiBackBtn,
-					riepilogoDotazioniBackBtn;
+					riepilogoDotazioniBackBtn, calendarioPrenotazioniBackBtn;
 	
 	private HomePage homepagePanel;
 	
@@ -35,6 +35,8 @@ public class MainGUI extends JFrame {
 	private RiepilogoStrumentiPage riepilogoStrumentiPanel;
 	
 	private RiepilogoDotazioniPage riepilogoDotazioniPanel;
+	
+	private CalendarioPrenotazionePage calendarioPrenotazioniPanel;
 	
 	private Controller controller;
 	 
@@ -58,11 +60,13 @@ public class MainGUI extends JFrame {
 		bookingPanel = new BookingPage();
 		riepilogoStrumentiPanel = new RiepilogoStrumentiPage();
 		riepilogoDotazioniPanel = new RiepilogoDotazioniPage();
+		calendarioPrenotazioniPanel = new CalendarioPrenotazionePage();
 		backgroundPanel.add(homepagePanel);
 		backgroundPanel.add(profilePanel);
 		backgroundPanel.add(bookingPanel);
 		backgroundPanel.add(riepilogoStrumentiPanel);
 		backgroundPanel.add(riepilogoDotazioniPanel);
+		backgroundPanel.add(calendarioPrenotazioniPanel);
 		
 		
 		profiloPersonaleBtn = new JButton("PROFILO");
@@ -104,6 +108,7 @@ public class MainGUI extends JFrame {
 		prenotazioneBtn.setBorderPainted(true);
 		prenotazioneBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		prenotazioneBtn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				controller.switchPage(bookingPanel, homepagePanel);
 			}
@@ -128,6 +133,7 @@ public class MainGUI extends JFrame {
 		riepilogoStrumentiBtn.setBorderPainted(true);
 		riepilogoStrumentiBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		riepilogoStrumentiBtn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				controller.switchPage(riepilogoStrumentiPanel, homepagePanel);
 			}
@@ -152,6 +158,7 @@ public class MainGUI extends JFrame {
 		riepilogoDotazioniBtn.setBorderPainted(true);
 		riepilogoDotazioniBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		riepilogoDotazioniBtn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				controller.switchPage(riepilogoDotazioniPanel, homepagePanel);
 			}

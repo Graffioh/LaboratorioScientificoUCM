@@ -63,6 +63,7 @@ public class BookingPage extends JPanel {
 		prenotaBtn.setBorderPainted(true);
 		prenotaBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		prenotaBtn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				emptyPanel.setVisible(false);
 				prenotaStrumentoPanel.setVisible(true);
@@ -90,6 +91,7 @@ public class BookingPage extends JPanel {
 		modificaPrenotazioneBtn.setBorderPainted(true);
 		modificaPrenotazioneBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		modificaPrenotazioneBtn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				emptyPanel.setVisible(false);
 				prenotaStrumentoPanel.setVisible(false);
@@ -101,6 +103,11 @@ public class BookingPage extends JPanel {
 		add(modificaPrenotazioneBtn);
 
 		calendarioPrenotazioneBtn = new JButton("CALENDARIO");
+		calendarioPrenotazioneBtn.setFont(new Font("Tahoma", Font.BOLD, 16));
+		calendarioPrenotazioneBtn.setBackground(new Color(171, 165, 255));
+		calendarioPrenotazioneBtn.setOpaque(true);
+		calendarioPrenotazioneBtn.setBorderPainted(true);
+		calendarioPrenotazioneBtn.setBorder(new LineBorder(new Color(0, 0, 0)));		
 		calendarioPrenotazioneBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -111,14 +118,13 @@ public class BookingPage extends JPanel {
 				calendarioPrenotazioneBtn.setBackground(new Color(171, 165, 255));
 			}
 		});
-		calendarioPrenotazioneBtn.setFont(new Font("Tahoma", Font.BOLD, 16));
-		calendarioPrenotazioneBtn.setBackground(new Color(171, 165, 255));
-		calendarioPrenotazioneBtn.setOpaque(true);
-		calendarioPrenotazioneBtn.setBorderPainted(true);
-		calendarioPrenotazioneBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		calendarioPrenotazioneBtn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				//
+				emptyPanel.setVisible(false);
+				prenotaStrumentoPanel.setVisible(false);
+				modificaPrenotazionePanel.setVisible(false);
+				calendarioPrenotazionePanel.setVisible(true);
 			}
 		});
 		calendarioPrenotazioneBtn.setBounds(630, 59, 150, 30);
