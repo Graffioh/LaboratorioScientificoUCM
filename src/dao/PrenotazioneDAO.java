@@ -17,6 +17,7 @@ public interface PrenotazioneDAO {
 	// Get strumenti based on sede selected in combobox and based on filtered personale
 	ArrayList<Prenotazione> getPrenotazioneBasedOnSede(int codPers, String nomeSede);
 	
+	ArrayList<Prenotazione> getPrenotazioneBasedOnPersonale(int codPers);
 	
 	<T> String getNomeBasedOnPrenotazione(T pr);
 	

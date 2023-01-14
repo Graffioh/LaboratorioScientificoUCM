@@ -3,12 +3,15 @@ package controller;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -59,7 +62,7 @@ public class Controller {
 
 		ArrayList<String> nomi = new ArrayList<String>();
 		for(T el : al) {
-			// Based on the instance of d, cast it to get the desired method.
+			// Based on the instance of el, cast it to get the desired method.
 			if(el instanceof Strumento)
 				nomi.add(((Strumento)el).getNome());
 			else if(el instanceof DotazioneAccessoria)
@@ -176,6 +179,25 @@ public class Controller {
 		return aOraArray;
 	}
 	
+	public String getInformazioniFromPrenotazione(ArrayList<Prenotazione> al, int comboBoxCodice) {
+
+		String info = new String();
+		
+		DateTimeFormatter formatoDate = DateTimeFormatter.ofPattern("DD/MM/YYYY");
+		
+		for(Prenotazione el : al) {
+			if(el.getCodice() == comboBoxCodice) {
+				if(el.getCodD() == 0) {
+					info = "Codice strumento:" + el.getCodStr() + "\n\r" + "Data prenotazione:" + el.getData().format(formatoDate);
+				} else {
+					info = "Codice dotazione:" + el.getCodD() + "\n\r" + "Data prenotazione:" + el.getData().format(formatoDate);
+				}
+			}
+		}
+		
+		return info;
+	}
+	
 	// Used for combobox items
 	public <T> String[] fromArrayListToStringArray(ArrayList<T> al) {
 		
@@ -195,4 +217,35 @@ public class Controller {
 		return stringArray;
 	}
 	
+	public <T> void populateHomepageTable(ArrayList<T> al, JTable jt) {
+		DefaultTableModel tableModel = new DefaultTableModel();
+		
+		tableModel.addColumn("Nome");
+		tableModel.addColumn("Codice");
+		
+		for (T el : al) {
+			if(el instanceof Strumento) 
+				tableModel.addRow(new Object[] {((Strumento)el).getNome(), ((Strumento)el).getCodice()});
+			else if (el instanceof DotazioneAccessoria) 
+				tableModel.addRow(new Object[] {((DotazioneAccessoria)el).getNome(), ((DotazioneAccessoria)el).getCodice()});
+		}
+		
+		jt.setModel(tableModel);
+	}
+	
+	public void populateCalendarioTable(ArrayList<Prenotazione> al, JTable jt, LocalDate data) {
+		DefaultTableModel tableModel = new DefaultTableModel();
+		
+		tableModel.addColumn("Codice");
+		tableModel.addColumn("daOra");
+		tableModel.addColumn("aOra");
+		
+		for (Prenotazione el : al) {
+			if(el.getData().equals(data)) {
+				tableModel.addRow(new Object[] {el.getCodice(), el.getDaOra(), el.getAOra()});
+			}
+		}
+			
+		jt.setModel(tableModel);
+	}
 }

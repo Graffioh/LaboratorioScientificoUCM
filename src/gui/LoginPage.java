@@ -101,6 +101,7 @@ public class LoginPage extends JFrame {
 		loginPagePanel.add(codiceTextField);
 
 		controller = new Controller();
+		
 		// Button
 		loginBtn = new JButton("LOGIN");
 		loginBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -113,9 +114,11 @@ public class LoginPage extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
+					// Storing text field vars into static vars to use them to filter the personale in home page
 					matricola = matricolaTextField.getText();
 					codice = Integer.parseInt(codiceTextField.getText());
 
+					// Switch to home page
 					controller.goToMainPageBasedOnLoginData(matricolaTextField.getText(), Integer.parseInt(codiceTextField.getText()), LoginPage.this, mainPage);
 				} catch (NumberFormatException nfe) {
 					nfe.printStackTrace();
@@ -136,7 +139,7 @@ public class LoginPage extends JFrame {
 		codiceLabel.setBounds(181, 96, 58, 14);
 		loginPagePanel.add(codiceLabel);
 		
-		//ActionListeners for loginBtn
+		
 		loginBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {

@@ -1,6 +1,7 @@
 package gui;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import dao.DotazioneAccessoriaImpl;
 import dao.StrumentoImpl;
@@ -15,14 +16,16 @@ import java.awt.Font;
 import javax.swing.DefaultListModel;
 import java.lang.String;
 import java.util.ArrayList;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import controller.Controller;
 
 public class HomePage extends JPanel {
 	
-	private JList listaStrumenti, listaDotazioni;
 	private JLabel listaStrumentiLabel, listaDotazioniLabel;
-	
-	private DefaultListModel<String> l1;
-	private DefaultListModel<String> l2;
+	private JTable strumentiTable, dotazioniTable;
+	private JScrollPane strumentiScrollPane, dotazioniScrollPane;
 	
 	private StrumentoImpl strumentoDAO;
 	private ArrayList<Strumento> strumentoArray;
@@ -30,47 +33,54 @@ public class HomePage extends JPanel {
 	private DotazioneAccessoriaImpl dotazioneDAO;
 	private ArrayList<DotazioneAccessoria> dotazioneArray;
 	
+	private Controller controller;
+
 	public HomePage() {
 		setBackground(new Color(171, 191, 244));
 		setLayout(null);
 		
+		controller = new Controller();
+		
 		strumentoDAO = new StrumentoImpl();
 		strumentoArray = strumentoDAO.populate();
 		
-		l1 = new DefaultListModel<String>();
-		for(int i = 0; i < strumentoArray.size(); ++i) {
-			l1.add(i, strumentoArray.get(i).getNome());
-		}
-		
-		listaStrumenti = new JList<String>(l1);		
-		listaStrumenti.setBackground(new Color(213, 223, 255));
-		listaStrumenti.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		listaStrumenti.setBounds(30, 100, 450, 500);
-		add(listaStrumenti);
-
 		listaStrumentiLabel = new JLabel("STRUMENTI");
 		listaStrumentiLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
 		listaStrumentiLabel.setBounds(180, 59, 171, 36);
 		add(listaStrumentiLabel);
 		
+		strumentiTable = new JTable();
+		strumentiTable.setBackground(new Color(213, 223, 255));
+		strumentiTable.setBounds(30, 100, 450, 500);
+		strumentiTable.setDefaultEditor(Object.class, null);
+		
+		strumentiScrollPane = new JScrollPane(strumentiTable);
+		strumentiScrollPane.setBounds(30, 100, 450, 500);
+		strumentiScrollPane.getViewport().setBackground(new Color(213, 223, 255));
+		add(strumentiScrollPane);
+		
+		controller.populateHomepageTable(strumentoArray, strumentiTable);
+		
 		dotazioneDAO = new DotazioneAccessoriaImpl();
 		dotazioneArray = dotazioneDAO.populate();
 		
-		l2 = new DefaultListModel<String>();
-		for(int i = 0; i < dotazioneArray.size(); ++i) {
-			l2.add(i, dotazioneArray.get(i).getNome());
-		}
-		
-		listaDotazioni = new JList<String>(l2);
-		listaDotazioni.setBounds(520, 100, 450, 500);
-		listaDotazioni.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		listaDotazioni.setBackground(new Color(213, 223, 255));
-		add(listaDotazioni);
-
 		listaDotazioniLabel = new JLabel("DOTAZIONI ACCESSORIE");
 		listaDotazioniLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
 		listaDotazioniLabel.setBounds(589, 59, 321, 36);
 		add(listaDotazioniLabel);
+		
+		dotazioniTable = new JTable();
+		dotazioniTable.setBackground(new Color(213, 223, 255));
+		dotazioniTable.setBounds(520, 100, 450, 500);
+		dotazioniTable.setDefaultEditor(Object.class, null);
+		
+		dotazioniScrollPane = new JScrollPane(dotazioniTable);
+		dotazioniScrollPane.setBounds(520, 100, 450, 500);
+		dotazioniScrollPane.getViewport().setBackground(new Color(213, 223, 255));
+		add(dotazioniScrollPane);
+		
+		controller.populateHomepageTable(dotazioneArray, dotazioniTable);
 
 	}
+	
 }

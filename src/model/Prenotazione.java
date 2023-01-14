@@ -16,7 +16,6 @@ public class Prenotazione {
 	private int codPers;
 	
 	public Prenotazione(LocalDate data, LocalTime oraPrenotazione, int tempoPrenotazione, int daOra, int aOra, int codP, int codStr, int codD, int codPers) {
-		super();
 		this.data = data;
 		this.oraPrenotazione = oraPrenotazione;
 		this.tempoPrenotazione = tempoPrenotazione;

@@ -24,7 +24,7 @@ public class MainGUI extends JFrame {
 	private JPanel backgroundPanel;
 	private JButton profiloPersonaleBtn, profileBackBtn, bookingBackBtn, prenotazioneBtn, 
 					riepilogoStrumentiBtn, riepilogoDotazioniBtn, riepilogoStrumentiBackBtn,
-					riepilogoDotazioniBackBtn, calendarioPrenotazioniBackBtn;
+					riepilogoDotazioniBackBtn;
 	
 	private HomePage homepagePanel;
 	
@@ -40,7 +40,8 @@ public class MainGUI extends JFrame {
 	
 	private Controller controller;
 	 
-	public MainGUI() {
+	// The MainGUI is used for buttons that changes the whole page.
+	public MainGUI() { 
 		controller = new Controller();
 		
 		setBackground(new Color(171, 191, 244));
@@ -49,11 +50,13 @@ public class MainGUI extends JFrame {
 		setTitle("LaboratorioScientificoUCM");
 		setBounds(100, 100, WIDTH_HOMEPAGE_WINDOW, HEIGHT_HOMEPAGE_WINDOW);
 		setLocationRelativeTo(null);
+		
 		backgroundPanel = new JPanel();
 		backgroundPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		backgroundPanel.setBackground(new Color(171, 191, 244));
-		setContentPane(backgroundPanel);
 		backgroundPanel.setLayout(new CardLayout(0, 0));
+		setContentPane(backgroundPanel);
+	
 		
 		homepagePanel = new HomePage();
 		profilePanel = new ProfilePage();
