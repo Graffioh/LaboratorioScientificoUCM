@@ -42,8 +42,6 @@ public class CalendarioPrenotazionePage extends JPanel {
 	private Personale filteredPersonale;
 	
 	private Controller controller;
-	
-	//private String[] mesiArray = {"Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"};
 
 	public CalendarioPrenotazionePage() {
 		setBackground(new Color(171, 191, 244));

@@ -219,15 +219,31 @@ public class Controller {
 	
 	public <T> void populateHomepageTable(ArrayList<T> al, JTable jt) {
 		DefaultTableModel tableModel = new DefaultTableModel();
+		String codiceStrumento = new String();
 		
 		tableModel.addColumn("Nome");
 		tableModel.addColumn("Codice");
 		
+		if(al.get(0) instanceof DotazioneAccessoria)
+			tableModel.addColumn("CodiceStr associato");
+		else
+			tableModel.addColumn("Tipo strumento");
+		
 		for (T el : al) {
-			if(el instanceof Strumento) 
-				tableModel.addRow(new Object[] {((Strumento)el).getNome(), ((Strumento)el).getCodice()});
-			else if (el instanceof DotazioneAccessoria) 
-				tableModel.addRow(new Object[] {((DotazioneAccessoria)el).getNome(), ((DotazioneAccessoria)el).getCodice()});
+			if(el instanceof Strumento) {
+				tableModel.addRow(new Object[] {((Strumento)el).getNome(), ((Strumento)el).getCodice(), ((Strumento)el).getTipoStr()});
+			}
+			else if (el instanceof DotazioneAccessoria)  {
+				// Dynamic codStr associato, if its or not associated with a strumento
+				if (((DotazioneAccessoria)el).getCodStr() == 0) {
+					codiceStrumento = "non associato";
+				} else {
+					codiceStrumento = Integer.toString(((DotazioneAccessoria)el).getCodStr());
+				}
+				
+				tableModel.addRow(new Object[] {((DotazioneAccessoria)el).getNome(), ((DotazioneAccessoria)el).getCodice(), codiceStrumento});
+			}
+				
 		}
 		
 		jt.setModel(tableModel);
@@ -236,13 +252,17 @@ public class Controller {
 	public void populateCalendarioTable(ArrayList<Prenotazione> al, JTable jt, LocalDate data) {
 		DefaultTableModel tableModel = new DefaultTableModel();
 		
-		tableModel.addColumn("Codice");
+		tableModel.addColumn("Codice prenotazione");
+		tableModel.addColumn("Codice strumento/dotazione");
 		tableModel.addColumn("daOra");
 		tableModel.addColumn("aOra");
 		
 		for (Prenotazione el : al) {
 			if(el.getData().equals(data)) {
-				tableModel.addRow(new Object[] {el.getCodice(), el.getDaOra(), el.getAOra()});
+				if(el.getCodD() == 0)
+					tableModel.addRow(new Object[] {el.getCodice(), el.getCodStr() + " (strumento)", el.getDaOra(), el.getAOra()});
+				else
+					tableModel.addRow(new Object[] {el.getCodice(), el.getCodD() + " (dotazione)", el.getDaOra(), el.getAOra()});
 			}
 		}
 			

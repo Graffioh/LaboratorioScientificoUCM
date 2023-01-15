@@ -262,6 +262,7 @@ public class ModificaPrenotazionePage extends JPanel {
 			@Override
 			public void componentShown ( ComponentEvent e ) {
 				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
+				descrizioneTextPrenotazione = "";
 				
 				if(!prenotazioneArray.isEmpty()) {
 					prenotazioniStringArray = controller.fromArrayListToStringArray(prenotazioneArray);
@@ -269,6 +270,10 @@ public class ModificaPrenotazionePage extends JPanel {
 					prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioniStringArray));
 					
 					descrizioneTextPrenotazione = controller.getInformazioniFromPrenotazione(prenotazioneArray, Integer.parseInt(prenotazioniComboBox.getSelectedItem().toString()));
+					
+					descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
+				} else {
+					prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>());
 					
 					descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
 				}
@@ -280,13 +285,18 @@ public class ModificaPrenotazionePage extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e){
 				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
-				
+				descrizioneTextPrenotazione = "";
+
 				if(!prenotazioneArray.isEmpty()) {
 					prenotazioniStringArray = controller.fromArrayListToStringArray(prenotazioneArray);
 					
 					prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioniStringArray));
 					
 					descrizioneTextPrenotazione = controller.getInformazioniFromPrenotazione(prenotazioneArray, Integer.parseInt(prenotazioniComboBox.getSelectedItem().toString()));
+					
+					descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
+				} else {
+					prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>());
 					
 					descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
 				}
@@ -320,7 +330,8 @@ public class ModificaPrenotazionePage extends JPanel {
 
 		eliminaBtn.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e){				
+			public void actionPerformed(ActionEvent e){	
+				
 				if(!prenotazioneArray.isEmpty()) {
 					// Delete prenotazione
 					prenotazioneDAO.eliminaPrenotazione(Integer.parseInt(prenotazioniComboBox.getSelectedItem().toString()));

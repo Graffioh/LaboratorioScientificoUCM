@@ -309,8 +309,11 @@ public class EffettuaPrenotazionePage extends JPanel {
 				dotazioniComboBox.setVisible(false);
 				
 				isStrumento = true;
-				// Descrizione
-				descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(strumentoArray, strumentiComboBox.getSelectedItem().toString());
+				
+				descrizioneTextStrumentoDotazione = "";
+				
+				if(!strumentoArray.isEmpty())
+					descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(strumentoArray, strumentiComboBox.getSelectedItem().toString());
 				
 				descrizioneFieldStrumentoDotazione.setText(descrizioneTextStrumentoDotazione);
 			}
@@ -325,8 +328,11 @@ public class EffettuaPrenotazionePage extends JPanel {
 				dotazioniComboBox.setVisible(true);
 				
 				isStrumento = false;
-				// Descrizione
-				descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
+				
+				descrizioneTextStrumentoDotazione = "";
+				
+				if(!dotazioneArray.isEmpty())
+					descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
 				
 				descrizioneFieldStrumentoDotazione.setText(descrizioneTextStrumentoDotazione);
 			}
@@ -339,16 +345,27 @@ public class EffettuaPrenotazionePage extends JPanel {
 				strumentoArray = strumentoDAO.getStrumentiBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());
 				dotazioneArray = dotazioneDAO.getDotazioniBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());
 				
-				strumentiStringArray = controller.fromArrayListToStringArray(strumentoArray);
-				dotazioniStringArray = controller.fromArrayListToStringArray(dotazioneArray);
 				
-				strumentiComboBox.setModel(new DefaultComboBoxModel<String>(strumentiStringArray));
-				dotazioniComboBox.setModel(new DefaultComboBoxModel<String>(dotazioniStringArray));	
+				if(!strumentoArray.isEmpty()) {
+					strumentiStringArray = controller.fromArrayListToStringArray(strumentoArray);
+					strumentiComboBox.setModel(new DefaultComboBoxModel<String>(strumentiStringArray));
+				} else {
+					strumentiComboBox.setModel(new DefaultComboBoxModel<String>());
+				}
+				 
+				if(!dotazioneArray.isEmpty()) {
+					dotazioniStringArray = controller.fromArrayListToStringArray(dotazioneArray);
+					dotazioniComboBox.setModel(new DefaultComboBoxModel<String>(dotazioniStringArray));
+				} else {
+					dotazioniComboBox.setModel(new DefaultComboBoxModel<String>());
+				}
+				
+				descrizioneTextStrumentoDotazione = "";
 				
 				// Descrizione
-				if(isStrumento) {
+				if(isStrumento && !strumentoArray.isEmpty()) {
 					descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(strumentoArray, strumentiComboBox.getSelectedItem().toString());
-				} else {
+				} else if (!isStrumento && !dotazioneArray.isEmpty()) {
 					descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
 				}
 				
