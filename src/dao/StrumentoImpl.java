@@ -73,4 +73,27 @@ public class StrumentoImpl implements StrumentoDAO{
 
 		return strumentoArray;
 	}
+
+	public int getCodiceBasedOnNome(String nomeStrumento) {
+		int codice = 0;
+
+		try {
+
+			String query = "SELECT STR.CodStr FROM Strumento as STR WHERE STR.nome LIKE ?";
+			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
+
+			prepStatementQuery.setString(1,nomeStrumento);
+
+			ResultSet rs = prepStatementQuery.executeQuery();
+
+			if(rs.next()) {    
+				codice = rs.getInt("codStr");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return codice;
+	}
 }

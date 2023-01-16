@@ -10,4 +10,7 @@ public interface StrumentoDAO {
 		
 	// Get strumenti based on sede selected in combobox and based on filtered personale
 	ArrayList<Strumento> getStrumentiBasedOnSede(int codPers, String nomeSede);
+
+	int getCodiceBasedOnNome(String nomeStrumento);
+
 }

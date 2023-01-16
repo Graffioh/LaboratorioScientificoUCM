@@ -18,6 +18,8 @@ public interface PrenotazioneDAO {
 	ArrayList<Prenotazione> getPrenotazioneBasedOnSede(int codPers, String nomeSede);
 	
 	ArrayList<Prenotazione> getPrenotazioneBasedOnPersonale(int codPers);
+
+	ArrayList<Prenotazione> getPrenotazioneBasedOnStrumento(int codStr);
 	
 	<T> String getNomeBasedOnPrenotazione(T pr);
 	

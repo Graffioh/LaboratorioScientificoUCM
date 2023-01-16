@@ -31,6 +31,7 @@ import dao.StrumentoImpl;
 import model.DotazioneAccessoria;
 import model.Personale;
 import model.Strumento;
+import model.Prenotazione;
 
 public class EffettuaPrenotazionePage extends JPanel {
 
@@ -42,6 +43,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 	private ArrayList<Strumento> strumentoArray;
 	private ArrayList<DotazioneAccessoria> dotazioneArray;
 	private ArrayList<Personale> personaleArray;
+	private ArrayList<Prenotazione> prenotazioneArray;
 	
 	ArrayList<String> sedi, strumenti, dotazioni;
 	String[] sediStringArray = {"none"}, strumentiStringArray = {"none"}, dotazioniStringArray = {"none"};
@@ -50,6 +52,8 @@ public class EffettuaPrenotazionePage extends JPanel {
 	private PersonaleImpl personaleDAO;
 	private StrumentoImpl strumentoDAO;
 	private DotazioneAccessoriaImpl dotazioneDAO;
+	private PrenotazioneImpl prenotazioneDAO;
+
 	private Controller controller;
 	
 	private Personale filteredPersonale;
@@ -373,10 +377,20 @@ public class EffettuaPrenotazionePage extends JPanel {
 			}
 		});
 
+		prenotazioneDAO = new PrenotazioneImpl();
+		prenotazioneArray = new ArrayList<Prenotazione>();
+
 		// DYNAMIC descrizione (combo box)
 		strumentiComboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
+				String[] daOraArray;
+
+				// fare la roba di daOra
+				int codStrSelezionato = strumentoDAO.getCodiceBasedOnNome(strumentiComboBox.getSelectedItem().toString());
+				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnStrumento(codStrSelezionato);
+				daOraArray = controller.getDaOraBasedOnStrumentoPrenotato(prenotazioneArray);				
+
 				descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(strumentoArray, strumentiComboBox.getSelectedItem().toString());
 			
 				descrizioneFieldStrumentoDotazione.setText(descrizioneTextStrumentoDotazione);

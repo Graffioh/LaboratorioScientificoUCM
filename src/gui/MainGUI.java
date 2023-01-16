@@ -24,7 +24,7 @@ public class MainGUI extends JFrame {
 	private JPanel backgroundPanel;
 	private JButton profiloPersonaleBtn, profileBackBtn, bookingBackBtn, prenotazioneBtn, 
 					riepilogoStrumentiBtn, riepilogoDotazioniBtn, riepilogoStrumentiBackBtn,
-					riepilogoDotazioniBackBtn;
+					riepilogoDotazioniBackBtn, segnalaMConsumabiliBtn, segnalaMaterialiConsumabiliBackBtn;
 	
 	private HomePage homepagePanel;
 	
@@ -35,6 +35,8 @@ public class MainGUI extends JFrame {
 	private RiepilogoStrumentiPage riepilogoStrumentiPanel;
 	
 	private RiepilogoDotazioniPage riepilogoDotazioniPanel;
+	
+	private SegnalaMaterialiConsumabiliPage segnalaMaterialiConsumabiliPanel;
 	
 	private CalendarioPrenotazionePage calendarioPrenotazioniPanel;
 	
@@ -64,12 +66,14 @@ public class MainGUI extends JFrame {
 		riepilogoStrumentiPanel = new RiepilogoStrumentiPage();
 		riepilogoDotazioniPanel = new RiepilogoDotazioniPage();
 		calendarioPrenotazioniPanel = new CalendarioPrenotazionePage();
+		segnalaMaterialiConsumabiliPanel = new SegnalaMaterialiConsumabiliPage();
 		backgroundPanel.add(homepagePanel);
 		backgroundPanel.add(profilePanel);
 		backgroundPanel.add(bookingPanel);
 		backgroundPanel.add(riepilogoStrumentiPanel);
 		backgroundPanel.add(riepilogoDotazioniPanel);
 		backgroundPanel.add(calendarioPrenotazioniPanel);
+		backgroundPanel.add(segnalaMaterialiConsumabiliPanel);
 		
 		
 		profiloPersonaleBtn = new JButton("PROFILO");
@@ -168,6 +172,27 @@ public class MainGUI extends JFrame {
 		});
 		riepilogoDotazioniBtn.setBounds(650, 600, 180, 25);
 		homepagePanel.add(riepilogoDotazioniBtn);
+		
+		segnalaMConsumabiliBtn = new JButton("SEGNALA CONSUMABILI");
+		segnalaMConsumabiliBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
+		segnalaMConsumabiliBtn.setBackground(new Color(171, 165, 255));
+		segnalaMConsumabiliBtn.setBorderPainted(true);
+		segnalaMConsumabiliBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
+		segnalaMConsumabiliBtn.addMouseListener(new MouseAdapter() {
+/*			@Override
+			public void mousePressed(MouseEvent e) {
+				controller.switchPage(segnalaMConsumabiliBtn, homepagePanel);*/
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				segnalaMConsumabiliBtn.setBackground(new Color(157,149,255));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				segnalaMConsumabiliBtn.setBackground(new Color(171, 165, 255));
+			}
+		});
+		segnalaMConsumabiliBtn.setBounds(760, 660, 200, 30);
+		homepagePanel.add(segnalaMConsumabiliBtn);
 
 		profileBackBtn = new JButton("BACK");
 		profileBackBtn.setBackground(new Color(171, 165, 255));
@@ -262,5 +287,29 @@ public class MainGUI extends JFrame {
 		});
 		riepilogoDotazioniBackBtn.setBounds(25, 11, 89, 23);
 		riepilogoDotazioniPanel.add(riepilogoDotazioniBackBtn);
+		
+		segnalaMaterialiConsumabiliBackBtn = new JButton("BACK");
+		segnalaMaterialiConsumabiliBackBtn.setBackground(new Color(171, 165, 255));
+		segnalaMaterialiConsumabiliBackBtn.setOpaque(true);
+		segnalaMaterialiConsumabiliBackBtn.setBorderPainted(true);
+		segnalaMaterialiConsumabiliBackBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
+		segnalaMaterialiConsumabiliBackBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				homepagePanel.setVisible(true);
+				bookingPanel.setVisible(false);
+				controller.switchPage(homepagePanel, riepilogoDotazioniPanel);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				segnalaMaterialiConsumabiliBackBtn.setBackground(new Color(157,149,255));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				segnalaMaterialiConsumabiliBackBtn.setBackground(new Color(171, 165, 255));
+			}
+		});
+		segnalaMaterialiConsumabiliBackBtn.setBounds(25, 11, 89, 23);
+		segnalaMaterialiConsumabiliPanel.add(segnalaMaterialiConsumabiliBackBtn);
 	}
 }

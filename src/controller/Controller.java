@@ -159,6 +159,25 @@ public class Controller {
 		}
 		
 	}
+
+	public String[] getDaOraBasedOnStrumentoPrenotato(ArrayList<Prenotazione> prenotazioneArray) {
+		String[] daOraArray = {"9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"};;
+
+		for(Prenotazione p : prenotazioneArray) {
+			int prenotazioneDaOra = p.getDaOra();
+			for(Integer i = p.getDaOra(); i < p.getAOra(); i++) {
+				daOraArray[i - prenotazioneDaOra - 1] = i.toString();
+			}
+		}
+
+		for(int i = 0; i < daOraArray.length; i++) {
+			System.out.println("pos " + i);
+			System.out.println(daOraArray[i]);
+		}
+
+		return daOraArray;
+	}
+
 	
 	public String[] getAOraBasedOnDaOra(int selectedItem) {
 		String[] aOraArray;
@@ -167,8 +186,6 @@ public class Controller {
 		for(Integer i = selectedItem; i <= 20; ++i) {
 			countOra += 1;
 		}
-		
-		System.out.println(countOra);
 		
 		aOraArray = new String[countOra - 1];
 		Integer daOra = selectedItem;
