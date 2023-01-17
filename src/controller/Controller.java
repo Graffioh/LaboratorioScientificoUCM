@@ -5,6 +5,8 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -161,21 +163,36 @@ public class Controller {
 	}
 
 	public String[] getDaOraBasedOnStrumentoPrenotato(ArrayList<Prenotazione> prenotazioneArray) {
-		String[] daOraArray = {"9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"};;
-
-		for(Prenotazione p : prenotazioneArray) {
-			int prenotazioneDaOra = p.getDaOra();
-			for(Integer i = p.getDaOra(); i < p.getAOra(); i++) {
-				daOraArray[i - prenotazioneDaOra - 1] = i.toString();
+		ArrayList<Integer> al = new ArrayList<Integer>();
+		
+		if(!prenotazioneArray.isEmpty()) {
+				for(Prenotazione p : prenotazioneArray) {
+					for(Integer i = p.getDaOra(); i <= p.getAOra(); i++) {
+						al.add(i);
+					}
+				}
+			
+			// Take the max and build daOraArray based on that value
+			String[] tmpDaOraArray;
+			
+			int count = 0;
+			for(Integer i = Collections.max(al); i <= 20; ++i) {
+				count += 1;
 			}
+			
+			tmpDaOraArray = new String[count - 1];
+			
+			for(Integer i = Collections.max(al) + 1; i <= 20; i++) {
+				tmpDaOraArray[i - Collections.max(al) - 1] = i.toString();
+			}
+			
+			return tmpDaOraArray;
+			
+		} else {
+			
+			String[] tmpDaOraArray = {"9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"};
+			return tmpDaOraArray;
 		}
-
-		for(int i = 0; i < daOraArray.length; i++) {
-			System.out.println("pos " + i);
-			System.out.println(daOraArray[i]);
-		}
-
-		return daOraArray;
 	}
 
 	

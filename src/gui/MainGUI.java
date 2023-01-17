@@ -176,12 +176,15 @@ public class MainGUI extends JFrame {
 		segnalaMConsumabiliBtn = new JButton("SEGNALA CONSUMABILI");
 		segnalaMConsumabiliBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
 		segnalaMConsumabiliBtn.setBackground(new Color(171, 165, 255));
+		segnalaMConsumabiliBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.switchPage(segnalaMaterialiConsumabiliPanel, homepagePanel);
+			}
+		});
 		segnalaMConsumabiliBtn.setBorderPainted(true);
 		segnalaMConsumabiliBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		segnalaMConsumabiliBtn.addMouseListener(new MouseAdapter() {
-/*			@Override
-			public void mousePressed(MouseEvent e) {
-				controller.switchPage(segnalaMConsumabiliBtn, homepagePanel);*/
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				segnalaMConsumabiliBtn.setBackground(new Color(157,149,255));
@@ -224,8 +227,6 @@ public class MainGUI extends JFrame {
 		bookingBackBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				homepagePanel.setVisible(true);
-				bookingPanel.setVisible(false);
 				controller.switchPage(homepagePanel, bookingPanel);
 			}
 			@Override
@@ -248,8 +249,6 @@ public class MainGUI extends JFrame {
 		riepilogoStrumentiBackBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				homepagePanel.setVisible(true);
-				bookingPanel.setVisible(false);
 				controller.switchPage(homepagePanel, riepilogoStrumentiPanel);
 			}
 			@Override
@@ -272,8 +271,6 @@ public class MainGUI extends JFrame {
 		riepilogoDotazioniBackBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				homepagePanel.setVisible(true);
-				bookingPanel.setVisible(false);
 				controller.switchPage(homepagePanel, riepilogoDotazioniPanel);
 			}
 			@Override
@@ -296,9 +293,7 @@ public class MainGUI extends JFrame {
 		segnalaMaterialiConsumabiliBackBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				homepagePanel.setVisible(true);
-				bookingPanel.setVisible(false);
-				controller.switchPage(homepagePanel, riepilogoDotazioniPanel);
+				controller.switchPage(homepagePanel, segnalaMaterialiConsumabiliPanel);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {

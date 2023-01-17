@@ -19,7 +19,7 @@ public interface PrenotazioneDAO {
 	
 	ArrayList<Prenotazione> getPrenotazioneBasedOnPersonale(int codPers);
 
-	ArrayList<Prenotazione> getPrenotazioneBasedOnStrumento(int codStr);
+	ArrayList<Prenotazione> getPrenotazioneBasedOnStrumentoAndDate(int codStr, LocalDate localDate);
 	
 	<T> String getNomeBasedOnPrenotazione(T pr);
 	

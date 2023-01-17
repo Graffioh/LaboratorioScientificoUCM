@@ -49,7 +49,7 @@ public class StrumentoImpl implements StrumentoDAO{
 
 		try {
 
-			String query = "SELECT STR.nome, STR.descrizione, STR.caratteristiche_tecniche, STR.tempo_uso, STR.categoria, STR.codstr"
+			String query = "SELECT DISTINCT STR.nome, STR.descrizione, STR.caratteristiche_tecniche, STR.tempo_uso, STR.categoria, STR.codstr"
 					+ " FROM PersonaleSede as P JOIN Sede as S ON S.CodS = P.CodS"
 					+ " JOIN Postazione as PO ON PO.CodS = S.CodS"
 					+ " JOIN StrumentoPostazione as SP ON PO.CodPos = SP.CodPos"

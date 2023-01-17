@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,7 +49,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 	
 	ArrayList<String> sedi, strumenti, dotazioni;
 	String[] sediStringArray = {"none"}, strumentiStringArray = {"none"}, dotazioniStringArray = {"none"};
-	private String descrizioneTextStrumentoDotazione = " Ahahahahah Ehi, gir pe Secondiglian \r\n Rind a n'Audi ner opac (rind a n'Audi ner opac) \r\n Ca m par n'astronav (ca m par n'astronav) \r\n Sceng o per na Balenciag (Bale) \r\n Ess vo nata Balenciag (Bale, Bale)";
+	private String descrizioneTextStrumentoDotazione = " ";
 	
 	private PersonaleImpl personaleDAO;
 	private StrumentoImpl strumentoDAO;
@@ -384,13 +386,6 @@ public class EffettuaPrenotazionePage extends JPanel {
 		strumentiComboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
-				String[] daOraArray;
-
-				// fare la roba di daOra
-				int codStrSelezionato = strumentoDAO.getCodiceBasedOnNome(strumentiComboBox.getSelectedItem().toString());
-				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnStrumento(codStrSelezionato);
-				daOraArray = controller.getDaOraBasedOnStrumentoPrenotato(prenotazioneArray);				
-
 				descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(strumentoArray, strumentiComboBox.getSelectedItem().toString());
 			
 				descrizioneFieldStrumentoDotazione.setText(descrizioneTextStrumentoDotazione);
@@ -433,6 +428,32 @@ public class EffettuaPrenotazionePage extends JPanel {
 			
 			}
 		});
+		
+		// DYNAMIC daOra based on already booked "time-zone"
+		jDateChooserStrumentoDotazione.getDateEditor().addPropertyChangeListener(		
+			new PropertyChangeListener() {
+		        @Override
+		        public void propertyChange(PropertyChangeEvent e) {
+		        	if ("date".equals(e.getPropertyName())) {
+		        		
+		        		String[] aOraArray, daOraArray;
+
+						int codStrSelezionato = strumentoDAO.getCodiceBasedOnNome(strumentiComboBox.getSelectedItem().toString());
+						
+						LocalDate localDate = ((Date)e.getNewValue()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+						
+						prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnStrumentoAndDate(codStrSelezionato, localDate);
+						
+						daOraArray = controller.getDaOraBasedOnStrumentoPrenotato(prenotazioneArray);	
+						
+						aOraArray = controller.getAOraBasedOnDaOra(Integer.parseInt(daOraArray[0].toString()));
+						
+						cbDaOra.setModel(new DefaultComboBoxModel<String>(daOraArray));
+						cbAOra.setModel(new DefaultComboBoxModel<String>(aOraArray));
+						
+		        	}
+		        }
+			});
 		
 	}
 

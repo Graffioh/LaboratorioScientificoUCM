@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 //import java.sql.Date;
 import java.time.*;
 import java.util.ArrayList;
@@ -112,8 +113,10 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
 		return prenotazioneArray;
 	}
 
-	public ArrayList<Prenotazione> getPrenotazioneBasedOnStrumento(int codStr) {
+	public ArrayList<Prenotazione> getPrenotazioneBasedOnStrumentoAndDate(int codStr, LocalDate localDate) {
 		ArrayList<Prenotazione> prenotazioneArray = new ArrayList<Prenotazione>();
+		
+		Date date = Date.valueOf(localDate);
 
 		try {
 
@@ -123,12 +126,13 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
                 + " JOIN StrumentoPostazione AS SP ON PO.CodPos = SP.CodPos"
                 + " JOIN Strumento AS STR ON SP.CodStr = STR.CodStr"
                 + " JOIN Prenotazione AS PR ON STR.CodStr = PR.CodStr"
-                + " WHERE PR.CodStr = ?"
+                + " WHERE PR.CodStr = ? AND PR.datap = ?"
 				+ " ORDER BY(PR.codP)";
     
 			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
 
 			prepStatementQuery.setInt(1,codStr);
+			prepStatementQuery.setDate(2, date);
 
 			ResultSet rs = prepStatementQuery.executeQuery();
 

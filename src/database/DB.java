@@ -30,7 +30,7 @@ public class DB {
 			if(conn==null || conn.isClosed()) {   
 				// Reading password from file for security reasons
 				try {
-					b = new BufferedReader(new FileReader(new File("C:\\Users\\MSI-Gaming\\Desktop\\Università\\Object Orientation\\Progetto\\pwd_database.txt")));
+					b = new BufferedReader(new FileReader(new File("C:\\Users\\bregl\\Desktop\\pwd_database.txt")));
 					pwd = b.readLine();
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -40,7 +40,7 @@ public class DB {
 				Class.forName("org.postgresql.Driver");
 				
 				// Connecting to the database via database name, username, password
-				conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/LaboratorioScientifico", "postgres", pwd);
+				conn = DriverManager.getConnection("jdbc:postgresql://localhost:5433/LaboratorioScientificoUCM", "postgres", pwd);
 			}
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
