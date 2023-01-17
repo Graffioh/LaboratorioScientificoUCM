@@ -71,6 +71,8 @@ public class Controller {
 				nomi.add(((DotazioneAccessoria)el).getNome());
 			else if(el instanceof Sede)
 				nomi.add(((Sede)el).getNome());
+			else
+				nomi.add((String)el);
 		}
 		
 		return nomi;
@@ -180,10 +182,10 @@ public class Controller {
 				count += 1;
 			}
 			
-			tmpDaOraArray = new String[count - 1];
+			tmpDaOraArray = new String[count];
 			
-			for(Integer i = Collections.max(al) + 1; i <= 20; i++) {
-				tmpDaOraArray[i - Collections.max(al) - 1] = i.toString();
+			for(Integer i = Collections.max(al); i <= 20; i++) {
+				tmpDaOraArray[i - Collections.max(al)] = i.toString();
 			}
 			
 			return tmpDaOraArray;

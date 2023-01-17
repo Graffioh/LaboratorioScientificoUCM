@@ -70,4 +70,29 @@ public class DotazioneAccessoriaImpl implements DotazioneAccessoriaDAO {
 
 		return dotazioneArray;
 	}
+
+	@Override
+	public ArrayList<String> getMaterialiConsumabili() {
+
+		ArrayList<String> materialiConsumabiliArray = new ArrayList<String>();
+
+		try {
+			String query = "SELECT D.nome"
+							+ " FROM Dotazione_Accessoria as D"
+							+ " WHERE D.tipo <> 'altro'";
+
+			Statement statementQuery = connection.createStatement();
+			ResultSet rs = statementQuery.executeQuery(query);
+
+			while(rs.next()) {       
+				materialiConsumabiliArray.add(rs.getString("nome"));
+				System.out.println(rs.getString("nome"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return materialiConsumabiliArray;
+	}
 }

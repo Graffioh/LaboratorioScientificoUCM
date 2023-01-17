@@ -9,4 +9,6 @@ public interface DotazioneAccessoriaDAO {
 	ArrayList<DotazioneAccessoria> populate();
 	
 	ArrayList<DotazioneAccessoria> getDotazioniBasedOnSede(int codPers, String nomeSede);
+
+	ArrayList<String> getMaterialiConsumabili();
 }
