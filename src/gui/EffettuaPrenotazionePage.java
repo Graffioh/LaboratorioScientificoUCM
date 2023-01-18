@@ -64,6 +64,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 	private boolean isStrumento = false;
 
 	public EffettuaPrenotazionePage() {
+		// GUI
 		setBackground(new Color(171, 191, 244));
 		setLayout(null);
 		
@@ -281,7 +282,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		});
 		add(confermaBtn);
 
-		// PRESET PART (SETUP)
+		// PRESET PART (combo box SETUP)
 		// used for the first start of the app
 		selezionaStrumentoLabel.setVisible(false);
 		strumentiComboBox.setVisible(false);
@@ -303,9 +304,9 @@ public class EffettuaPrenotazionePage extends JPanel {
 		strumentiComboBox.setModel(new DefaultComboBoxModel<String>(strumentiStringArray));
 		dotazioniComboBox.setModel(new DefaultComboBoxModel<String>(dotazioniStringArray));
 		
-		// DYNAMIC PART
+		// DYNAMIC
 
-		// DYNAMIC Seleziona+Descrizione
+		// Show Strumento / Dotazione combo box based on button pressed
 		selectStrumentoBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -344,7 +345,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 			}
 		});
 		
-		// DYNAMIC strumenti/dotazioni combo box based on sede
+		// Strumenti / Dotazioni combo box based on sede
 		sediComboBoxEffettua.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -382,7 +383,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		prenotazioneDAO = new PrenotazioneImpl();
 		prenotazioneArray = new ArrayList<Prenotazione>();
 
-		// DYNAMIC descrizione (combo box)
+		// Descrizione based on combo box
 		strumentiComboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -401,7 +402,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 			}
 		});
 		
-		// DYNAMIC Da - a ora prenotazione
+		// Change aOra based on daOra
 		cbDaOra.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -422,14 +423,17 @@ public class EffettuaPrenotazionePage extends JPanel {
 				dotazioneArray = dotazioneDAO.getDotazioniBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());
 			
 				codStr = controller.getCodiceFromNome(strumentoArray, strumentiComboBox.getSelectedItem().toString());
-				codD = controller.getCodiceFromNome(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
+				if(dotazioniComboBox.getSelectedItem() != null)
+					codD = controller.getCodiceFromNome(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
+				else
+					codD = 0;
 				
 				controller.effettuaPrenotazione(jDateChooserStrumentoDotazione.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), LocalTime.now(), Integer.parseInt(cbAOra.getSelectedItem().toString()) - Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbAOra.getSelectedItem().toString()), codP, codStr, codD, filteredPersonale.getCodice(), isStrumento);							
 			
 			}
 		});
 		
-		// DYNAMIC daOra based on already booked "time-zone"
+		// Change daOra based on already booked "time-zone"
 		jDateChooserStrumentoDotazione.getDateEditor().addPropertyChangeListener(		
 			new PropertyChangeListener() {
 		        @Override

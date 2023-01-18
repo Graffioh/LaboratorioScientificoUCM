@@ -22,6 +22,7 @@ public class BookingPage extends JPanel {
 	private CalendarioPrenotazionePage calendarioPrenotazionePanel;
 
 	public BookingPage() {
+		// GUI
 		setBackground(new Color(171, 191, 244));
 		setLayout(null);
 		

@@ -36,6 +36,7 @@ public class HomePage extends JPanel {
 	private Controller controller;
 
 	public HomePage() {
+		// GUI
 		setBackground(new Color(171, 191, 244));
 		setLayout(null);
 		

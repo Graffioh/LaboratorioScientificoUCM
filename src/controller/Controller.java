@@ -241,14 +241,20 @@ public class Controller {
 		ArrayList<String> alString = new ArrayList<String>();
 		String[] stringArray;
 		
-		if(al.get(0) instanceof Prenotazione)
-			alString = controller.getCodiciFromArrayList(al);
-		else
-			alString = controller.getNomiFromArrayList(al);
+		try {
+			if(al.get(0) instanceof Prenotazione)
+				alString = controller.getCodiciFromArrayList(al);
+			else
+				alString = controller.getNomiFromArrayList(al);
+			
+		} catch (Exception e) {
+			System.out.println("Fra che combini");
+		}
 		
 		stringArray = new String[alString.size()];
 		
 		stringArray = alString.toArray(stringArray);
+		
 		
 		return stringArray;
 	}

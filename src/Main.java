@@ -4,13 +4,13 @@ import java.awt.EventQueue;
 import gui.LoginPage;
 
 public class Main {
-	
+	/*
 	// Conversion for performance testing
 	private static final long MEGABYTE = 1024L * 1024L;
 
     public static long bytesToMegabytes(long bytes) {
         return bytes / MEGABYTE;
-    }
+    }*/
     
 	/**
 	 * Launch the application.
@@ -28,7 +28,7 @@ public class Main {
 			}
 		});
 		
-		
+		/*
 		// MEMORY PERFORMANCE TEST
 		 Runtime runtime = Runtime.getRuntime();
         // Run the garbage collector
@@ -37,6 +37,6 @@ public class Main {
         long memory = runtime.totalMemory() - runtime.freeMemory();
         System.out.println("Used memory is bytes: " + memory);
         System.out.println("Used memory is megabytes: "
-                + bytesToMegabytes(memory));
+                + bytesToMegabytes(memory));*/
 	}
 }

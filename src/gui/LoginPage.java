@@ -39,22 +39,20 @@ public class LoginPage extends JFrame {
 	
 	
 	public LoginPage() {
+		// GUI
 		setBackground(new Color(171, 191, 244));
-		// LoginPage frame
 		setResizable(false);
 		setTitle("LaboratorioScientificoUCM (login)");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(420, 69, 450, 300);
 		setLocationRelativeTo(null); // To center the frame based on monitor
 
-		// Panel
 		loginPagePanel = new JPanel();
 		loginPagePanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		loginPagePanel.setBackground(new Color(171, 191, 244));
 		setContentPane(loginPagePanel);
 		loginPagePanel.setLayout(null); // Absolute layout
 
-		// Text field
 		matricolaTextField = new JTextField();
 		matricolaTextField.setBackground(new Color(213, 223, 255));
 		matricolaTextField.setBounds(54, 36, 316, 43);
@@ -102,7 +100,6 @@ public class LoginPage extends JFrame {
 
 		controller = new Controller();
 		
-		// Button
 		loginBtn = new JButton("LOGIN");
 		loginBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
 		loginBtn.setBackground(new Color(171, 165, 255));
@@ -128,7 +125,6 @@ public class LoginPage extends JFrame {
 		});
 		loginPagePanel.add(loginBtn);
 
-		// Label
 		matricolaLabel = new JLabel("MATRICOLA");
 		matricolaLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		matricolaLabel.setBounds(166, 11, 101, 14);
@@ -152,6 +148,7 @@ public class LoginPage extends JFrame {
 		});
 	}
 
+	// Static variables used to filter selected personale after the login
 	public static String getMatricolaTextField(){
 		return matricola;
 	}

@@ -56,6 +56,7 @@ public class ModificaPrenotazionePage extends JPanel {
 	private JDateChooser jDateChooserPrenotazione; 
 
 	public ModificaPrenotazionePage() {
+		// GUI
 		setBackground(new Color(171, 191, 244));
 		setLayout(null);
 		
@@ -67,7 +68,6 @@ public class ModificaPrenotazionePage extends JPanel {
 		controller = new Controller();
 		filteredPersonale = controller.filterPersonaleBasedOnMatricolaCodice(personaleArray, LoginPage.getMatricolaTextField(), LoginPage.getCodiceTextField());
 
-		// SELEZIONA SEDE
 		selezionaSedeLabel = new JLabel("SELEZIONA SEDE");
 		selezionaSedeLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
 		selezionaSedeLabel.setBounds(372, 20, 220, 50);
@@ -91,7 +91,6 @@ public class ModificaPrenotazionePage extends JPanel {
     	sediComboBoxModifica.setVisible(true);
 		add(sediComboBoxModifica);
 
-		// SELEZIONA PRENOTAZIONE
 		selezionaPrenotazioneLabel = new JLabel("SELEZIONA PRENOTAZIONE");
 		selezionaPrenotazioneLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
 		selezionaPrenotazioneLabel.setBounds(315, 160, 371, 50);
@@ -124,7 +123,6 @@ public class ModificaPrenotazionePage extends JPanel {
 		descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
 		descrizioneFieldPrenotazione.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		descrizioneFieldPrenotazione.setBackground(new Color(213,223,255));
-		//descrizioneField.setBounds(650, 240, 270, 100);
 		descrizioneFieldPrenotazione.setLineWrap(true);
 		descrizioneFieldPrenotazione.setWrapStyleWord(true);
 		descrizioneFieldPrenotazione.setEditable(false);
@@ -139,7 +137,6 @@ public class ModificaPrenotazionePage extends JPanel {
 		
 		add(descrizionePrenotazioneTextScroll);
 
-		// CALENDARIO (per data prenotazione)
 		calendarioLabel = new JLabel("SELEZIONA NUOVA DATA");
 		calendarioLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		calendarioLabel.setBounds(363, 281, 242, 100);
@@ -152,8 +149,7 @@ public class ModificaPrenotazionePage extends JPanel {
 		jDateChooserPrenotazione.setDateFormatString("dd/MM/yyyy");
 		jDateChooserPrenotazione.setBounds(420, 350, 120, 20);
 		add(jDateChooserPrenotazione);
-		
-		// DA - A
+
 		daOraLabel = new JLabel("DA:");
 		daOraLabel.setBounds(400, 370, 50, 50);
 		daOraLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -199,7 +195,6 @@ public class ModificaPrenotazionePage extends JPanel {
 		});
 		add(cbAOra);
 
-		// MODIFICA
 		modificaBtn = new JButton("MODIFICA");
 		modificaBtn.setFont(new Font("Tahoma", Font.BOLD, 24));
 		modificaBtn.setBackground(new Color(171, 165, 255));
@@ -218,8 +213,7 @@ public class ModificaPrenotazionePage extends JPanel {
 			}
 		});
 		add(modificaBtn);
-		
-		// ELIMINA
+
 		eliminaBtn = new JButton("ELIMINA");
 		eliminaBtn.setFont(new Font("Tahoma", Font.BOLD, 24));
 		eliminaBtn.setBackground(new Color(171, 165, 255));
@@ -243,21 +237,10 @@ public class ModificaPrenotazionePage extends JPanel {
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel.setBounds(696, 200, 194, 50);
 		add(lblNewLabel);
-
-		// PRESET PART
-		// used for the first start of the app
 		
-		/*prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
+		// DYNAMIC 
 		
-		if(!prenotazioneArray.isEmpty()) {
-			prenotazioniStringArray = controller.fromArrayListToStringArray(prenotazioneArray);
-			
-			prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioniStringArray));
-			
-			descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
-		}*/
-		
-		// DYNAMIC PART
+		// Get prenotazioni when the panel is visible
 		addComponentListener(new ComponentAdapter () {
 			@Override
 			public void componentShown ( ComponentEvent e ) {
@@ -281,6 +264,7 @@ public class ModificaPrenotazionePage extends JPanel {
 			}
 		});
 
+		// Change prenotazioni based on sede
 		sediComboBoxModifica.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -303,6 +287,7 @@ public class ModificaPrenotazionePage extends JPanel {
 			}
 		});
 		
+		// Change descrizione based on prenotazione
 		prenotazioniComboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){				
@@ -315,6 +300,7 @@ public class ModificaPrenotazionePage extends JPanel {
 			}
 		});
 		
+		// C
 		modificaBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){

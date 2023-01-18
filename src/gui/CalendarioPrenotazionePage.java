@@ -44,6 +44,7 @@ public class CalendarioPrenotazionePage extends JPanel {
 	private Controller controller;
 
 	public CalendarioPrenotazionePage() {
+		// GUI
 		setBackground(new Color(171, 191, 244));
 		setLayout(null);
 		
@@ -79,6 +80,8 @@ public class CalendarioPrenotazionePage extends JPanel {
 		prenotazioniScrollPane.setVisible(false);
 		
 		prenotazioneDAO = new PrenotazioneImpl();
+		
+		// DYNAMIC
 		
 		addComponentListener(new ComponentAdapter () {
 			@Override

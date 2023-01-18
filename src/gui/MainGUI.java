@@ -42,10 +42,8 @@ public class MainGUI extends JFrame {
 	
 	private Controller controller;
 	 
-	// The MainGUI is used for buttons that changes the whole page.
+	// The MainGUI is used for buttons that changes the whole page
 	public MainGUI() { 
-		controller = new Controller();
-		
 		setBackground(new Color(171, 191, 244));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,7 +56,6 @@ public class MainGUI extends JFrame {
 		backgroundPanel.setBackground(new Color(171, 191, 244));
 		backgroundPanel.setLayout(new CardLayout(0, 0));
 		setContentPane(backgroundPanel);
-	
 		
 		homepagePanel = new HomePage();
 		profilePanel = new ProfilePage();
@@ -75,18 +72,21 @@ public class MainGUI extends JFrame {
 		backgroundPanel.add(calendarioPrenotazioniPanel);
 		backgroundPanel.add(segnalaMaterialiConsumabiliPanel);
 		
+		controller = new Controller();
 		
 		profiloPersonaleBtn = new JButton("PROFILO");
 		profiloPersonaleBtn.setBounds(880, 20, 89, 23);
+		profiloPersonaleBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.switchPage(profilePanel, homepagePanel);
+			}
+		});
 		profiloPersonaleBtn.setBackground(new Color(171, 165, 255));
 		profiloPersonaleBtn.setOpaque(true);
 		profiloPersonaleBtn.setBorderPainted(true);
 		profiloPersonaleBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		profiloPersonaleBtn.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				controller.switchPage(profilePanel, homepagePanel);
-			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				profiloPersonaleBtn.setBackground(new Color(157,149,255));
@@ -199,14 +199,16 @@ public class MainGUI extends JFrame {
 
 		profileBackBtn = new JButton("BACK");
 		profileBackBtn.setBackground(new Color(171, 165, 255));
+		profileBackBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.switchPage(homepagePanel, profilePanel);
+			}
+		});
 		profileBackBtn.setOpaque(true);
 		profileBackBtn.setBorderPainted(true);
 		profileBackBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		profileBackBtn.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				controller.switchPage(homepagePanel, profilePanel);
-			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				profileBackBtn.setBackground(new Color(157,149,255));
@@ -221,14 +223,16 @@ public class MainGUI extends JFrame {
 
 		bookingBackBtn = new JButton("BACK");
 		bookingBackBtn.setBackground(new Color(171, 165, 255));
+		bookingBackBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.switchPage(homepagePanel, bookingPanel);
+			}
+		});
 		bookingBackBtn.setOpaque(true);
 		bookingBackBtn.setBorderPainted(true);
 		bookingBackBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		bookingBackBtn.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				controller.switchPage(homepagePanel, bookingPanel);
-			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				bookingBackBtn.setBackground(new Color(157,149,255));
@@ -243,14 +247,16 @@ public class MainGUI extends JFrame {
 		
 		riepilogoStrumentiBackBtn = new JButton("BACK");
 		riepilogoStrumentiBackBtn.setBackground(new Color(171, 165, 255));
+		riepilogoStrumentiBackBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.switchPage(homepagePanel, riepilogoStrumentiPanel);
+			}
+		});
 		riepilogoStrumentiBackBtn.setOpaque(true);
 		riepilogoStrumentiBackBtn.setBorderPainted(true);
 		riepilogoStrumentiBackBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		riepilogoStrumentiBackBtn.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				controller.switchPage(homepagePanel, riepilogoStrumentiPanel);
-			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				riepilogoStrumentiBackBtn.setBackground(new Color(157,149,255));
@@ -265,14 +271,16 @@ public class MainGUI extends JFrame {
 		
 		riepilogoDotazioniBackBtn = new JButton("BACK");
 		riepilogoDotazioniBackBtn.setBackground(new Color(171, 165, 255));
+		riepilogoDotazioniBackBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.switchPage(homepagePanel, riepilogoDotazioniPanel);
+			}
+		});
 		riepilogoDotazioniBackBtn.setOpaque(true);
 		riepilogoDotazioniBackBtn.setBorderPainted(true);
 		riepilogoDotazioniBackBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		riepilogoDotazioniBackBtn.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				controller.switchPage(homepagePanel, riepilogoDotazioniPanel);
-			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				riepilogoDotazioniBackBtn.setBackground(new Color(157,149,255));
@@ -287,14 +295,16 @@ public class MainGUI extends JFrame {
 		
 		segnalaMaterialiConsumabiliBackBtn = new JButton("BACK");
 		segnalaMaterialiConsumabiliBackBtn.setBackground(new Color(171, 165, 255));
+		segnalaMaterialiConsumabiliBackBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.switchPage(homepagePanel, segnalaMaterialiConsumabiliPanel);
+			}
+		});
 		segnalaMaterialiConsumabiliBackBtn.setOpaque(true);
 		segnalaMaterialiConsumabiliBackBtn.setBorderPainted(true);
 		segnalaMaterialiConsumabiliBackBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		segnalaMaterialiConsumabiliBackBtn.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				controller.switchPage(homepagePanel, segnalaMaterialiConsumabiliPanel);
-			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				segnalaMaterialiConsumabiliBackBtn.setBackground(new Color(157,149,255));
