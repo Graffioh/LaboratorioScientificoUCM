@@ -1,5 +1,9 @@
 package controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -9,6 +13,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -309,5 +314,44 @@ public class Controller {
 		}
 			
 		jt.setModel(tableModel);
+	}
+	
+	public void updateDflBasedOnComboBox(DefaultListModel<String> dfl, String comboBoxStr) {
+		boolean check = false;
+		for(int i = 0; i < dfl.size(); i++) {
+			if(dfl.contains(comboBoxStr) && !check) 
+				check = true;
+		}
+			
+		if(!check) {
+			dfl.addElement(comboBoxStr);
+		}
+	}
+	
+	public void writeSegnalazioneInFile(DefaultListModel<String> dfl) {
+		try {
+			ArrayList<String> mats = new ArrayList<String>();
+			boolean check = false;
+			for(int i = 0; i < dfl.size(); i++) {
+				mats.add(dfl.getElementAt(i));
+			}
+			
+			for(String str : mats) {
+				// Thanks stack overflow
+				if(Files.lines(Paths.get("./misc/segnalazioni_materiali.txt")).anyMatch(l -> l.contains(str)) && !check) {
+					check = true;
+				}
+				
+				if(!check) {
+					Files.write(Paths.get("./misc/segnalazioni_materiali.txt"), (str + System.lineSeparator()).getBytes(), StandardOpenOption.APPEND);
+					JOptionPane.showMessageDialog(null, "Segnalazione effettuata.");
+				} else {
+					JOptionPane.showMessageDialog(null, "Uno dei " + mats.size() + " materiali è già segnalato.");
+				}
+			}
+			
+		} catch (IOException ie) {
+			ie.printStackTrace();
+		}
 	}
 }

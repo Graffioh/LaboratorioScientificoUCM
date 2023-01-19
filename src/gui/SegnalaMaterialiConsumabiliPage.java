@@ -6,6 +6,14 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -34,6 +42,7 @@ public class SegnalaMaterialiConsumabiliPage extends JPanel {
 	JLabel segnalaMaterialiConsumabiliLabel;
 
 	JList listMaterialiConsumabiliAggiunti;
+	DefaultListModel<String> dfl;
 	
 	JButton aggiungiMCBtn, confermaMCBtn;
 
@@ -111,10 +120,6 @@ public class SegnalaMaterialiConsumabiliPage extends JPanel {
 		confermaMCBtn.setBounds(396, 630, 180, 40);
 		confermaMCBtn.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "Segnalazione effettuata.");
-			}
-			@Override
 			public void mouseEntered(MouseEvent e) {
 				confermaMCBtn.setBackground(new Color(157,149,255));
 			}
@@ -124,14 +129,29 @@ public class SegnalaMaterialiConsumabiliPage extends JPanel {
 			}
 		});
 		add(confermaMCBtn);
-
-		DefaultListModel<String> dfl = new DefaultListModel<String>();
+		
+		dfl = new DefaultListModel<String>();
+		
+		addComponentListener(new ComponentAdapter () {
+			@Override
+			public void componentShown ( ComponentEvent e ) {
+				dfl.clear();
+			}
+		});
 
 		aggiungiMCBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
-				dfl.addElement(segnalaMaterialiConsumabiliComboBox.getSelectedItem().toString());
+				controller.updateDflBasedOnComboBox(dfl, segnalaMaterialiConsumabiliComboBox.getSelectedItem().toString());
+				
 				listMaterialiConsumabiliAggiunti.setModel(dfl);
+			}
+		});
+		
+		confermaMCBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e){
+				controller.writeSegnalazioneInFile(dfl);
 			}
 		});
 	}
