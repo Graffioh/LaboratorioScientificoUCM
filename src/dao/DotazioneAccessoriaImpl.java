@@ -23,7 +23,7 @@ public class DotazioneAccessoriaImpl implements DotazioneAccessoriaDAO {
 		ArrayList<DotazioneAccessoria> dotazioneArray = new ArrayList<DotazioneAccessoria>();
 
 		try {
-			String query = "SELECT * FROM Dotazione_Accessoria";
+			String query = "SELECT * FROM Dotazione_Accessoria ORDER BY codD";
 			Statement statementQuery = connection.createStatement();
 			ResultSet rs = statementQuery.executeQuery(query);
 
@@ -45,7 +45,7 @@ public class DotazioneAccessoriaImpl implements DotazioneAccessoriaDAO {
 
 		try {
 
-			String query = "SELECT D.nome, D.codD, D.tipo, D.descrizione, D.quantita, D.codStr"
+			String query = "SELECT DISTINCT D.nome, D.codD, D.tipo, D.descrizione, D.quantita, D.codStr"
 					+ " FROM PersonaleSede AS P JOIN Sede AS S ON S.CodS = P.CodS"
 					+ " JOIN Postazione AS PO ON PO.CodS = S.CodS"
 					+ " JOIN StrumentoPostazione AS SP ON PO.CodPos = SP.CodPos"
