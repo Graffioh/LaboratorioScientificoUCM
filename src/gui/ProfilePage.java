@@ -46,14 +46,7 @@ public class ProfilePage extends JPanel {
 
 	private String descrizioneTextStrumentoDotazione = " Ahahahahah Ehi, gir pe Secondiglian \r\n Rind a n'Audi ner opac (rind a n'Audi ner opac) \r\n Ca m par n'astronav (ca m par n'astronav) \r\n Sceng o per na Balenciag (Bale) \r\n Ess vo nata Balenciag (Bale, Bale)";
 
-	public ProfilePage() {
-		// debug
-		/*System.out.println(personaleArray.toString());
-		System.out.println("Matricola:");
-		System.out.println(loginpageobj.getMatricolaTextField());
-		System.out.println("Codice:");
-		System.out.println(loginpageobj.getCodiceTextField());*/
-		
+	public ProfilePage() {	
 		setBackground(new Color(171, 191, 244));
 		setLayout(null);
 		
@@ -154,12 +147,12 @@ public class ProfilePage extends JPanel {
 		
 		JScrollPane descrizioneLaboratorioTextScroll = new JScrollPane (descrizioneFieldLaboratorio, 
 				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		descrizioneLaboratorioTextScroll.setBounds(255, 465, 529, 184);
+		descrizioneLaboratorioTextScroll.setBounds(255, 505, 529, 184);
 		add(descrizioneLaboratorioTextScroll);
 
 		JLabel descrizioneLaboratorioLabel = new JLabel("Descrizione Laboratorio");
 		descrizioneLaboratorioLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		descrizioneLaboratorioLabel.setBounds(415, 435, 193, 28);
+		descrizioneLaboratorioLabel.setBounds(415, 475, 193, 28);
 		add(descrizioneLaboratorioLabel);
 		
 	}

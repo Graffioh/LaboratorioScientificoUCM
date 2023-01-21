@@ -56,6 +56,8 @@ public class HomePage extends JPanel {
 		strumentiTable.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		strumentiTable.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 14));
 		strumentiTable.setDefaultEditor(Object.class, null);
+		strumentiTable.setRowSelectionAllowed(false);
+		strumentiTable.setFocusable(false);
 		
 		strumentiScrollPane = new JScrollPane(strumentiTable);
 		strumentiScrollPane.setBounds(30, 100, 450, 500);
@@ -78,6 +80,8 @@ public class HomePage extends JPanel {
 		dotazioniTable.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		dotazioniTable.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 14));
 		dotazioniTable.setDefaultEditor(Object.class, null);
+		dotazioniTable.setRowSelectionAllowed(false);
+		dotazioniTable.setFocusable(false);
 		
 		dotazioniScrollPane = new JScrollPane(dotazioniTable);
 		dotazioniScrollPane.setBounds(520, 100, 450, 500);

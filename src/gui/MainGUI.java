@@ -7,6 +7,8 @@ import javax.swing.border.LineBorder;
 
 import controller.Controller;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -14,7 +16,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.awt.Font;
+import java.awt.Image;
 
 public class MainGUI extends JFrame {
 
@@ -41,9 +47,21 @@ public class MainGUI extends JFrame {
 	private CalendarioPrenotazionePage calendarioPrenotazioniPanel;
 	
 	private Controller controller;
+	
+	private BufferedImage picture;
 	 
 	// The MainGUI is used for buttons that changes the whole page
 	public MainGUI() { 
+		try {
+			picture = ImageIO.read(new File("./img/lab-flask-500.png"));
+		} catch (IOException ie) {
+			ie.printStackTrace();
+		}
+		
+		setIconImage(
+				picture
+		);
+		
 		setBackground(new Color(171, 191, 244));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

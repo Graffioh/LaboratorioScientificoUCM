@@ -107,7 +107,7 @@ public class SegnalaMaterialiConsumabiliPage extends JPanel {
 		add(aggiungiMCBtn);
 
 		listMaterialiConsumabiliAggiunti = new JList<String>();
-		listMaterialiConsumabiliAggiunti.setBounds(200, 300, 600, 300);
+		listMaterialiConsumabiliAggiunti.setBounds(200, 250, 600, 300);
 		listMaterialiConsumabiliAggiunti.setBackground(new Color(213, 223, 255));
 		add(listMaterialiConsumabiliAggiunti);
 		

@@ -71,6 +71,8 @@ public class CalendarioPrenotazionePage extends JPanel {
 		prenotazioniTable.setBackground(new Color(213, 223, 255));
 		prenotazioniTable.setBounds(73, 200, 772, 441);
 		prenotazioniTable.setDefaultEditor(Object.class, null);
+		prenotazioniTable.setRowSelectionAllowed(false);
+		prenotazioniTable.setFocusable(false);
 		
 		prenotazioniScrollPane = new JScrollPane(prenotazioniTable);
 		prenotazioniScrollPane.setBounds(73, 200, 772, 441);

@@ -26,7 +26,7 @@ public class StrumentoImpl implements StrumentoDAO{
 
 		try {
 
-			String query = "SELECT * FROM Strumento";
+			String query = "SELECT * FROM Strumento ORDER BY(codStr)";
 			Statement statementQuery = connection.createStatement();
 			ResultSet rs = statementQuery.executeQuery(query);
 

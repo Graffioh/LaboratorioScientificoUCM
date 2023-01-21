@@ -35,11 +35,18 @@ public class LoginPage extends JFrame {
 	
 	private Controller controller;
 	
-	private BufferedImage picture;
+	private BufferedImage picture, pictureHD;
 	
 	
 	public LoginPage() {
 		// GUI
+		try {
+			pictureHD = ImageIO.read(new File("./img/lab-flask-500.png"));
+		} catch (IOException ie) {
+			ie.printStackTrace();
+		}
+		
+		setIconImage(pictureHD);
 		setBackground(new Color(171, 191, 244));
 		setResizable(false);
 		setTitle("LaboratorioScientificoUCM (login)");
@@ -74,10 +81,9 @@ public class LoginPage extends JFrame {
 		imgPanel.setBackground(new Color(171, 191, 244));
 		try {
 			picture = ImageIO.read(new File("./img/lab-flask.png"));
-		} catch(IOException e) {
-			e.printStackTrace();
+		} catch (IOException ie) {
+			ie.printStackTrace();
 		}
-		
 		picLabel = new JLabel(new ImageIcon(picture));
 		imgPanel.add(picLabel);
 		loginPagePanel.add(imgPanel);

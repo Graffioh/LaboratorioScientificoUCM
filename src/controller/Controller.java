@@ -253,7 +253,7 @@ public class Controller {
 				alString = controller.getNomiFromArrayList(al);
 			
 		} catch (Exception e) {
-			System.out.println("Fra che combini");
+			e.printStackTrace();
 		}
 		
 		stringArray = new String[alString.size()];
@@ -283,7 +283,7 @@ public class Controller {
 			else if (el instanceof DotazioneAccessoria)  {
 				// Dynamic codStr associato, if its or not associated with a strumento
 				if (((DotazioneAccessoria)el).getCodStr() == 0) {
-					codiceStrumento = "non associato";
+					codiceStrumento = "consumabile";
 				} else {
 					codiceStrumento = Integer.toString(((DotazioneAccessoria)el).getCodStr());
 				}
@@ -337,7 +337,7 @@ public class Controller {
 			}
 			
 			for(String str : mats) {
-				// Thanks stack overflow
+				// Check if a materiale is already in the file, if not you can write it
 				if(Files.lines(Paths.get("./misc/segnalazioni_materiali.txt")).anyMatch(l -> l.contains(str)) && !check) {
 					check = true;
 				}

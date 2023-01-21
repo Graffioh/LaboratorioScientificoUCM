@@ -23,7 +23,7 @@ public class DotazioneAccessoriaImpl implements DotazioneAccessoriaDAO {
 		ArrayList<DotazioneAccessoria> dotazioneArray = new ArrayList<DotazioneAccessoria>();
 
 		try {
-			String query = "SELECT * FROM Dotazione_Accessoria ORDER BY codD";
+			String query = "SELECT * FROM Dotazione_Accessoria ORDER BY(codD)";
 			Statement statementQuery = connection.createStatement();
 			ResultSet rs = statementQuery.executeQuery(query);
 

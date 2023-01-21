@@ -9,6 +9,9 @@ import java.util.ArrayList;
 
 import database.DB;
 import model.Laboratorio;
+import model.Postazione;
+import model.Sede;
+import model.Laboratorio.TypeLaboratorio;
 
 public class LaboratorioImpl implements LaboratorioDAO {
 
@@ -17,7 +20,7 @@ public class LaboratorioImpl implements LaboratorioDAO {
 	public LaboratorioImpl() {
 		connection = DB.getDB().getConnection();
 	}
-
+/*
     @Override
 	public ArrayList<Laboratorio> populate() {
 		ArrayList<Laboratorio> laboratorioArray = new ArrayList<Laboratorio>();
@@ -28,7 +31,8 @@ public class LaboratorioImpl implements LaboratorioDAO {
 			ResultSet rs = statementQuery.executeQuery(query);
 
 			while(rs.next()) {
-				laboratorioArray.add(new Laboratorio());
+				laboratorioArray.add(new Laboratorio(rs.getString("nome"), rs.getString("descrizione"), TypeLaboratorio tipoLab, int codL, ArrayList<Sede> sedi,
+						ArrayList<Postazione> postazioni));
             }
 
 		} catch (SQLException e) {
@@ -36,7 +40,7 @@ public class LaboratorioImpl implements LaboratorioDAO {
 		}
 
 		return laboratorioArray;
-	}
+	}*/
 
     @Override
 	public String getLaboratorioBasedOnPersonale(int codPers) {
