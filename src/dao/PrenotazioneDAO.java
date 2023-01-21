@@ -29,4 +29,8 @@ public interface PrenotazioneDAO {
 	void prenotazione(LocalDate data, LocalTime localTime, int tempoPrenotazione, int daOra, int aOra, int codP, int codStr, int codD, int codPers);
 
 	void eliminaPrenotazione(int codP);
+
+	String[] getRiepilogoStrumentoBasedOnMonth(int codStr);
+
+	String[] getRiepilogoStrumentoBasedOnYear(int codStr);
 }

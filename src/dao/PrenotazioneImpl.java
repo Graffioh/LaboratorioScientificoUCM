@@ -266,4 +266,66 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
 			JOptionPane.showMessageDialog(null, "Operazione non riuscita, riprova.");
 		}
 	}
+
+	public String[] getRiepilogoStrumentoBasedOnMonth(int codStr) {
+
+		String[] riepilogo = new String[13];
+		
+		try {
+			String query = "SELECT COUNT(P.codStr) AS COUNT_STRUMENTO"
+						+ " FROM Prenotazione AS P"
+						+ " WHERE P.codStr = ? AND EXTRACT(MONTH FROM P.DataP) = ?";
+
+			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
+
+			prepStatementQuery.setInt(1,codStr);
+
+			for(int i = 0; i < 12; i++) {
+				prepStatementQuery.setInt(2,i + 1);
+
+				prepStatementQuery.executeQuery();
+
+				ResultSet rs = prepStatementQuery.executeQuery();
+
+				if(rs.next())
+					riepilogo[i] = Integer.valueOf(rs.getInt("COUNT_STRUMENTO")).toString();
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return riepilogo;
+	}
+
+	public String[] getRiepilogoStrumentoBasedOnYear(int codStr) {
+
+		String[] riepilogo = new String[13];
+		
+		try {
+			String query = "SELECT COUNT(P.codStr) AS COUNT_STRUMENTO"
+						+ " FROM Prenotazione AS P"
+						+ " WHERE P.codStr = ? AND EXTRACT(YEAR FROM P.DataP) = ?";
+
+			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
+
+			prepStatementQuery.setInt(1,codStr);
+
+			for(int i = 0; i < 8; i++) {
+				prepStatementQuery.setInt(2,i + 2023);
+
+				prepStatementQuery.executeQuery();
+
+				ResultSet rs = prepStatementQuery.executeQuery();
+
+				if(rs.next())
+					riepilogo[i] = Integer.valueOf(rs.getInt("COUNT_STRUMENTO")).toString();
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return riepilogo;
+	}
 }

@@ -418,6 +418,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		confermaBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
+				String[] aOraArray, daOraArray;
 				
 				strumentoArray = strumentoDAO.getStrumentiBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());
 				dotazioneArray = dotazioneDAO.getDotazioniBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());
@@ -430,6 +431,18 @@ public class EffettuaPrenotazionePage extends JPanel {
 				
 				controller.effettuaPrenotazione(jDateChooserStrumentoDotazione.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), LocalTime.now(), Integer.parseInt(cbAOra.getSelectedItem().toString()) - Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbAOra.getSelectedItem().toString()), codP, codStr, codD, filteredPersonale.getCodice(), isStrumento);							
 			
+				int codStrSelezionato = strumentoDAO.getCodiceBasedOnNome(strumentiComboBox.getSelectedItem().toString());
+						
+				LocalDate localDate = jDateChooserStrumentoDotazione.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+				
+				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnStrumentoAndDate(codStrSelezionato, localDate);
+
+				daOraArray = controller.getDaOraBasedOnStrumentoPrenotato(prenotazioneArray);	
+						
+				aOraArray = controller.getAOraBasedOnDaOra(Integer.parseInt(daOraArray[0].toString()));
+				
+				cbDaOra.setModel(new DefaultComboBoxModel<String>(daOraArray));
+				cbAOra.setModel(new DefaultComboBoxModel<String>(aOraArray));
 			}
 		});
 		
