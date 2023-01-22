@@ -33,4 +33,8 @@ public interface PrenotazioneDAO {
 	String[] getRiepilogoStrumentoBasedOnMonth(int codStr);
 
 	String[] getRiepilogoStrumentoBasedOnYear(int codStr);
+	
+	String[] getRiepilogoUtenteBasedOnMonth(int codStr);
+	
+	String[] getRiepilogoUtenteBasedOnYear(int codStr);
 }

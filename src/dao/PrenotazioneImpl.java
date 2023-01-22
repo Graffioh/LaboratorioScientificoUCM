@@ -274,7 +274,7 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
 		try {
 			String query = "SELECT COUNT(P.codStr) AS COUNT_STRUMENTO"
 						+ " FROM Prenotazione AS P"
-						+ " WHERE P.codStr = ? AND EXTRACT(MONTH FROM P.DataP) = ?";
+						+ " WHERE P.codStr = ? AND EXTRACT(MONTH FROM P.DataP) = ?"; //AND EXTRACT(YEAR FROM P.DataP) = 2023;
 
 			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
 
@@ -300,7 +300,7 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
 
 	public String[] getRiepilogoStrumentoBasedOnYear(int codStr) {
 
-		String[] riepilogo = new String[13];
+		String[] riepilogo = new String[10];
 		
 		try {
 			String query = "SELECT COUNT(P.codStr) AS COUNT_STRUMENTO"
@@ -320,6 +320,70 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
 
 				if(rs.next())
 					riepilogo[i] = Integer.valueOf(rs.getInt("COUNT_STRUMENTO")).toString();
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return riepilogo;
+	}
+	
+	public String[] getRiepilogoUtenteBasedOnMonth(int codStr) {
+
+		String[] riepilogo = new String[13];
+		
+		try {
+			String query = "SELECT PE.nome, PE.cognome, MAX(P.codPers)"
+					+ " FROM Prenotazione as P JOIN Personale as PE ON P.codPers = PE.codPers"
+					+ " WHERE P.codStr = ? AND EXTRACT(MONTH FROM P.DataP) = ?"
+					+ " GROUP BY PE.nome, PE.cognome";
+
+			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
+
+			prepStatementQuery.setInt(1,codStr);
+
+			for(int i = 0; i < 12; i++) {
+				prepStatementQuery.setInt(2,i + 1);
+
+				prepStatementQuery.executeQuery();
+
+				ResultSet rs = prepStatementQuery.executeQuery();
+
+				if(rs.next())
+					riepilogo[i] = rs.getString("nome") + " " + rs.getString("cognome");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return riepilogo;
+	}
+	
+	public String[] getRiepilogoUtenteBasedOnYear(int codStr) {
+
+		String[] riepilogo = new String[10];
+		
+		try {
+			String query = "SELECT PE.nome, PE.cognome, MAX(P.codPers)"
+					+ " FROM Prenotazione as P JOIN Personale as PE ON P.codPers = PE.codPers"
+					+ " WHERE P.codStr = ? AND EXTRACT(YEAR FROM P.DataP) = ?"
+					+ " GROUP BY PE.nome, PE.cognome";
+
+			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
+
+			prepStatementQuery.setInt(1,codStr);
+
+			for(int i = 0; i < 8; i++) {
+				prepStatementQuery.setInt(2,i + 2023);
+
+				prepStatementQuery.executeQuery();
+
+				ResultSet rs = prepStatementQuery.executeQuery();
+
+				if(rs.next())
+					riepilogo[i] = rs.getString("nome") + " " + rs.getString("cognome");
 			}
 
 		} catch (SQLException e) {

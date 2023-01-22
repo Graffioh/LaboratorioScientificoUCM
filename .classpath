@@ -6,12 +6,17 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/chiar/OneDrive/Desktop/PROGETTO/jcalendar-1.4.jar">
+	<classpathentry kind="lib" path="C:/Users/bregl/Desktop/jcalendar-1.4.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/chiar/OneDrive/Desktop/PROGETTO/postgresql-42.5.1.jar">
+	<classpathentry kind="lib" path="C:/Users/bregl/Desktop/postgresql-42.5.1.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/bregl/Desktop/jfreechart-1.5.4.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

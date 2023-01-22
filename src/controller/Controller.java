@@ -316,6 +316,53 @@ public class Controller {
 		jt.setModel(tableModel);
 	}
 	
+	public void populateRiepilogoMensileStrumentiTable(ArrayList<Strumento> al, PrenotazioneImpl prenotazioneDAO, JTable jt) {
+		
+		DefaultTableModel tableModel = new DefaultTableModel();
+		
+		tableModel.addColumn("Gen");
+		tableModel.addColumn("Feb");
+		tableModel.addColumn("Mar");
+		tableModel.addColumn("Apr");
+		tableModel.addColumn("Mag");
+		tableModel.addColumn("Giu");
+		tableModel.addColumn("Lug");
+		tableModel.addColumn("Ago");
+		tableModel.addColumn("Sett");
+		tableModel.addColumn("Ott");
+		tableModel.addColumn("Nov");
+		tableModel.addColumn("Dic");
+		
+		for(int i = 0; i < al.size(); i++) {
+			String[] row1 = prenotazioneDAO.getRiepilogoStrumentoBasedOnMonth(i + 1);
+		
+			tableModel.addRow(row1);
+		}
+			
+		jt.setModel(tableModel);
+	}
+	
+	public void populateRiepilogoAnnualeStrumentiTable(ArrayList<Strumento> al, PrenotazioneImpl prenotazioneDAO, JTable jt) {
+		DefaultTableModel tableModel = new DefaultTableModel();
+		
+		tableModel.addColumn("2023");
+		tableModel.addColumn("2024");
+		tableModel.addColumn("2025");
+		tableModel.addColumn("2026");
+		tableModel.addColumn("2027");
+		tableModel.addColumn("2028");
+		tableModel.addColumn("2029");
+		tableModel.addColumn("2030");
+		
+		for(int i = 0; i < al.size(); i++) {
+			String[] row1 = prenotazioneDAO.getRiepilogoStrumentoBasedOnYear(i + 1);
+		
+			tableModel.addRow(row1);
+		}
+			
+		jt.setModel(tableModel);
+	}
+	
 	public void updateDflBasedOnComboBox(DefaultListModel<String> dfl, String comboBoxStr) {
 		boolean check = false;
 		for(int i = 0; i < dfl.size(); i++) {
