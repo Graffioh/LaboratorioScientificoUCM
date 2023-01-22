@@ -11,19 +11,27 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
+import dao.DotazioneAccessoriaImpl;
 import dao.PersonaleImpl;
 import dao.PrenotazioneImpl;
+import dao.StrumentoImpl;
 import gui.MainGUI;
 import model.DotazioneAccessoria;
 import model.Personale;
@@ -58,11 +66,6 @@ public class Controller {
 		}
 
 		return tmpPersonale;
-	}
-	
-	public void switchPage(JPanel panelVisible, JPanel panelNotVisible) {
-		panelVisible.setVisible(true);
-		panelNotVisible.setVisible(false);
 	}
 	
 	public <T> ArrayList<String> getNomiFromArrayList(ArrayList<T> al) {
@@ -169,7 +172,7 @@ public class Controller {
 		
 	}
 
-	public String[] getDaOraBasedOnStrumentoPrenotato(ArrayList<Prenotazione> prenotazioneArray) {
+	public String[] getDaOraBasedOnStrumentoDotazionePrenotato(ArrayList<Prenotazione> prenotazioneArray) {
 		ArrayList<Integer> al = new ArrayList<Integer>();
 		
 		if(!prenotazioneArray.isEmpty()) {
@@ -363,6 +366,52 @@ public class Controller {
 		jt.setModel(tableModel);
 	}
 	
+	public void populateRiepilogoMensileUtenteTable(ArrayList<Strumento> al, PrenotazioneImpl prenotazioneDAO, JTable jt) {
+		DefaultTableModel tableModel = new DefaultTableModel();
+		
+		tableModel.addColumn("Gen");
+		tableModel.addColumn("Feb");
+		tableModel.addColumn("Mar");
+		tableModel.addColumn("Apr");
+		tableModel.addColumn("Mag");
+		tableModel.addColumn("Giu");
+		tableModel.addColumn("Lug");
+		tableModel.addColumn("Ago");
+		tableModel.addColumn("Sett");
+		tableModel.addColumn("Ott");
+		tableModel.addColumn("Nov");
+		tableModel.addColumn("Dic");
+
+		for(int i = 0; i < al.size(); i++) {
+			String[] row1 = prenotazioneDAO.getRiepilogoUtenteBasedOnMonth(i + 1);
+		
+			tableModel.addRow(row1);
+		}
+			
+		jt.setModel(tableModel);
+	}
+	
+	public void populateRiepilogoAnnualeUtenteTable(ArrayList<Strumento> al, PrenotazioneImpl prenotazioneDAO, JTable jt) {
+		DefaultTableModel tableModel = new DefaultTableModel();
+		
+		tableModel.addColumn("2023");
+		tableModel.addColumn("2024");
+		tableModel.addColumn("2025");
+		tableModel.addColumn("2026");
+		tableModel.addColumn("2027");
+		tableModel.addColumn("2028");
+		tableModel.addColumn("2029");
+		tableModel.addColumn("2030");
+		
+		for(int i = 0; i < al.size(); i++) {
+			String[] row1 = prenotazioneDAO.getRiepilogoUtenteBasedOnYear(i + 1);
+		
+			tableModel.addRow(row1);
+		}
+			
+		jt.setModel(tableModel);
+	}
+	
 	public void updateDflBasedOnComboBox(DefaultListModel<String> dfl, String comboBoxStr) {
 		boolean check = false;
 		for(int i = 0; i < dfl.size(); i++) {
@@ -401,4 +450,139 @@ public class Controller {
 			ie.printStackTrace();
 		}
 	}
+	
+	public void switchPage(JPanel panelVisible, JPanel panelNotVisible) {
+		panelVisible.setVisible(true);
+		panelNotVisible.setVisible(false);
+	}
+	
+	public void switchRiepilogoTable(JTable jtVisible, JTable jtNotVisible1, JTable jtNotVisible2, JTable jtNotVisible3,  
+			JScrollPane jspVisible, JScrollPane jspNotVisible1, JScrollPane jspNotVisible2, JScrollPane jspNotVisible3) {
+		jtVisible.setVisible(true);
+		jspVisible.setVisible(true);
+		jtNotVisible1.setVisible(false);
+		jspNotVisible1.setVisible(false);
+		jtNotVisible2.setVisible(false);
+		jspNotVisible2.setVisible(false);
+		jtNotVisible3.setVisible(false);
+		jspNotVisible3.setVisible(false);
+	}
+	
+	public void switchBookingPage(JPanel panelVisible, JPanel panelNotVisible1, JPanel panelNotVisible2, JPanel panelNotVisible3) {
+		panelVisible.setVisible(true);
+		panelNotVisible1.setVisible(false);
+		panelNotVisible2.setVisible(false);
+		panelNotVisible3.setVisible(false);
+	}
+	
+	public void switchComboBoxBasedOnButton(JLabel labelVisible, JLabel labelNotVisible, JComboBox<String> cbVisible, JComboBox<String> cbNotVisible) {
+		labelVisible.setVisible(true);
+		cbVisible.setVisible(true);
+		labelNotVisible.setVisible(false);
+		cbNotVisible.setVisible(false);
+	}
+	
+	public <T> void switchDescrizioneBasedOnArrayList(ArrayList<T> al, JTextArea descrizioneTxtArea, JComboBox<String> cb) {
+		Controller controller = new Controller();
+		
+		String descrizione = "";
+		
+		if(!al.isEmpty())
+			descrizione = controller.getDescrizioneFromNome(al, cb.getSelectedItem().toString());
+		
+		descrizioneTxtArea.setText(descrizione);
+	}
+	
+	public void switchDescrizioneBasedOnSede(boolean isStrumento, ArrayList<Strumento> alStr, ArrayList<DotazioneAccessoria> alD, 
+			JComboBox<String> cbStr, JComboBox<String> cbD, JTextArea descrizioneTxtArea) {
+		Controller controller = new Controller();
+		
+		String descrizione = "";
+		
+		// Descrizione
+		if(isStrumento && !alStr.isEmpty()) {
+			descrizione = controller.getDescrizioneFromNome(alStr, cbStr.getSelectedItem().toString());
+		} else if (!isStrumento && !alD.isEmpty()) {
+			descrizione = controller.getDescrizioneFromNome(alD, cbD.getSelectedItem().toString());
+		}
+		
+		descrizioneTxtArea.setText(descrizione);
+	}
+	
+	public void changeComboBoxItemsBasedOnSede(ArrayList<Strumento> alStr, ArrayList<DotazioneAccessoria> alD, JComboBox<String> cbStr, JComboBox<String> cbD) {
+		Controller controller = new Controller();
+		
+		String[] strumenti, dotazioni;
+		
+		if(!alStr.isEmpty()) {
+			strumenti = controller.fromArrayListToStringArray(alStr);
+			cbStr.setModel(new DefaultComboBoxModel<String>(strumenti));
+		} else {
+			cbStr.setModel(new DefaultComboBoxModel<String>());
+		}
+		 
+		if(!alD.isEmpty()) {
+			dotazioni = controller.fromArrayListToStringArray(alD);
+			cbD.setModel(new DefaultComboBoxModel<String>(dotazioni));
+		} else {
+			cbD.setModel(new DefaultComboBoxModel<String>());
+		}
+	}
+	
+	public void changeAOraBasedOnDaOra(JComboBox<String> cbDaOra, JComboBox<String> cbAOra) {
+		Controller controller = new Controller();
+		
+		String[] aOraArray;	
+		aOraArray = controller.getAOraBasedOnDaOra(Integer.parseInt(cbDaOra.getSelectedItem().toString()));
+		cbAOra.setModel(new DefaultComboBoxModel<String>(aOraArray));
+	}
+	
+	public void changeAOraAndDaOraAfterPrenotazione(boolean isStrumento,Date date, JComboBox<String> cb, JComboBox<String> cbDaOra, JComboBox<String> cbAOra) {
+		Controller controller = new Controller();
+		StrumentoImpl strumentoDAO = new StrumentoImpl();
+		DotazioneAccessoriaImpl dotazioneDAO = new DotazioneAccessoriaImpl();
+		PrenotazioneImpl prenotazioneDAO = new PrenotazioneImpl();
+		ArrayList<Prenotazione> prenotazioneArray = new ArrayList<Prenotazione>();
+		int codStrSelezionato = 0, codDSelezionato = 0;
+		
+		if(isStrumento)
+			codStrSelezionato = strumentoDAO.getCodiceBasedOnNome(cb.getSelectedItem().toString());
+		else
+			codDSelezionato = dotazioneDAO.getCodiceBasedOnNome(cb.getSelectedItem().toString());
+			
+		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		
+		if(isStrumento)
+			prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnStrumentoAndDate(codStrSelezionato, localDate);
+		else
+			prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnDotazioneAndDate(codDSelezionato, localDate);
+		
+		String[] aOraArray, daOraArray;
+
+		daOraArray = controller.getDaOraBasedOnStrumentoDotazionePrenotato(prenotazioneArray);	
+				
+		aOraArray = controller.getAOraBasedOnDaOra(Integer.parseInt(daOraArray[0].toString()));
+		
+		cbDaOra.setModel(new DefaultComboBoxModel<String>(daOraArray));
+		cbAOra.setModel(new DefaultComboBoxModel<String>(aOraArray));
+	}
+	
+	public void changeInformazioniPrenotazioneBasedOnPrenotazione(ArrayList<Prenotazione> alPr, JComboBox<String> cbPr, JTextArea informazioniArea) {
+		Controller controller = new Controller();
+		
+		String descrizioneTextPrenotazione = controller.getInformazioniFromPrenotazione(alPr, Integer.parseInt(cbPr.getSelectedItem().toString()));
+		
+		informazioniArea.setText(descrizioneTextPrenotazione);
+	}
+	
+	/*public void setCodStrAndCodDBasedOnSelectedItem(int codStr, int codD, ArrayList<Strumento> alStr, ArrayList<DotazioneAccessoria> alD, JComboBox<String> cbStr, JComboBox<String> cbD) {
+		Controller controller = new Controller();
+		
+		codStr = controller.getCodiceFromNome(alStr, cbStr.getSelectedItem().toString());
+		if(cbD.getSelectedItem() != null)
+			codD = controller.getCodiceFromNome(alD, cbD.getSelectedItem().toString());
+		else
+			codD = 0;
+	}*/
+	
 }

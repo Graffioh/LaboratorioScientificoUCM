@@ -94,12 +94,6 @@ public class MainGUI extends JFrame {
 		
 		profiloPersonaleBtn = new JButton("PROFILO");
 		profiloPersonaleBtn.setBounds(880, 20, 89, 23);
-		profiloPersonaleBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.switchPage(profilePanel, homepagePanel);
-			}
-		});
 		profiloPersonaleBtn.setBackground(new Color(171, 165, 255));
 		profiloPersonaleBtn.setOpaque(true);
 		profiloPersonaleBtn.setBorderPainted(true);
@@ -132,12 +126,6 @@ public class MainGUI extends JFrame {
 		prenotazioneBtn.setOpaque(true);
 		prenotazioneBtn.setBorderPainted(true);
 		prenotazioneBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
-		prenotazioneBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.switchPage(bookingPanel, homepagePanel);
-			}
-		});
 		prenotazioneBtn.setBounds(300, 650, 400, 50);
 		homepagePanel.add(prenotazioneBtn);
 
@@ -157,12 +145,6 @@ public class MainGUI extends JFrame {
 		riepilogoStrumentiBtn.setOpaque(true);
 		riepilogoStrumentiBtn.setBorderPainted(true);
 		riepilogoStrumentiBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
-		riepilogoStrumentiBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.switchPage(riepilogoStrumentiPanel, homepagePanel);
-			}
-		});
 		riepilogoStrumentiBtn.setBounds(160, 600, 180, 25);
 		homepagePanel.add(riepilogoStrumentiBtn);
 
@@ -182,24 +164,12 @@ public class MainGUI extends JFrame {
 		riepilogoDotazioniBtn.setOpaque(true);
 		riepilogoDotazioniBtn.setBorderPainted(true);
 		riepilogoDotazioniBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
-		riepilogoDotazioniBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.switchPage(riepilogoDotazioniPanel, homepagePanel);
-			}
-		});
 		riepilogoDotazioniBtn.setBounds(650, 600, 180, 25);
 		homepagePanel.add(riepilogoDotazioniBtn);
 		
 		segnalaMConsumabiliBtn = new JButton("SEGNALA CONSUMABILI");
 		segnalaMConsumabiliBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
 		segnalaMConsumabiliBtn.setBackground(new Color(171, 165, 255));
-		segnalaMConsumabiliBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.switchPage(segnalaMaterialiConsumabiliPanel, homepagePanel);
-			}
-		});
 		segnalaMConsumabiliBtn.setBorderPainted(true);
 		segnalaMConsumabiliBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		segnalaMConsumabiliBtn.addMouseListener(new MouseAdapter() {
@@ -217,12 +187,6 @@ public class MainGUI extends JFrame {
 
 		profileBackBtn = new JButton("BACK");
 		profileBackBtn.setBackground(new Color(171, 165, 255));
-		profileBackBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.switchPage(homepagePanel, profilePanel);
-			}
-		});
 		profileBackBtn.setOpaque(true);
 		profileBackBtn.setBorderPainted(true);
 		profileBackBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -241,12 +205,6 @@ public class MainGUI extends JFrame {
 
 		bookingBackBtn = new JButton("BACK");
 		bookingBackBtn.setBackground(new Color(171, 165, 255));
-		bookingBackBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.switchPage(homepagePanel, bookingPanel);
-			}
-		});
 		bookingBackBtn.setOpaque(true);
 		bookingBackBtn.setBorderPainted(true);
 		bookingBackBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -265,12 +223,6 @@ public class MainGUI extends JFrame {
 		
 		riepilogoStrumentiBackBtn = new JButton("BACK");
 		riepilogoStrumentiBackBtn.setBackground(new Color(171, 165, 255));
-		riepilogoStrumentiBackBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.switchPage(homepagePanel, riepilogoStrumentiPanel);
-			}
-		});
 		riepilogoStrumentiBackBtn.setOpaque(true);
 		riepilogoStrumentiBackBtn.setBorderPainted(true);
 		riepilogoStrumentiBackBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -313,12 +265,6 @@ public class MainGUI extends JFrame {
 		
 		segnalaMaterialiConsumabiliBackBtn = new JButton("BACK");
 		segnalaMaterialiConsumabiliBackBtn.setBackground(new Color(171, 165, 255));
-		segnalaMaterialiConsumabiliBackBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.switchPage(homepagePanel, segnalaMaterialiConsumabiliPanel);
-			}
-		});
 		segnalaMaterialiConsumabiliBackBtn.setOpaque(true);
 		segnalaMaterialiConsumabiliBackBtn.setBorderPainted(true);
 		segnalaMaterialiConsumabiliBackBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -334,5 +280,68 @@ public class MainGUI extends JFrame {
 		});
 		segnalaMaterialiConsumabiliBackBtn.setBounds(25, 11, 89, 23);
 		segnalaMaterialiConsumabiliPanel.add(segnalaMaterialiConsumabiliBackBtn);
+		
+		profiloPersonaleBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.switchPage(profilePanel, homepagePanel);
+			}
+		});
+		
+		prenotazioneBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.switchPage(bookingPanel, homepagePanel);
+			}
+		});
+		
+		riepilogoStrumentiBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.switchPage(riepilogoStrumentiPanel, homepagePanel);
+			}
+		});
+		
+		riepilogoDotazioniBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.switchPage(riepilogoDotazioniPanel, homepagePanel);
+			}
+		});
+		
+		segnalaMConsumabiliBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.switchPage(segnalaMaterialiConsumabiliPanel, homepagePanel);
+			}
+		});
+		
+		bookingBackBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.switchPage(homepagePanel, bookingPanel);
+			}
+		});
+		
+		profileBackBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.switchPage(homepagePanel, profilePanel);
+			}
+		});
+		
+		riepilogoStrumentiBackBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.switchPage(homepagePanel, riepilogoStrumentiPanel);
+			}
+		});
+		
+		segnalaMaterialiConsumabiliBackBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.switchPage(homepagePanel, segnalaMaterialiConsumabiliPanel);
+			}
+		});
 	}
 }

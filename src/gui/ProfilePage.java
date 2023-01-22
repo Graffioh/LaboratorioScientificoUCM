@@ -28,9 +28,12 @@ import javax.swing.border.Border;
 
 public class ProfilePage extends JPanel {
 
-	private JLabel nomeEcognomeLabel, laboratorioLabel, ruoloLabel, numeroTelefonoLabel, emailLabel, recapitoAziendaleLabel, dataNascitaLabel, residenzaLabel, picLabel;
+	private JLabel nomeEcognomeLabel, laboratorioLabel, ruoloLabel, numeroTelefonoLabel, emailLabel, 
+		recapitoAziendaleLabel, dataNascitaLabel, residenzaLabel, picLabel, descrizioneLaboratorioLabel;
 	private JPanel textPanelHeader, textPanelNormal, profilePicPanel;
+	private JScrollPane descrizioneLaboratorioTextScroll;
 	private LayoutManager layout1, layout2;
+	private Border border;
 	
 	private ArrayList<Personale> personaleArray;
 
@@ -59,11 +62,6 @@ public class ProfilePage extends JPanel {
 		
 		controller = new Controller();
 		filteredPersonale = controller.filterPersonaleBasedOnMatricolaCodice(personaleArray, LoginPage.getMatricolaTextField(), LoginPage.getCodiceTextField());
-
-		System.out.println(filteredPersonale.getSediDoveLavora().toString());
-		
-		System.out.println("Personale filtrato:");
-		System.out.println(filteredPersonale.toString());
 		
 		textPanelHeader = new JPanel();
 		textPanelHeader.setBounds(0,86,1020,139);
@@ -141,16 +139,16 @@ public class ProfilePage extends JPanel {
 		descrizioneFieldLaboratorio.setEditable(false);
 		add(descrizioneFieldLaboratorio);
 		
-		Border border = BorderFactory.createLineBorder(Color.BLACK);
+		border = BorderFactory.createLineBorder(Color.BLACK);
 		descrizioneFieldLaboratorio.setBorder(BorderFactory.createCompoundBorder(border,
 	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		
-		JScrollPane descrizioneLaboratorioTextScroll = new JScrollPane (descrizioneFieldLaboratorio, 
+		descrizioneLaboratorioTextScroll = new JScrollPane (descrizioneFieldLaboratorio, 
 				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		descrizioneLaboratorioTextScroll.setBounds(255, 505, 529, 184);
 		add(descrizioneLaboratorioTextScroll);
 
-		JLabel descrizioneLaboratorioLabel = new JLabel("Descrizione Laboratorio");
+		descrizioneLaboratorioLabel = new JLabel("Descrizione Laboratorio");
 		descrizioneLaboratorioLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		descrizioneLaboratorioLabel.setBounds(415, 475, 193, 28);
 		add(descrizioneLaboratorioLabel);

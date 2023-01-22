@@ -95,4 +95,27 @@ public class DotazioneAccessoriaImpl implements DotazioneAccessoriaDAO {
 
 		return materialiConsumabiliArray;
 	}
+	
+	public int getCodiceBasedOnNome(String nomeDotazione) {
+		int codice = 0;
+
+		try {
+
+			String query = "SELECT D.CodD FROM Dotazione_Accessoria as D WHERE D.nome LIKE ?";
+			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
+
+			prepStatementQuery.setString(1,nomeDotazione);
+
+			ResultSet rs = prepStatementQuery.executeQuery();
+
+			if(rs.next()) {    
+				codice = rs.getInt("codD");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return codice;
+	}
 }

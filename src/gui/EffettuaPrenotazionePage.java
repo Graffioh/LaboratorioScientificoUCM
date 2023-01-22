@@ -310,38 +310,26 @@ public class EffettuaPrenotazionePage extends JPanel {
 		selectStrumentoBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
-				selezionaStrumentoLabel.setVisible(true);
-				strumentiComboBox.setVisible(true);
-				selezionaDotazioneLabel.setVisible(false);
-				dotazioniComboBox.setVisible(false);
-				
 				isStrumento = true;
 				
-				descrizioneTextStrumentoDotazione = "";
-				
-				if(!strumentoArray.isEmpty())
-					descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(strumentoArray, strumentiComboBox.getSelectedItem().toString());
-				
-				descrizioneFieldStrumentoDotazione.setText(descrizioneTextStrumentoDotazione);
+				controller.switchComboBoxBasedOnButton(selezionaStrumentoLabel, selezionaDotazioneLabel, strumentiComboBox, dotazioniComboBox);
+				controller.switchDescrizioneBasedOnArrayList(strumentoArray, descrizioneFieldStrumentoDotazione, strumentiComboBox);
+			
+				if(jDateChooserStrumentoDotazione.getDate() != null)
+					controller.changeAOraAndDaOraAfterPrenotazione(isStrumento, jDateChooserStrumentoDotazione.getDate(), strumentiComboBox, cbDaOra, cbAOra);
 			}
 		});
 
 		selectDotazioneBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
-				selezionaStrumentoLabel.setVisible(false);
-				strumentiComboBox.setVisible(false);
-				selezionaDotazioneLabel.setVisible(true);
-				dotazioniComboBox.setVisible(true);
-				
 				isStrumento = false;
 				
-				descrizioneTextStrumentoDotazione = "";
-				
-				if(!dotazioneArray.isEmpty())
-					descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
-				
-				descrizioneFieldStrumentoDotazione.setText(descrizioneTextStrumentoDotazione);
+				controller.switchComboBoxBasedOnButton(selezionaDotazioneLabel, selezionaStrumentoLabel, dotazioniComboBox, strumentiComboBox);
+				controller.switchDescrizioneBasedOnArrayList(dotazioneArray, descrizioneFieldStrumentoDotazione, dotazioniComboBox);
+			
+				if(jDateChooserStrumentoDotazione.getDate() != null)
+					controller.changeAOraAndDaOraAfterPrenotazione(isStrumento, jDateChooserStrumentoDotazione.getDate(), dotazioniComboBox, cbDaOra, cbAOra);
 			}
 		});
 		
@@ -352,31 +340,12 @@ public class EffettuaPrenotazionePage extends JPanel {
 				strumentoArray = strumentoDAO.getStrumentiBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());
 				dotazioneArray = dotazioneDAO.getDotazioniBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());
 				
+				controller.changeComboBoxItemsBasedOnSede(strumentoArray, dotazioneArray, strumentiComboBox, dotazioniComboBox);
+				controller.switchDescrizioneBasedOnSede(isStrumento, strumentoArray, dotazioneArray, 
+						strumentiComboBox, dotazioniComboBox, descrizioneFieldStrumentoDotazione);
 				
-				if(!strumentoArray.isEmpty()) {
-					strumentiStringArray = controller.fromArrayListToStringArray(strumentoArray);
-					strumentiComboBox.setModel(new DefaultComboBoxModel<String>(strumentiStringArray));
-				} else {
-					strumentiComboBox.setModel(new DefaultComboBoxModel<String>());
-				}
-				 
-				if(!dotazioneArray.isEmpty()) {
-					dotazioniStringArray = controller.fromArrayListToStringArray(dotazioneArray);
-					dotazioniComboBox.setModel(new DefaultComboBoxModel<String>(dotazioniStringArray));
-				} else {
-					dotazioniComboBox.setModel(new DefaultComboBoxModel<String>());
-				}
-				
-				descrizioneTextStrumentoDotazione = "";
-				
-				// Descrizione
-				if(isStrumento && !strumentoArray.isEmpty()) {
-					descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(strumentoArray, strumentiComboBox.getSelectedItem().toString());
-				} else if (!isStrumento && !dotazioneArray.isEmpty()) {
-					descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
-				}
-				
-				descrizioneFieldStrumentoDotazione.setText(descrizioneTextStrumentoDotazione);
+				if(jDateChooserStrumentoDotazione.getDate() != null)
+					controller.changeAOraAndDaOraAfterPrenotazione(isStrumento, jDateChooserStrumentoDotazione.getDate(), strumentiComboBox, cbDaOra, cbAOra);
 			}
 		});
 
@@ -387,9 +356,11 @@ public class EffettuaPrenotazionePage extends JPanel {
 		strumentiComboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
-				descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(strumentoArray, strumentiComboBox.getSelectedItem().toString());
-			
+				descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(strumentoArray, strumentiComboBox.getSelectedItem().toString());	
 				descrizioneFieldStrumentoDotazione.setText(descrizioneTextStrumentoDotazione);
+				
+				if(jDateChooserStrumentoDotazione.getDate() != null)
+					controller.changeAOraAndDaOraAfterPrenotazione(isStrumento, jDateChooserStrumentoDotazione.getDate(), strumentiComboBox, cbDaOra, cbAOra);
 			}
 		});
 		
@@ -397,8 +368,10 @@ public class EffettuaPrenotazionePage extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e){
 				descrizioneTextStrumentoDotazione = controller.getDescrizioneFromNome(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
-				
 				descrizioneFieldStrumentoDotazione.setText(descrizioneTextStrumentoDotazione);
+				
+				if(jDateChooserStrumentoDotazione.getDate() != null)
+					controller.changeAOraAndDaOraAfterPrenotazione(isStrumento, jDateChooserStrumentoDotazione.getDate(), dotazioniComboBox, cbDaOra, cbAOra);
 			}
 		});
 		
@@ -406,11 +379,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		cbDaOra.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
-				String[] aOraArray;
-				
-				aOraArray = controller.getAOraBasedOnDaOra(Integer.parseInt(cbDaOra.getSelectedItem().toString()));
-				
-				cbAOra.setModel(new DefaultComboBoxModel<String>(aOraArray));
+				controller.changeAOraBasedOnDaOra(cbDaOra, cbAOra);
 			}
 		});
 		
@@ -418,60 +387,38 @@ public class EffettuaPrenotazionePage extends JPanel {
 		confermaBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
-				String[] aOraArray, daOraArray;
-				
 				strumentoArray = strumentoDAO.getStrumentiBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());
 				dotazioneArray = dotazioneDAO.getDotazioniBasedOnSede(filteredPersonale.getCodice(), sediComboBoxEffettua.getSelectedItem().toString());
-			
+				
+				//controller.setCodStrAndCodDBasedOnSelectedItem(codStr, codD, strumentoArray, dotazioneArray, strumentiComboBox, dotazioniComboBox); NOT WORKING
 				codStr = controller.getCodiceFromNome(strumentoArray, strumentiComboBox.getSelectedItem().toString());
 				if(dotazioniComboBox.getSelectedItem() != null)
 					codD = controller.getCodiceFromNome(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
 				else
 					codD = 0;
 				
-				controller.effettuaPrenotazione(jDateChooserStrumentoDotazione.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), LocalTime.now(), Integer.parseInt(cbAOra.getSelectedItem().toString()) - Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbAOra.getSelectedItem().toString()), codP, codStr, codD, filteredPersonale.getCodice(), isStrumento);							
-			
-				int codStrSelezionato = strumentoDAO.getCodiceBasedOnNome(strumentiComboBox.getSelectedItem().toString());
-						
-				LocalDate localDate = jDateChooserStrumentoDotazione.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+				controller.effettuaPrenotazione(jDateChooserStrumentoDotazione.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), LocalTime.now(), 
+						Integer.parseInt(cbAOra.getSelectedItem().toString()) - Integer.parseInt(cbDaOra.getSelectedItem().toString()), 
+						Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbAOra.getSelectedItem().toString()), 
+						codP, codStr, codD, filteredPersonale.getCodice(), isStrumento);							
 				
-				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnStrumentoAndDate(codStrSelezionato, localDate);
-
-				daOraArray = controller.getDaOraBasedOnStrumentoPrenotato(prenotazioneArray);	
-						
-				aOraArray = controller.getAOraBasedOnDaOra(Integer.parseInt(daOraArray[0].toString()));
-				
-				cbDaOra.setModel(new DefaultComboBoxModel<String>(daOraArray));
-				cbAOra.setModel(new DefaultComboBoxModel<String>(aOraArray));
+				if(isStrumento)
+					controller.changeAOraAndDaOraAfterPrenotazione(isStrumento, jDateChooserStrumentoDotazione.getDate(), strumentiComboBox, cbDaOra, cbAOra);
+				else
+					controller.changeAOraAndDaOraAfterPrenotazione(isStrumento, jDateChooserStrumentoDotazione.getDate(), dotazioniComboBox, cbDaOra, cbAOra);
 			}
 		});
 		
 		// Change daOra based on already booked "time-zone"
-		jDateChooserStrumentoDotazione.getDateEditor().addPropertyChangeListener(		
+		jDateChooserStrumentoDotazione.getDateEditor().addPropertyChangeListener(
 			new PropertyChangeListener() {
 		        @Override
 		        public void propertyChange(PropertyChangeEvent e) {
-		        	if ("date".equals(e.getPropertyName())) {
-		        		
-		        		String[] aOraArray, daOraArray;
-
-						int codStrSelezionato = strumentoDAO.getCodiceBasedOnNome(strumentiComboBox.getSelectedItem().toString());
-						
-						LocalDate localDate = ((Date)e.getNewValue()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-						
-						prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnStrumentoAndDate(codStrSelezionato, localDate);
-						
-						daOraArray = controller.getDaOraBasedOnStrumentoPrenotato(prenotazioneArray);	
-						
-						aOraArray = controller.getAOraBasedOnDaOra(Integer.parseInt(daOraArray[0].toString()));
-						
-						cbDaOra.setModel(new DefaultComboBoxModel<String>(daOraArray));
-						cbAOra.setModel(new DefaultComboBoxModel<String>(aOraArray));
-						
+		        	if ("date".equals(e.getPropertyName())) {		
+		        		controller.changeAOraAndDaOraAfterPrenotazione(isStrumento, (Date)e.getNewValue(), strumentiComboBox, cbDaOra, cbAOra);
 		        	}
 		        }
 			});
-		
 	}
 
 }

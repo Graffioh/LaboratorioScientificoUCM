@@ -45,6 +45,9 @@ public class RiepilogoStrumentiPage extends JPanel {
 	
 	private JButton riepilogoAnnualeBtn, riepilogoMensileBtn, riepilogoUtenteAnnualeBtn, riepilogoUtenteMensileBtn;
 	
+	private JList<String> rowHeader, rowHeader2, rowHeader3, rowHeader4;
+	private ListModel lm, lm2, lm3, lm4;
+	
 	private ArrayList<Strumento> strumentoArray;
 	private StrumentoImpl strumentoDAO;
 	private PrenotazioneImpl prenotazioneDAO;
@@ -78,11 +81,6 @@ public class RiepilogoStrumentiPage extends JPanel {
 		riepilogoMensileBtn.setBounds(154, 94, 125, 63);
 		riepilogoMensileBtn.setBorderPainted(true);
 		riepilogoMensileBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
-		riepilogoMensileBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		add(riepilogoMensileBtn);
 		
 		riepilogoAnnualeBtn = new JButton("<html><center>RIEPILOGO <br/> ANNUALE <br/> USO</center></html>");
@@ -102,11 +100,6 @@ public class RiepilogoStrumentiPage extends JPanel {
 		riepilogoAnnualeBtn.setOpaque(true);
 		riepilogoAnnualeBtn.setBorderPainted(true);
 		riepilogoAnnualeBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
-		riepilogoAnnualeBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		add(riepilogoAnnualeBtn);
 		
 		riepilogoUtenteMensileBtn = new JButton("<html><center>RIEPILOGO <br/> MENSILE <br/> UTENTE</center></html>");
@@ -126,11 +119,6 @@ public class RiepilogoStrumentiPage extends JPanel {
 		riepilogoUtenteMensileBtn.setBounds(520, 94, 125, 63);
 		riepilogoUtenteMensileBtn.setBorderPainted(true);
 		riepilogoUtenteMensileBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
-		riepilogoUtenteMensileBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		add(riepilogoUtenteMensileBtn);
 		
 		riepilogoUtenteAnnualeBtn = new JButton("<html><center>RIEPILOGO <br/> ANNUALE <br/> UTENTE</center></html>");
@@ -150,11 +138,6 @@ public class RiepilogoStrumentiPage extends JPanel {
 		riepilogoUtenteAnnualeBtn.setOpaque(true);
 		riepilogoUtenteAnnualeBtn.setBorderPainted(true);
 		riepilogoUtenteAnnualeBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
-		riepilogoUtenteAnnualeBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		add(riepilogoUtenteAnnualeBtn);
 		
 		riepilogoStrumentiMensileTable = new JTable();
@@ -167,16 +150,16 @@ public class RiepilogoStrumentiPage extends JPanel {
 		riepilogoStrumentiMensileTable.setFocusable(false);
 		
 		controller = new Controller();
-		strumentoDAO = new StrumentoImpl();
 		
 		strumentoArray = new ArrayList<Strumento>();
 		
-		strumentoArray = strumentoDAO.populate();
-		
+		strumentoDAO = new StrumentoImpl();
 		prenotazioneDAO = new PrenotazioneImpl();
 		
+		strumentoArray = strumentoDAO.populate();
+		
 		// RIEPILOGO MENSILE
-		ListModel lm = new AbstractListModel() {
+		lm = new AbstractListModel() {
 		      String[] headers = controller.fromArrayListToStringArray(strumentoArray);
 		      
 		      public int getSize() {
@@ -188,7 +171,7 @@ public class RiepilogoStrumentiPage extends JPanel {
 		        }
 		};
 		
-		JList rowHeader = new JList(lm);
+		rowHeader = new JList<String>(lm);
 	    rowHeader.setFixedCellWidth(150);
 
 	    rowHeader.setFixedCellHeight(riepilogoStrumentiMensileTable.getRowHeight()
@@ -203,7 +186,6 @@ public class RiepilogoStrumentiPage extends JPanel {
 		add(riepilogoStrumentiMensileScrollPane);
 
 		// RIEPILOGO ANNUALE
-		
 		riepilogoStrumentiAnnualeTable = new JTable();
 		riepilogoStrumentiAnnualeTable.setBackground(new Color(213, 223, 255));
 		riepilogoStrumentiAnnualeTable.setBounds(50, 168, 895, 500);
@@ -213,7 +195,7 @@ public class RiepilogoStrumentiPage extends JPanel {
 		riepilogoStrumentiAnnualeTable.setRowSelectionAllowed(false);
 		riepilogoStrumentiAnnualeTable.setFocusable(false);
 		
-		ListModel lm2 = new AbstractListModel() {
+		lm2 = new AbstractListModel() {
 		      String[] headers = controller.fromArrayListToStringArray(strumentoArray);
 		      
 		      public int getSize() {
@@ -225,7 +207,7 @@ public class RiepilogoStrumentiPage extends JPanel {
 		        }
 		};
 		
-		JList rowHeader2 = new JList(lm2);
+		rowHeader2 = new JList<String>(lm2);
 	    rowHeader2.setFixedCellWidth(150);
 
 	    rowHeader2.setFixedCellHeight(riepilogoStrumentiAnnualeTable.getRowHeight()
@@ -249,7 +231,7 @@ public class RiepilogoStrumentiPage extends JPanel {
 		riepilogoUtenteMensileTable.setRowSelectionAllowed(false);
 		riepilogoUtenteMensileTable.setFocusable(false);
 		
-		ListModel lm3 = new AbstractListModel() {
+		lm3 = new AbstractListModel() {
 		      String[] headers = controller.fromArrayListToStringArray(strumentoArray);
 		      
 		      public int getSize() {
@@ -261,7 +243,7 @@ public class RiepilogoStrumentiPage extends JPanel {
 		        }
 		};
 		
-		JList rowHeader3 = new JList(lm3);
+		rowHeader3 = new JList<String>(lm3);
 	    rowHeader3.setFixedCellWidth(150);
 
 	    rowHeader3.setFixedCellHeight(riepilogoUtenteMensileTable.getRowHeight()
@@ -274,32 +256,9 @@ public class RiepilogoStrumentiPage extends JPanel {
 		riepilogoUtenteMensileScrollPane.getViewport().setBackground(new Color(213, 223, 255));
 		riepilogoUtenteMensileScrollPane.setRowHeaderView(rowHeader3);
 		add(riepilogoUtenteMensileScrollPane);
-
-		DefaultTableModel tableModel3 = new DefaultTableModel();
-
-		tableModel3.addColumn("Gen");
-		tableModel3.addColumn("Feb");
-		tableModel3.addColumn("Mar");
-		tableModel3.addColumn("Apr");
-		tableModel3.addColumn("Mag");
-		tableModel3.addColumn("Giu");
-		tableModel3.addColumn("Lug");
-		tableModel3.addColumn("Ago");
-		tableModel3.addColumn("Sett");
-		tableModel3.addColumn("Ott");
-		tableModel3.addColumn("Nov");
-		tableModel3.addColumn("Dic");
-
-		for(int i = 0; i < strumentoArray.size(); i++) {
-			String[] row1 = prenotazioneDAO.getRiepilogoUtenteBasedOnMonth(i + 1);
 		
-			tableModel3.addRow(row1);
-		}
-			
-		riepilogoUtenteMensileTable.setModel(tableModel3);
 		
 		// RIEPILOGO ANNUALE UTENTE
-		
 		riepilogoUtenteAnnualeTable = new JTable();
 		riepilogoUtenteAnnualeTable.setBackground(new Color(213, 223, 255));
 		riepilogoUtenteAnnualeTable.setBounds(50, 168, 895, 500);
@@ -309,7 +268,7 @@ public class RiepilogoStrumentiPage extends JPanel {
 		riepilogoUtenteAnnualeTable.setRowSelectionAllowed(false);
 		riepilogoUtenteAnnualeTable.setFocusable(false);
 		
-		ListModel lm4 = new AbstractListModel() {
+		lm4 = new AbstractListModel() {
 		      String[] headers = controller.fromArrayListToStringArray(strumentoArray);
 		      
 		      public int getSize() {
@@ -321,7 +280,7 @@ public class RiepilogoStrumentiPage extends JPanel {
 		        }
 		};
 		
-		JList rowHeader4 = new JList(lm4);
+		rowHeader4 = new JList<String>(lm4);
 	    rowHeader4.setFixedCellWidth(150);
 
 	    rowHeader4.setFixedCellHeight(riepilogoUtenteAnnualeTable.getRowHeight()
@@ -334,25 +293,6 @@ public class RiepilogoStrumentiPage extends JPanel {
 		riepilogoUtenteAnnualeScrollPane.getViewport().setBackground(new Color(213, 223, 255));
 		riepilogoUtenteAnnualeScrollPane.setRowHeaderView(rowHeader4);
 		add(riepilogoUtenteAnnualeScrollPane);
-
-		DefaultTableModel tableModel4 = new DefaultTableModel();
-
-		tableModel4.addColumn("2023");
-		tableModel4.addColumn("2024");
-		tableModel4.addColumn("2025");
-		tableModel4.addColumn("2026");
-		tableModel4.addColumn("2027");
-		tableModel4.addColumn("2028");
-		tableModel4.addColumn("2029");
-		tableModel4.addColumn("2030");
-
-		for(int i = 0; i < strumentoArray.size(); i++) {
-			String[] row1 = prenotazioneDAO.getRiepilogoUtenteBasedOnYear(i + 1);
-		
-			tableModel4.addRow(row1);
-		}
-			
-		riepilogoUtenteAnnualeTable.setModel(tableModel4);
 		
 		riepilogoStrumentiMensileTable.setVisible(false);
 		riepilogoStrumentiMensileScrollPane.setVisible(false);
@@ -363,13 +303,14 @@ public class RiepilogoStrumentiPage extends JPanel {
 		riepilogoUtenteAnnualeTable.setVisible(false);
 		riepilogoUtenteAnnualeScrollPane.setVisible(false);
 		
-		addComponentListener(new ComponentAdapter () {
+		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentShown ( ComponentEvent e ) {
 				controller.populateRiepilogoMensileStrumentiTable(strumentoArray, prenotazioneDAO, riepilogoStrumentiMensileTable);
 				controller.populateRiepilogoAnnualeStrumentiTable(strumentoArray, prenotazioneDAO, riepilogoStrumentiAnnualeTable);
 				
-				// DA METTERE UTENTE TABLES
+				controller.populateRiepilogoMensileUtenteTable(strumentoArray, prenotazioneDAO, riepilogoUtenteMensileTable);
+				controller.populateRiepilogoAnnualeUtenteTable(strumentoArray, prenotazioneDAO, riepilogoUtenteAnnualeTable);
 			}
 		});
 		
@@ -377,56 +318,32 @@ public class RiepilogoStrumentiPage extends JPanel {
 		riepilogoMensileBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
-				riepilogoStrumentiMensileTable.setVisible(true);
-				riepilogoStrumentiMensileScrollPane.setVisible(true);
-				riepilogoStrumentiAnnualeTable.setVisible(false);
-				riepilogoStrumentiAnnualeScrollPane.setVisible(false);
-				riepilogoUtenteMensileTable.setVisible(false);
-				riepilogoUtenteMensileScrollPane.setVisible(false);
-				riepilogoUtenteAnnualeTable.setVisible(false);
-				riepilogoUtenteAnnualeScrollPane.setVisible(false);
+				controller.switchRiepilogoTable(riepilogoStrumentiMensileTable, riepilogoStrumentiAnnualeTable, riepilogoUtenteMensileTable, riepilogoUtenteAnnualeTable,
+						riepilogoStrumentiMensileScrollPane, riepilogoStrumentiAnnualeScrollPane, riepilogoUtenteMensileScrollPane, riepilogoUtenteAnnualeScrollPane);
 			}
 		});
 		
 		riepilogoAnnualeBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
-				riepilogoStrumentiMensileTable.setVisible(false);
-				riepilogoStrumentiMensileScrollPane.setVisible(false);
-				riepilogoStrumentiAnnualeTable.setVisible(true);
-				riepilogoStrumentiAnnualeScrollPane.setVisible(true);
-				riepilogoUtenteMensileTable.setVisible(false);
-				riepilogoUtenteMensileScrollPane.setVisible(false);
-				riepilogoUtenteAnnualeTable.setVisible(false);
-				riepilogoUtenteAnnualeScrollPane.setVisible(false);
+				controller.switchRiepilogoTable(riepilogoStrumentiAnnualeTable, riepilogoStrumentiMensileTable, riepilogoUtenteMensileTable, riepilogoUtenteAnnualeTable,
+						riepilogoStrumentiAnnualeScrollPane, riepilogoStrumentiMensileScrollPane, riepilogoUtenteMensileScrollPane, riepilogoUtenteAnnualeScrollPane);
 			}
 		});
 		
 		riepilogoUtenteMensileBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
-				riepilogoStrumentiMensileTable.setVisible(false);
-				riepilogoStrumentiMensileScrollPane.setVisible(false);
-				riepilogoStrumentiAnnualeTable.setVisible(false);
-				riepilogoStrumentiAnnualeScrollPane.setVisible(false);
-				riepilogoUtenteMensileTable.setVisible(true);
-				riepilogoUtenteMensileScrollPane.setVisible(true);
-				riepilogoUtenteAnnualeTable.setVisible(false);
-				riepilogoUtenteAnnualeScrollPane.setVisible(false);
+				controller.switchRiepilogoTable(riepilogoUtenteMensileTable, riepilogoStrumentiMensileTable, riepilogoStrumentiAnnualeTable, riepilogoUtenteAnnualeTable,
+						riepilogoUtenteMensileScrollPane, riepilogoStrumentiMensileScrollPane, riepilogoStrumentiAnnualeScrollPane, riepilogoUtenteAnnualeScrollPane);
 			}
 		});
 		
 		riepilogoUtenteAnnualeBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
-				riepilogoStrumentiMensileTable.setVisible(false);
-				riepilogoStrumentiMensileScrollPane.setVisible(false);
-				riepilogoStrumentiAnnualeTable.setVisible(false);
-				riepilogoStrumentiAnnualeScrollPane.setVisible(false);
-				riepilogoUtenteMensileTable.setVisible(false);
-				riepilogoUtenteMensileScrollPane.setVisible(false);
-				riepilogoUtenteAnnualeTable.setVisible(true);
-				riepilogoUtenteAnnualeScrollPane.setVisible(true);
+				controller.switchRiepilogoTable(riepilogoUtenteAnnualeTable, riepilogoStrumentiMensileTable, riepilogoStrumentiAnnualeTable, riepilogoUtenteMensileTable,
+						riepilogoUtenteAnnualeScrollPane, riepilogoStrumentiMensileScrollPane, riepilogoStrumentiAnnualeScrollPane, riepilogoUtenteMensileScrollPane);
 			}
 		});
 	}

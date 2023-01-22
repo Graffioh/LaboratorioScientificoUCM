@@ -34,7 +34,7 @@ import model.Prenotazione;
 
 public class ModificaPrenotazionePage extends JPanel {
 
-	private JLabel selezionaPrenotazioneLabel, selezionaSedeLabel, calendarioLabel, daOraLabel, aOraLabel;
+	private JLabel selezionaPrenotazioneLabel, selezionaSedeLabel, calendarioLabel, daOraLabel, aOraLabel, infoPrenotazioneLabel;
 	private JButton eliminaBtn, modificaBtn;
 	private JTextArea descrizioneFieldPrenotazione;
 	
@@ -233,10 +233,10 @@ public class ModificaPrenotazionePage extends JPanel {
 		});
 		add(eliminaBtn);
 		
-		JLabel lblNewLabel = new JLabel("Informazioni Prenotazione");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel.setBounds(696, 200, 194, 50);
-		add(lblNewLabel);
+		infoPrenotazioneLabel = new JLabel("Informazioni Prenotazione");
+		infoPrenotazioneLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		infoPrenotazioneLabel.setBounds(696, 200, 194, 50);
+		add(infoPrenotazioneLabel);
 		
 		// DYNAMIC 
 		
@@ -245,20 +245,17 @@ public class ModificaPrenotazionePage extends JPanel {
 			@Override
 			public void componentShown ( ComponentEvent e ) {
 				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
-				descrizioneTextPrenotazione = "";
 				
 				if(!prenotazioneArray.isEmpty()) {
 					prenotazioniStringArray = controller.fromArrayListToStringArray(prenotazioneArray);
 					
 					prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioniStringArray));
 					
-					descrizioneTextPrenotazione = controller.getInformazioniFromPrenotazione(prenotazioneArray, Integer.parseInt(prenotazioniComboBox.getSelectedItem().toString()));
-					
-					descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
+					controller.switchDescrizioneBasedOnArrayList(prenotazioneArray, descrizioneFieldPrenotazione, prenotazioniComboBox);
 				} else {
 					prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>());
 					
-					descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
+					descrizioneFieldPrenotazione.setText("");
 				}
 				
 			}
@@ -269,20 +266,17 @@ public class ModificaPrenotazionePage extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e){
 				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
-				descrizioneTextPrenotazione = "";
 
 				if(!prenotazioneArray.isEmpty()) {
 					prenotazioniStringArray = controller.fromArrayListToStringArray(prenotazioneArray);
 					
 					prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioniStringArray));
 					
-					descrizioneTextPrenotazione = controller.getInformazioniFromPrenotazione(prenotazioneArray, Integer.parseInt(prenotazioniComboBox.getSelectedItem().toString()));
-					
-					descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
+					controller.changeInformazioniPrenotazioneBasedOnPrenotazione(prenotazioneArray, prenotazioniComboBox, descrizioneFieldPrenotazione);
 				} else {
 					prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>());
 					
-					descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
+					descrizioneFieldPrenotazione.setText("");
 				}
 			}
 		});
@@ -292,20 +286,15 @@ public class ModificaPrenotazionePage extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e){				
 				if(!prenotazioneArray.isEmpty()) {
-					
-					descrizioneTextPrenotazione = controller.getInformazioniFromPrenotazione(prenotazioneArray, Integer.parseInt(prenotazioniComboBox.getSelectedItem().toString()));
-					
-					descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
+					controller.changeInformazioniPrenotazioneBasedOnPrenotazione(prenotazioneArray, prenotazioniComboBox, descrizioneFieldPrenotazione);
 				}
 			}
 		});
 		
-		// C
 		modificaBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
 				try {
-					// Modifica prenotazione
 					prenotazioneDAO.modificaPrenotazione(Integer.parseInt(prenotazioniComboBox.getSelectedItem().toString()), jDateChooserPrenotazione.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), jDateChooserPrenotazione.getDate().getTime(), Integer.parseInt(cbAOra.getSelectedItem().toString()) - Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbAOra.getSelectedItem().toString()));
 				} catch (Exception ee) {
 					ee.printStackTrace();
@@ -332,9 +321,7 @@ public class ModificaPrenotazionePage extends JPanel {
 						prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioniStringArray));
 					}
 					
-					descrizioneTextPrenotazione = controller.getInformazioniFromPrenotazione(prenotazioneArray, Integer.parseInt(prenotazioniComboBox.getSelectedItem().toString()));
-					
-					descrizioneFieldPrenotazione.setText(descrizioneTextPrenotazione);
+					controller.switchDescrizioneBasedOnArrayList(prenotazioneArray, descrizioneFieldPrenotazione, prenotazioniComboBox);
 				}
 			}
 		});

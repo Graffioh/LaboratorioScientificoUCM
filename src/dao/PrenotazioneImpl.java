@@ -137,6 +137,40 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
 			ResultSet rs = prepStatementQuery.executeQuery();
 
 			while(rs.next()) {
+				prenotazioneArray.add(new Prenotazione(rs.getDate("datap").toLocalDate(), rs.getTime("ora").toLocalTime(), rs.getInt("tempo_prenotazione"), rs.getInt("daora"), rs.getInt("aora"), rs.getInt("codp"), rs.getInt("codstr"), rs.getInt("codd"), rs.getInt("codpers"))); // rs.getInt("codd")
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return prenotazioneArray;
+	}
+	
+	public ArrayList<Prenotazione> getPrenotazioneBasedOnDotazioneAndDate(int codD, LocalDate localDate) {
+		ArrayList<Prenotazione> prenotazioneArray = new ArrayList<Prenotazione>();
+		
+		Date date = Date.valueOf(localDate);
+
+		try {
+
+			String query = "SELECT DISTINCT PR.datap, PR.ora, PR.tempo_prenotazione, PR.codP, PR.codPers, PR.codStr, PR.codD, PR.DaOra, PR.AOra"
+				+ " FROM PersonaleSede AS P JOIN Sede AS S ON P.CodS = S.CodS"
+                + " JOIN Postazione AS PO ON PO.CodS = S.CodS"
+                + " JOIN StrumentoPostazione AS SP ON PO.CodPos = SP.CodPos"
+                + " JOIN Strumento AS STR ON SP.CodStr = STR.CodStr"
+                + " JOIN Prenotazione AS PR ON STR.CodStr = PR.CodStr"
+                + " WHERE PR.CodD = ? AND PR.datap = ?"
+				+ " ORDER BY(PR.codP)";
+    
+			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
+
+			prepStatementQuery.setInt(1, codD);
+			prepStatementQuery.setDate(2, date);
+
+			ResultSet rs = prepStatementQuery.executeQuery();
+
+			while(rs.next()) {
 				prenotazioneArray.add(new Prenotazione(rs.getDate("datap").toLocalDate(), rs.getTime("ora").toLocalTime(), rs.getInt("tempo_prenotazione"), rs.getInt("daora"), rs.getInt("aora"), rs.getInt("codp"), rs.getInt("codstr"), rs.getInt("codd"), rs.getInt("codpers")));
 			}
 

@@ -113,6 +113,28 @@ public class LoginPage extends JFrame {
 		loginBtn.setBorderPainted(true);
 		loginBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
 		loginBtn.setBounds(99, 189, 227, 43);
+		loginBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				loginBtn.setBackground(new Color(157,149,255));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				loginBtn.setBackground(new Color(171, 165, 255));
+			}
+		});
+		loginPagePanel.add(loginBtn);
+
+		matricolaLabel = new JLabel("MATRICOLA");
+		matricolaLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		matricolaLabel.setBounds(166, 11, 101, 14);
+		loginPagePanel.add(matricolaLabel);
+
+		codiceLabel = new JLabel("CODICE");
+		codiceLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		codiceLabel.setBounds(181, 96, 58, 14);
+		loginPagePanel.add(codiceLabel);
+		
 		loginBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -129,29 +151,7 @@ public class LoginPage extends JFrame {
 				}
 			}
 		});
-		loginPagePanel.add(loginBtn);
-
-		matricolaLabel = new JLabel("MATRICOLA");
-		matricolaLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		matricolaLabel.setBounds(166, 11, 101, 14);
-		loginPagePanel.add(matricolaLabel);
-
-		codiceLabel = new JLabel("CODICE");
-		codiceLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		codiceLabel.setBounds(181, 96, 58, 14);
-		loginPagePanel.add(codiceLabel);
 		
-		
-		loginBtn.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				loginBtn.setBackground(new Color(157,149,255));
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				loginBtn.setBackground(new Color(171, 165, 255));
-			}
-		});
 	}
 
 	// Static variables used to filter selected personale after the login

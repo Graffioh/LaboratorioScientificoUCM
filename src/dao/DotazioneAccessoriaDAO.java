@@ -11,4 +11,6 @@ public interface DotazioneAccessoriaDAO {
 	ArrayList<DotazioneAccessoria> getDotazioniBasedOnSede(int codPers, String nomeSede);
 
 	ArrayList<String> getMaterialiConsumabili();
+	
+	int getCodiceBasedOnNome(String nomeDotazione);
 }

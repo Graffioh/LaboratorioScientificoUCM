@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import controller.Controller;
+
 public class BookingPage extends JPanel {
 
 	private JButton prenotaBtn, 
@@ -20,6 +22,8 @@ public class BookingPage extends JPanel {
 	private EffettuaPrenotazionePage prenotaStrumentoPanel;
 	private ModificaPrenotazionePage modificaPrenotazionePanel;
 	private CalendarioPrenotazionePage calendarioPrenotazionePanel;
+	
+	private Controller controller;
 
 	public BookingPage() {
 		// GUI
@@ -63,15 +67,6 @@ public class BookingPage extends JPanel {
 		prenotaBtn.setOpaque(true);
 		prenotaBtn.setBorderPainted(true);
 		prenotaBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
-		prenotaBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				emptyPanel.setVisible(false);
-				prenotaStrumentoPanel.setVisible(true);
-				modificaPrenotazionePanel.setVisible(false);
-				calendarioPrenotazionePanel.setVisible(false);
-			}
-		});
 		prenotaBtn.setBounds(220, 59, 150, 30);
 		add(prenotaBtn);
 
@@ -91,15 +86,6 @@ public class BookingPage extends JPanel {
 		modificaPrenotazioneBtn.setOpaque(true);
 		modificaPrenotazioneBtn.setBorderPainted(true);
 		modificaPrenotazioneBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
-		modificaPrenotazioneBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				emptyPanel.setVisible(false);
-				prenotaStrumentoPanel.setVisible(false);
-				modificaPrenotazionePanel.setVisible(true);
-				calendarioPrenotazionePanel.setVisible(false);
-			}
-		});
 		modificaPrenotazioneBtn.setBounds(426, 59, 150, 30);
 		add(modificaPrenotazioneBtn);
 
@@ -119,17 +105,33 @@ public class BookingPage extends JPanel {
 				calendarioPrenotazioneBtn.setBackground(new Color(171, 165, 255));
 			}
 		});
+		calendarioPrenotazioneBtn.setBounds(630, 59, 150, 30);
+		add(calendarioPrenotazioneBtn);
+		
+		controller = new Controller();
+		
+		// DYNAMIC
+		
+		prenotaBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.switchBookingPage(prenotaStrumentoPanel, modificaPrenotazionePanel, emptyPanel, calendarioPrenotazionePanel);
+			}
+		});
+		
+		modificaPrenotazioneBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.switchBookingPage(modificaPrenotazionePanel, prenotaStrumentoPanel, emptyPanel, calendarioPrenotazionePanel);
+			}
+		});
+		
 		calendarioPrenotazioneBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				emptyPanel.setVisible(false);
-				prenotaStrumentoPanel.setVisible(false);
-				modificaPrenotazionePanel.setVisible(false);
-				calendarioPrenotazionePanel.setVisible(true);
+				controller.switchBookingPage(calendarioPrenotazionePanel, modificaPrenotazionePanel, emptyPanel, prenotaStrumentoPanel);
 			}
 		});
-		calendarioPrenotazioneBtn.setBounds(630, 59, 150, 30);
-		add(calendarioPrenotazioneBtn);
 	}
 
 }
