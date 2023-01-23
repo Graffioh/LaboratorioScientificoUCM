@@ -148,14 +148,12 @@ public class RiepilogoDotazioniPage extends JPanel {
 		addComponentListener(new ComponentAdapter () {
 			@Override
 			public void componentShown ( ComponentEvent e ) {
-				//DefaultPieDataset dataset1 = new DefaultPieDataset();
-				//DefaultPieDataset dataset2 = new DefaultPieDataset();
 
 				DefaultPieDataset dataset1 = controller.setDatasetMonth(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
 				DefaultPieDataset dataset2 = controller.setDatasetYear(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
-				//pcdMensile.setDataset(dataset1);	
-		
-				//pcdAnnuale.setDataset(dataset2);
+				
+				pcdMensile.updateChart(dataset1);
+				pcdAnnuale.updateChart(dataset2);
 				
 			}
 		});
@@ -163,15 +161,12 @@ public class RiepilogoDotazioniPage extends JPanel {
 		dotazioniComboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
-				//DefaultPieDataset dataset1 = new DefaultPieDataset();
-				//DefaultPieDataset dataset2 = new DefaultPieDataset();
 
 				DefaultPieDataset dataset1 = controller.setDatasetMonth(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
 				DefaultPieDataset dataset2 = controller.setDatasetYear(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
-
-				//pcdMensile.setDataset(dataset1);	
-		
-				//pcdAnnuale.setDataset(dataset2);
+				
+				pcdMensile.updateChart(dataset1);
+				pcdAnnuale.updateChart(dataset2);
 
 			}
 		});

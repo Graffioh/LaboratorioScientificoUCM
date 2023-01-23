@@ -41,8 +41,8 @@ public class DB {
 				
 				// Connecting to the database via database name, username, password
 				
-				conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/LaboratorioScientifico", "postgres", pwd);
-				//conn = DriverManager.getConnection("jdbc:postgresql://localhost:5433/LaboratorioScientificoUCM", "postgres", pwd);
+				//conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/LaboratorioScientifico", "postgres", pwd);
+				conn = DriverManager.getConnection("jdbc:postgresql://localhost:5433/LaboratorioScientificoUCM", "postgres", pwd);
 			}
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();

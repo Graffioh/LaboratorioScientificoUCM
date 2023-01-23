@@ -10,11 +10,9 @@ import org.jfree.chart.ChartPanel;
 
 public class PieChartDotazioni extends JPanel{
 	
-	private JLabel selezionaDotazioneLabel;
-	
 	private JFreeChart chart;
 	
-	private JPanel panel;
+	private ChartPanel cp;
 	
 	public PieChartDotazioni(DefaultPieDataset dataset) {
 		setLayout(null);
@@ -25,11 +23,20 @@ public class PieChartDotazioni extends JPanel{
 		chart.setBackgroundPaint(new Color(171, 165, 255));
 		chart.getLegend().setBackgroundPaint(new Color(171, 165, 255));
 		
-		panel = new ChartPanel(chart);
-		panel.setBounds(114,11,608,398);
-		panel.setVisible(true);
+		cp = new ChartPanel(chart);
+		cp.setBounds(114,11,608,398);
+		cp.setVisible(true);
 		
-		add(panel);
+		add(cp);
+	}
+	
+	public void updateChart(DefaultPieDataset dataset) {
+		chart = ChartFactory.createPieChart("CONSUMO DOTAZIONE", dataset, true, true , false);
+		chart.getPlot().setBackgroundPaint(new Color(171, 191, 244));
+		chart.setBackgroundPaint(new Color(171, 165, 255));
+		chart.getLegend().setBackgroundPaint(new Color(171, 165, 255));
+		
+		cp.setChart(chart);
 	}
 
 }
