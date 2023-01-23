@@ -26,6 +26,8 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 
+import org.jfree.data.general.DefaultPieDataset;
+
 import com.toedter.calendar.JDateChooser;
 
 import dao.DotazioneAccessoriaImpl;
@@ -584,5 +586,53 @@ public class Controller {
 		else
 			codD = 0;
 	}*/
+
+	public DefaultPieDataset setDatasetMonth(ArrayList<DotazioneAccessoria> alD, String nomeDotazione) {
+		Controller controller = new Controller();
+		
+		PrenotazioneImpl prenotazioneDAO = new PrenotazioneImpl();
+
+		int[] consumo = new int[13];
+
+		consumo = prenotazioneDAO.getConsumoDotazioneBasedOnMonth(alD, nomeDotazione);
+
+		DefaultPieDataset dataset = new DefaultPieDataset();
+		dataset.setValue( "Gennaio", consumo[0]);
+		dataset.setValue( "Febbraio", consumo[1]);
+		dataset.setValue( "Marzo", consumo[2]);
+		dataset.setValue( "Aprile", consumo[3]);
+		dataset.setValue( "Maggio", consumo[4]);
+		dataset.setValue( "Giugno", consumo[5]);
+		dataset.setValue( "Luglio", consumo[6]);
+		dataset.setValue( "Agosto", consumo[7]);
+		dataset.setValue( "Settembre", consumo[8]);
+		dataset.setValue( "Ottobre", consumo[9]);
+		dataset.setValue( "Novembre", consumo[10]);
+		dataset.setValue( "Dicembre", consumo[11]);
+
+		return dataset;
+	}
+
+	public DefaultPieDataset setDatasetYear(ArrayList<DotazioneAccessoria> alD, String nomeDotazione) {
+		Controller controller = new Controller();
+
+		PrenotazioneImpl prenotazioneDAO = new PrenotazioneImpl();
+
+		int[] consumo = new int[10];
+
+		consumo = prenotazioneDAO.getConsumoDotazioneBasedOnYear(alD, nomeDotazione);
+		
+		DefaultPieDataset dataset = new DefaultPieDataset();
+		dataset.setValue( "2023", consumo[0]);
+		dataset.setValue( "2024", consumo[1]);
+		dataset.setValue( "2025", consumo[2]);
+		dataset.setValue( "2026", consumo[3]);
+		dataset.setValue( "2027", consumo[4]);
+		dataset.setValue( "2028", consumo[5]);
+		dataset.setValue( "2029", consumo[6]);
+		dataset.setValue( "2030", consumo[7]);
+
+		return dataset;
+	}
 	
 }

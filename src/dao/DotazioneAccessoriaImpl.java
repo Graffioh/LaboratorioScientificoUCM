@@ -72,7 +72,7 @@ public class DotazioneAccessoriaImpl implements DotazioneAccessoriaDAO {
 	}
 
 	@Override
-	public ArrayList<String> getMaterialiConsumabili() {
+	public ArrayList<String> getNomiMaterialiConsumabili() {
 
 		ArrayList<String> materialiConsumabiliArray = new ArrayList<String>();
 
@@ -86,7 +86,6 @@ public class DotazioneAccessoriaImpl implements DotazioneAccessoriaDAO {
 
 			while(rs.next()) {       
 				materialiConsumabiliArray.add(rs.getString("nome"));
-				System.out.println(rs.getString("nome"));
 			}
 
 		} catch (SQLException e) {
@@ -94,6 +93,30 @@ public class DotazioneAccessoriaImpl implements DotazioneAccessoriaDAO {
 		}
 
 		return materialiConsumabiliArray;
+	}
+
+	@Override
+	public ArrayList<DotazioneAccessoria> getDotazioniAccessorie() {
+
+		ArrayList<DotazioneAccessoria> dotazioneArray = new ArrayList<DotazioneAccessoria>();
+
+		try {
+			String query = "SELECT *"
+							+ " FROM Dotazione_Accessoria as D"
+							+ " WHERE D.tipo = 'altro'";
+
+			Statement statementQuery = connection.createStatement();
+			ResultSet rs = statementQuery.executeQuery(query);
+
+			while(rs.next()) {       
+				dotazioneArray.add(new DotazioneAccessoria(rs.getString("nome"), rs.getString("descrizione"), rs.getInt("quantita"), rs.getString("tipo"), rs.getInt("codD"), rs.getInt("codStr")));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return dotazioneArray;
 	}
 	
 	public int getCodiceBasedOnNome(String nomeDotazione) {

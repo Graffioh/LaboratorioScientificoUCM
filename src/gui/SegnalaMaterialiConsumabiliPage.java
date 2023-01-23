@@ -6,14 +6,6 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -25,12 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JList;
 import javax.swing.border.LineBorder;
 
-import model.DotazioneAccessoria;
 import dao.DotazioneAccessoriaImpl;
 
-import javax.swing.JOptionPane;
-
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 
 import controller.Controller;
@@ -67,7 +55,7 @@ public class SegnalaMaterialiConsumabiliPage extends JPanel {
 		materialeConsumabileArray = new ArrayList<String>();
 
 		dotazioneDAO = new DotazioneAccessoriaImpl();
-		materialeConsumabileArray = dotazioneDAO.getMaterialiConsumabili();
+		materialeConsumabileArray = dotazioneDAO.getNomiMaterialiConsumabili();
 
 		materialiConsumabiliStrArray = controller.fromArrayListToStringArray(materialeConsumabileArray);
 		
@@ -109,6 +97,7 @@ public class SegnalaMaterialiConsumabiliPage extends JPanel {
 		listMaterialiConsumabiliAggiunti = new JList<String>();
 		listMaterialiConsumabiliAggiunti.setBounds(200, 250, 600, 300);
 		listMaterialiConsumabiliAggiunti.setBackground(new Color(213, 223, 255));
+		listMaterialiConsumabiliAggiunti.setBorder(new LineBorder(new Color(0, 0, 0)));
 		add(listMaterialiConsumabiliAggiunti);
 		
 		confermaMCBtn = new JButton("SEGNALA");

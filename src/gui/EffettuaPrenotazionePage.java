@@ -71,8 +71,6 @@ public class EffettuaPrenotazionePage extends JPanel {
 		personaleDAO = new PersonaleImpl();
 		personaleArray = personaleDAO.populate();
 		
-		new PrenotazioneImpl();
-		
 		controller = new Controller();
 		filteredPersonale = controller.filterPersonaleBasedOnMatricolaCodice(personaleArray, LoginPage.getMatricolaTextField(), LoginPage.getCodiceTextField());
 		

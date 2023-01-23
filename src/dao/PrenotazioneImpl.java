@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import controller.Controller;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +20,6 @@ import java.sql.Timestamp;
 import database.DB;
 import model.DotazioneAccessoria;
 import model.Prenotazione;
-import model.Strumento;
 
 public class PrenotazioneImpl implements PrenotazioneDAO {
 	
@@ -418,6 +419,76 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
 
 				if(rs.next())
 					riepilogo[i] = rs.getString("nome") + " " + rs.getString("cognome");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return riepilogo;
+	}
+
+	public int[] getConsumoDotazioneBasedOnMonth(ArrayList<DotazioneAccessoria> alD, String nomeDotazione) {
+
+		int[] riepilogo = new int[13];
+
+		Controller controller = new Controller();
+		
+		int codD = controller.getCodiceFromNome(alD, nomeDotazione);
+
+		try {
+			String query = "SELECT COUNT(P.codD) AS COUNT_DOTAZIONE"
+						+ " FROM Prenotazione AS P"
+						+ " WHERE P.codD = ? AND EXTRACT(MONTH FROM P.DataP) = ?"; //AND EXTRACT(YEAR FROM P.DataP) = 2023;
+
+			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
+
+			prepStatementQuery.setInt(1,codD);
+
+			for(int i = 0; i < 12; i++) {
+				prepStatementQuery.setInt(2,i + 1);
+
+				prepStatementQuery.executeQuery();
+
+				ResultSet rs = prepStatementQuery.executeQuery();
+
+				if(rs.next())
+					riepilogo[i] = rs.getInt("COUNT_DOTAZIONE");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return riepilogo;
+	}
+
+	public int[] getConsumoDotazioneBasedOnYear(ArrayList<DotazioneAccessoria> alD, String nomeDotazione) {
+
+		int[] riepilogo = new int[10];
+
+		Controller controller = new Controller();
+		
+		int codD = controller.getCodiceFromNome(alD, nomeDotazione);
+		
+		try {
+			String query = "SELECT COUNT(P.codD) AS COUNT_DOTAZIONE"
+						+ " FROM Prenotazione AS P"
+						+ " WHERE P.codD = ? AND EXTRACT(YEAR FROM P.DataP) = ?";
+
+			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
+
+			prepStatementQuery.setInt(1,codD);
+
+			for(int i = 0; i < 8; i++) {
+				prepStatementQuery.setInt(2,i + 2023);
+
+				prepStatementQuery.executeQuery();
+
+				ResultSet rs = prepStatementQuery.executeQuery();
+
+				if(rs.next())
+					riepilogo[i] = rs.getInt("COUNT_DOTAZIONE");
 			}
 
 		} catch (SQLException e) {

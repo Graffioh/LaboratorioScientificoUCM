@@ -10,7 +10,10 @@ public interface DotazioneAccessoriaDAO {
 	
 	ArrayList<DotazioneAccessoria> getDotazioniBasedOnSede(int codPers, String nomeSede);
 
-	ArrayList<String> getMaterialiConsumabili();
+	ArrayList<String> getNomiMaterialiConsumabili();
+		
+	ArrayList<DotazioneAccessoria> getDotazioniAccessorie();
 	
 	int getCodiceBasedOnNome(String nomeDotazione);
+
 }

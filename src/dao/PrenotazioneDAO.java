@@ -5,10 +5,7 @@ import java.time.*;
 import java.util.ArrayList;
 
 import model.Prenotazione;
-import model.Strumento;
 import model.DotazioneAccessoria;
-
-import java.sql.Timestamp;
 
 public interface PrenotazioneDAO {
 	// Populate the arraylist based on database table
@@ -37,4 +34,8 @@ public interface PrenotazioneDAO {
 	String[] getRiepilogoUtenteBasedOnMonth(int codStr);
 	
 	String[] getRiepilogoUtenteBasedOnYear(int codStr);
+
+	int[] getConsumoDotazioneBasedOnMonth(ArrayList<DotazioneAccessoria> alD, String nomeDotazione);
+
+	int[] getConsumoDotazioneBasedOnYear(ArrayList<DotazioneAccessoria> alD, String nomeDotazione);
 }

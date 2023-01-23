@@ -5,6 +5,8 @@ import javax.swing.JTextArea;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,8 +18,15 @@ import javax.swing.border.LineBorder;
 
 import org.jfree.data.general.DefaultPieDataset;
 
+import controller.Controller;
+import dao.DotazioneAccessoriaImpl;
+import dao.PersonaleImpl;
+import model.DotazioneAccessoria;
+import model.Personale;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class RiepilogoDotazioniPage extends JPanel {
 	
@@ -27,6 +36,17 @@ public class RiepilogoDotazioniPage extends JPanel {
 	private JButton consumoMensileBtn, consumoAnnualeBtn;
 	
 	private PieChartDotazioni pcdMensile, pcdAnnuale;
+
+	private ArrayList<DotazioneAccessoria> dotazioneArray;
+	private ArrayList<Personale> personaleArray;
+	private Personale filteredPersonale;
+
+	private String[] dotazioniStringArray;
+
+	private DotazioneAccessoriaImpl dotazioneDAO;
+	private PersonaleImpl personaleDAO;
+
+	private Controller controller;
 	
 	public RiepilogoDotazioniPage() {
 		setBackground(new Color(171, 191, 244));
@@ -59,11 +79,6 @@ public class RiepilogoDotazioniPage extends JPanel {
 		consumoMensileBtn.setOpaque(true);
 		consumoMensileBtn.setBorderPainted(true);
 		consumoMensileBtn.setBorder(new LineBorder(new Color(0, 0, 0)));
-		consumoMensileBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		add(consumoMensileBtn);
 
 		consumoAnnualeBtn = new JButton("<html>CONSUMO<br />&nbsp;ANNUALE</html>");
@@ -90,7 +105,14 @@ public class RiepilogoDotazioniPage extends JPanel {
 		selezionaDotazioneLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
 		add(selezionaDotazioneLabel);
 		
-		final JComboBox<String> dotazioniComboBox = new JComboBox<String>();
+		controller = new Controller();
+
+		dotazioneDAO = new DotazioneAccessoriaImpl();
+		dotazioneArray = dotazioneDAO.getDotazioniAccessorie();
+
+		dotazioniStringArray = controller.fromArrayListToStringArray(dotazioneArray);
+		
+		final JComboBox<String> dotazioniComboBox = new JComboBox<String>(dotazioniStringArray);
 		dotazioniComboBox.setBounds(362, 188, 250, 40);
 		dotazioniComboBox.setBackground(new Color(213, 223, 255));
 		dotazioniComboBox.addMouseListener(new MouseAdapter() {
@@ -106,27 +128,11 @@ public class RiepilogoDotazioniPage extends JPanel {
 		add(dotazioniComboBox);
 		
 		DefaultPieDataset dataset1 = new DefaultPieDataset();
-		dataset1.setValue( "Paky" , 1);
-		dataset1.setValue( "Enzo Dong" , 2 );
-		dataset1.setValue( "Berto" , 1);
-		dataset1.setValue( "Geolier" , 20);
-		dataset1.setValue( "Gue" , 5);
-		dataset1.setValue( "Mecna" , 1);
-		dataset1.setValue( "Marracash" , 6);
-		dataset1.setValue( "Shiva" , 2);
-		dataset1.setValue( "Speranza" , 6);
-		dataset1.setValue( "50 Cent" , 10);
-		dataset1.setValue( "Drake" , 4);
-		dataset1.setValue( "Billie Eilish" , 3);
-		
+
 		DefaultPieDataset dataset2 = new DefaultPieDataset();
-		dataset2.setValue( "1" , 1);
-		dataset2.setValue( "2" , 2 );
-		dataset2.setValue( "3" , 1);
-		dataset2.setValue( "4" , 90);
-		dataset2.setValue( "5" , 5);
-		dataset2.setValue( "6" , 1);
-		dataset2.setValue( "7" , 6);
+
+		dataset1 = controller.setDatasetMonth(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
+		dataset2 = controller.setDatasetYear(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
 		
 		pcdMensile = new PieChartDotazioni(dataset1);
 		pcdMensile.setBounds(73, 245, 844, 432);
@@ -138,6 +144,37 @@ public class RiepilogoDotazioniPage extends JPanel {
 			
 		pcdMensile.setVisible(false);
 		pcdAnnuale.setVisible(false);
+
+		addComponentListener(new ComponentAdapter () {
+			@Override
+			public void componentShown ( ComponentEvent e ) {
+				//DefaultPieDataset dataset1 = new DefaultPieDataset();
+				//DefaultPieDataset dataset2 = new DefaultPieDataset();
+
+				DefaultPieDataset dataset1 = controller.setDatasetMonth(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
+				DefaultPieDataset dataset2 = controller.setDatasetYear(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
+				//pcdMensile.setDataset(dataset1);	
+		
+				//pcdAnnuale.setDataset(dataset2);
+				
+			}
+		});
+
+		dotazioniComboBox.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e){
+				//DefaultPieDataset dataset1 = new DefaultPieDataset();
+				//DefaultPieDataset dataset2 = new DefaultPieDataset();
+
+				DefaultPieDataset dataset1 = controller.setDatasetMonth(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
+				DefaultPieDataset dataset2 = controller.setDatasetYear(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
+
+				//pcdMensile.setDataset(dataset1);	
+		
+				//pcdAnnuale.setDataset(dataset2);
+
+			}
+		});
 		
 		consumoMensileBtn.addActionListener(new ActionListener() {
 			@Override
