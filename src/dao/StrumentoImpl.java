@@ -79,7 +79,7 @@ public class StrumentoImpl implements StrumentoDAO{
 
 		try {
 
-			String query = "SELECT STR.CodStr FROM Strumento as STR WHERE STR.nome LIKE ?";
+			String query = "SELECT STR.CodStr FROM Strumento AS STR WHERE STR.nome LIKE ?";
 			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
 
 			prepStatementQuery.setString(1,nomeStrumento);
@@ -95,5 +95,28 @@ public class StrumentoImpl implements StrumentoDAO{
 		}
 
 		return codice;
+	}
+	
+	public String getNomeBasedOnCodice(int codice) {
+		String nome = "";
+		
+		try {
+
+			String query = "SELECT STR.nome FROM Strumento AS STR WHERE STR.CodStr = ?";
+			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
+
+			prepStatementQuery.setInt(1,codice);
+
+			ResultSet rs = prepStatementQuery.executeQuery();
+
+			if(rs.next()) {    
+				nome = rs.getString("nome");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return nome;
 	}
 }

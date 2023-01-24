@@ -38,4 +38,6 @@ public interface PrenotazioneDAO {
 	int[] getConsumoDotazioneBasedOnMonth(ArrayList<DotazioneAccessoria> alD, String nomeDotazione);
 
 	int[] getConsumoDotazioneBasedOnYear(ArrayList<DotazioneAccessoria> alD, String nomeDotazione);
+	
+	String getSlotPrenotatiBasedOnStrumentoAndDate(String nomeSede, String nomeStrumento, LocalDate localDate);
 }

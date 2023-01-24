@@ -15,5 +15,7 @@ public interface DotazioneAccessoriaDAO {
 	ArrayList<DotazioneAccessoria> getDotazioniAccessorie();
 	
 	int getCodiceBasedOnNome(String nomeDotazione);
+	
+	String getNomeBasedOnCodice(int codice);
 
 }

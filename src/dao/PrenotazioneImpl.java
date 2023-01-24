@@ -497,4 +497,37 @@ public class PrenotazioneImpl implements PrenotazioneDAO {
 		
 		return riepilogo;
 	}
+	
+	public String getSlotPrenotatiBasedOnStrumentoAndDate(String nomeSede, String nomeStrumento, LocalDate localDate) {
+		String str = "";
+		
+		Date date = Date.valueOf(localDate);
+		
+		try {
+			String query = "SELECT DISTINCT PR.daOra, PR.aOra"
+					+ " FROM Sede AS S JOIN Postazione AS PO ON S.codS = PO.codS"
+					+ " JOIN StrumentoPostazione AS SP ON PO.codPos = SP.codPos"
+					+ " JOIN Strumento AS STR ON SP.codStr = STR.codStr"
+					+ " JOIN Prenotazione AS PR ON STR.codStr = PR.codStr"
+					+ " WHERE S.nome = ? AND STR.nome = ? AND PR.dataP = ?";
+
+			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
+
+			prepStatementQuery.setString(1,nomeSede);
+			prepStatementQuery.setString(2,nomeStrumento);
+			prepStatementQuery.setDate(3,date);
+			
+			ResultSet rs = prepStatementQuery.executeQuery();
+
+			while(rs.next()) {
+				str = str + rs.getInt("daOra") + "-" + rs.getInt("aOra") + "\r\n";
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return str;
+	}
 }

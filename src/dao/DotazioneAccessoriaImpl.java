@@ -124,7 +124,7 @@ public class DotazioneAccessoriaImpl implements DotazioneAccessoriaDAO {
 
 		try {
 
-			String query = "SELECT D.CodD FROM Dotazione_Accessoria as D WHERE D.nome LIKE ?";
+			String query = "SELECT D.CodD FROM Dotazione_Accessoria AS D WHERE D.nome LIKE ?";
 			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
 
 			prepStatementQuery.setString(1,nomeDotazione);
@@ -140,5 +140,28 @@ public class DotazioneAccessoriaImpl implements DotazioneAccessoriaDAO {
 		}
 
 		return codice;
+	}
+	
+	public String getNomeBasedOnCodice(int codice) {
+		String nome = "";
+		
+		try {
+
+			String query = "SELECT D.nome FROM Dotazione_Accessoria AS D WHERE D.CodD = ?";
+			PreparedStatement prepStatementQuery = connection.prepareStatement(query);
+
+			prepStatementQuery.setInt(1,codice);
+
+			ResultSet rs = prepStatementQuery.executeQuery();
+
+			if(rs.next()) {    
+				nome = rs.getString("nome");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return nome;
 	}
 }

@@ -174,7 +174,7 @@ public class Controller {
 		
 	}
 
-	public String[] getDaOraBasedOnStrumentoDotazionePrenotato(ArrayList<Prenotazione> prenotazioneArray) {
+	/*public String[] getDaOraBasedOnStrumentoDotazionePrenotato(ArrayList<Prenotazione> prenotazioneArray) {
 		ArrayList<Integer> al = new ArrayList<Integer>();
 		
 		if(!prenotazioneArray.isEmpty()) {
@@ -205,7 +205,7 @@ public class Controller {
 			String[] tmpDaOraArray = {"9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"};
 			return tmpDaOraArray;
 		}
-	}
+	}*/
 
 	
 	public String[] getAOraBasedOnDaOra(int selectedItem) {
@@ -304,17 +304,23 @@ public class Controller {
 	public void populateCalendarioTable(ArrayList<Prenotazione> al, JTable jt, LocalDate data) {
 		DefaultTableModel tableModel = new DefaultTableModel();
 		
+		StrumentoImpl strumentoDAO = new StrumentoImpl();
+		DotazioneAccessoriaImpl dotazioneDAO = new DotazioneAccessoriaImpl();
+		
 		tableModel.addColumn("Codice prenotazione");
-		tableModel.addColumn("Codice strumento/dotazione");
+		tableModel.addColumn("Strumento/Dotazione");
 		tableModel.addColumn("daOra");
 		tableModel.addColumn("aOra");
 		
 		for (Prenotazione el : al) {
 			if(el.getData().equals(data)) {
-				if(el.getCodD() == 0)
-					tableModel.addRow(new Object[] {el.getCodice(), el.getCodStr() + " (strumento)", el.getDaOra(), el.getAOra()});
-				else
-					tableModel.addRow(new Object[] {el.getCodice(), el.getCodD() + " (dotazione)", el.getDaOra(), el.getAOra()});
+				if(el.getCodD() == 0) {
+					String nomeStr = strumentoDAO.getNomeBasedOnCodice(el.getCodStr());
+					tableModel.addRow(new Object[] {el.getCodice(), "codice: " + el.getCodStr() + " | " + nomeStr + " (strumento)", el.getDaOra(), el.getAOra()});
+				} else {
+					String nomeDotazione = dotazioneDAO.getNomeBasedOnCodice(el.getCodD());
+					tableModel.addRow(new Object[] {el.getCodice(), "codice: " +  el.getCodD() + " | " + nomeDotazione + " (dotazione)", el.getDaOra(), el.getAOra()});
+				}
 			}
 		}
 			
@@ -539,7 +545,7 @@ public class Controller {
 		cbAOra.setModel(new DefaultComboBoxModel<String>(aOraArray));
 	}
 	
-	public void changeAOraAndDaOraAfterPrenotazione(boolean isStrumento,Date date, JComboBox<String> cb, JComboBox<String> cbDaOra, JComboBox<String> cbAOra) {
+	/*public void changeAOraAndDaOraAfterPrenotazione(boolean isStrumento,Date date, JComboBox<String> cb, JComboBox<String> cbDaOra, JComboBox<String> cbAOra) {
 		Controller controller = new Controller();
 		StrumentoImpl strumentoDAO = new StrumentoImpl();
 		DotazioneAccessoriaImpl dotazioneDAO = new DotazioneAccessoriaImpl();
@@ -567,7 +573,7 @@ public class Controller {
 		
 		cbDaOra.setModel(new DefaultComboBoxModel<String>(daOraArray));
 		cbAOra.setModel(new DefaultComboBoxModel<String>(aOraArray));
-	}
+	}*/
 	
 	public void changeInformazioniPrenotazioneBasedOnPrenotazione(ArrayList<Prenotazione> alPr, JComboBox<String> cbPr, JTextArea informazioniArea) {
 		Controller controller = new Controller();

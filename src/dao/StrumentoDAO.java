@@ -12,5 +12,7 @@ public interface StrumentoDAO {
 	ArrayList<Strumento> getStrumentiBasedOnSede(int codPers, String nomeSede);
 
 	int getCodiceBasedOnNome(String nomeStrumento);
+	
+	String getNomeBasedOnCodice(int codice);
 
 }

@@ -127,13 +127,13 @@ public class ModificaPrenotazionePage extends JPanel {
 		descrizioneFieldPrenotazione.setWrapStyleWord(true);
 		descrizioneFieldPrenotazione.setEditable(false);
 		
-		Border border = BorderFactory.createLineBorder(Color.BLACK);
+		/*Border border = BorderFactory.createLineBorder(Color.BLACK);
 		descrizioneFieldPrenotazione.setBorder(BorderFactory.createCompoundBorder(border,
-	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));*/
 		
 		JScrollPane descrizionePrenotazioneTextScroll = new JScrollPane (descrizioneFieldPrenotazione, 
 				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		descrizionePrenotazioneTextScroll.setBounds(650, 240, 270, 100);
+		descrizionePrenotazioneTextScroll.setBounds(650, 210, 270, 100);
 		
 		add(descrizionePrenotazioneTextScroll);
 
@@ -235,7 +235,7 @@ public class ModificaPrenotazionePage extends JPanel {
 		
 		infoPrenotazioneLabel = new JLabel("Informazioni Prenotazione");
 		infoPrenotazioneLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		infoPrenotazioneLabel.setBounds(696, 200, 194, 50);
+		infoPrenotazioneLabel.setBounds(696, 170, 194, 50);
 		add(infoPrenotazioneLabel);
 		
 		// DYNAMIC 
