@@ -127,10 +127,6 @@ public class ModificaPrenotazionePage extends JPanel {
 		descrizioneFieldPrenotazione.setWrapStyleWord(true);
 		descrizioneFieldPrenotazione.setEditable(false);
 		
-		/*Border border = BorderFactory.createLineBorder(Color.BLACK);
-		descrizioneFieldPrenotazione.setBorder(BorderFactory.createCompoundBorder(border,
-	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));*/
-		
 		JScrollPane descrizionePrenotazioneTextScroll = new JScrollPane (descrizioneFieldPrenotazione, 
 				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		descrizionePrenotazioneTextScroll.setBounds(650, 210, 270, 100);

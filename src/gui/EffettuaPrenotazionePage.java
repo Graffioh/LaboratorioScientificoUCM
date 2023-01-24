@@ -190,10 +190,6 @@ public class EffettuaPrenotazionePage extends JPanel {
 		descrizioneFieldStrumentoDotazione.setBackground(new Color(213,223,255));
 		descrizioneFieldStrumentoDotazione.setEditable(false);
 		
-		/*Border border = BorderFactory.createLineBorder(Color.BLACK);
-		descrizioneFieldStrumentoDotazione.setBorder(BorderFactory.createCompoundBorder(border,
-	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));*/
-		
 		JScrollPane descrizioneStrumentoDotazioneTextScroll = new JScrollPane (descrizioneFieldStrumentoDotazione, 
 				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		descrizioneStrumentoDotazioneTextScroll.setBounds(650, 240, 270, 100);
@@ -213,10 +209,6 @@ public class EffettuaPrenotazionePage extends JPanel {
 		slotPrenotatiField.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		slotPrenotatiField.setBackground(new Color(213,223,255));
 		slotPrenotatiField.setEditable(false);
-		
-		/*Border border2 = BorderFactory.createLineBorder(Color.BLACK);
-		descrizioneFieldStrumentoDotazione.setBorder(BorderFactory.createCompoundBorder(border,
-	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));*/
 		
 		JScrollPane slotDisponibiliTextScroll = new JScrollPane (slotPrenotatiField, 
 				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -427,32 +419,28 @@ public class EffettuaPrenotazionePage extends JPanel {
 				strumentoArray = strumentoDAO.getStrumentiBasedOnSede(filteredPersonale.getCodice(), sediComboBox.getSelectedItem().toString());
 				dotazioneArray = dotazioneDAO.getDotazioniBasedOnSede(filteredPersonale.getCodice(), sediComboBox.getSelectedItem().toString());
 				
-				//controller.setCodStrAndCodDBasedOnSelectedItem(codStr, codD, strumentoArray, dotazioneArray, strumentiComboBox, dotazioniComboBox); NOT WORKING
 				codStr = controller.getCodiceFromNome(strumentoArray, strumentiComboBox.getSelectedItem().toString());
 				
 				if(dotazioniComboBox.getSelectedItem() != null) {
 					codD = controller.getCodiceFromNome(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
-					slotPrenotatiText = prenotazioneDAO.getSlotPrenotatiBasedOnStrumentoAndDate(sediComboBox.getSelectedItem().toString(), strumentiComboBox.getSelectedItem().toString(), 
-						jDateChooserStrumentoDotazione.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-
-					slotPrenotatiField.setText(slotPrenotatiText);
-				}	
-				else {
+				} else {
 					codD = 0;
-
-					slotPrenotatiText = prenotazioneDAO.getSlotPrenotatiBasedOnStrumentoAndDate(sediComboBox.getSelectedItem().toString(), dotazioniComboBox.getSelectedItem().toString(), 
-						jDateChooserStrumentoDotazione.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-
-					slotPrenotatiField.setText(slotPrenotatiText);
 				}
 				
 				controller.effettuaPrenotazione(jDateChooserStrumentoDotazione.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), LocalTime.now(), 
 						Integer.parseInt(cbAOra.getSelectedItem().toString()) - Integer.parseInt(cbDaOra.getSelectedItem().toString()), 
 						Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbAOra.getSelectedItem().toString()), 
 						codP, codStr, codD, filteredPersonale.getCodice(), isStrumento);		
-        		
-        		//slotPrenotatiField.setText(slotPrenotatiText);
 				
+				if(dotazioniComboBox.getSelectedItem() != null) {
+					slotPrenotatiText = prenotazioneDAO.getSlotPrenotatiBasedOnStrumentoAndDate(sediComboBox.getSelectedItem().toString(), strumentiComboBox.getSelectedItem().toString(), 
+							jDateChooserStrumentoDotazione.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+				} else {
+					slotPrenotatiText = prenotazioneDAO.getSlotPrenotatiBasedOnStrumentoAndDate(sediComboBox.getSelectedItem().toString(), dotazioniComboBox.getSelectedItem().toString(), 
+							jDateChooserStrumentoDotazione.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+				}
+				
+				slotPrenotatiField.setText(slotPrenotatiText);
 			}
 		});
 		
