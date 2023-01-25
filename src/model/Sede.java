@@ -27,60 +27,27 @@ public class Sede {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public String getVia() {
 		return via;
-	}
-
-	public void setVia(String via) {
-		this.via = via;
 	}
 
 	public String getCAP() {
 		return CAP;
 	}
 
-	public void setCAP(String CAP) {
-		this.CAP = CAP;
-	}
-
 	public String getCittà() {
 		return città;
-	}
-
-	public void setCittà(String città) {
-		this.città = città;
 	}
 
 	public String getRegione() {
 		return regione;
 	}
 
-	public void setRegione(String regione) {
-		this.regione = regione;
-	}
-
 	public int getCodice() {
 		return codS;
-	}
-
-	public void setCodice(int codS) {
-		this.codS = codS;
 	}
 
 	public ArrayList<Personale> getPersonale() {
 		return personale;
 	}
-
-	public void setPersonale(ArrayList<Personale> personale) {
-		this.personale = personale;
-	}
-
-	/*@Override
-   	public String toString() {
-        return ("nome:"+ this.getNome());
-   	}*/
 }

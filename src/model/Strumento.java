@@ -22,7 +22,6 @@ public class Strumento {
 	
 	ArrayList<Postazione> postazioni = new ArrayList<Postazione>();
 	ArrayList<DotazioneAccessoria> dotazioniAccessorie = new ArrayList<DotazioneAccessoria>();
-	//ArrayList<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
 	
 	public Strumento(String nome, String descrizione, String caratteristicheTecniche, String tipoStrumentoStr, int tempoUso, int codStr,
 			ArrayList<Postazione> postazioni, ArrayList<DotazioneAccessoria> dotazioniAccessorie) {
@@ -34,61 +33,37 @@ public class Strumento {
 		this.codStr = codStr;
 		this.postazioni = postazioni;
 		this.dotazioniAccessorie = dotazioniAccessorie;
-		//this.prenotazioni = prenotazioni;
 	}
 	
 	public String getNome() {
 		return nome;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+
 	public String getDescrizione() {
 		return descrizione;
 	}
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
-	}
+
 	public String getCaratteristicheTecniche() {
 		return caratteristicheTecniche;
 	}
-	public void setCaratteristicheTecniche(String caratteristicheTecniche) {
-		this.caratteristicheTecniche = caratteristicheTecniche;
-	}
+
 	public TypeStrumento getTipoStr() {
 		return tipoStr;
 	}
-	public void setTipoStr(TypeStrumento tipoStr) {
-		this.tipoStr = tipoStr;
-	}
+	
 	public int getTempoUso() {
 		return tempoUso;
 	}
-	public void setTempoUso(int tempoUso) {
-		this.tempoUso = tempoUso;
-	}
+	
 	public int getCodice() {
 		return codStr;
 	}
-	public void setCodice(int codStr) {
-		this.codStr = codStr;
-	}
+	
 	public ArrayList<Postazione> getPostazioni() {
 		return postazioni;
 	}
-	public void setPostazioni(ArrayList<Postazione> postazioni) {
-		this.postazioni = postazioni;
-	}
+	
 	public ArrayList<DotazioneAccessoria> getDotazioniAccessorie() {
 		return dotazioniAccessorie;
 	}
-	public void setDotazioniAccessorie(ArrayList<DotazioneAccessoria> dotazioniAccessorie) {
-		this.dotazioniAccessorie = dotazioniAccessorie;
-	}
-	/*public ArrayList<Prenotazione> getPrenotazioni() {
-		return prenotazioni;
-	}
-	public void setPrenotazioni(ArrayList<Prenotazione> prenotazioni) {
-		this.prenotazioni = prenotazioni;
-	}*/
 }

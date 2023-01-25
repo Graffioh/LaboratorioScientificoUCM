@@ -47,113 +47,61 @@ public class Personale {
 	public String getMatricola() {
 		return this.matricola;
 	}
-
-	public void setMatricola(String matricola) {
-		this.matricola = matricola;
-	}
 	
 	public int getCodice() {
 		return this.codPers;
-	}
-	
-	public void setCodice(int codice) {
-		this.codPers = codice;
 	}
 
 	public String getNome() {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public String getCognome() {
 		return cognome;
-	}
-
-	public void setCognome(String cognome) {
-		this.cognome = cognome;
 	}
 
 	public String getVia() {
 		return via;
 	}
 
-	public void setVia(String via) {
-		this.via = via;
-	}
-
 	public String getCAP() {
 		return CAP;
-	}
-
-	public void setCAP(String cAP) {
-		CAP = cAP;
 	}
 
 	public String getRegione() {
 		return regione;
 	}
-
-	public void setRegione(String regione) {
-		this.regione = regione;
-	}
-
+	
 	public String getEmail() {
 		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public LocalDate getDataNascita() {
 		return dataNascita;
 	}
 
-	public void setDataNascita(LocalDate dataNascita) {
-		this.dataNascita = dataNascita;
-	}
-
 	public String getRecapitoTel() {
 		return recapitoTel;
-	}
-
-	public void setRecapitoTel(String recapitoTel) {
-		this.recapitoTel = recapitoTel;
 	}
 
 	public String getRecapitoTelAziendale() {
 		return recapitoTelAziendale;
 	}
 
-	public void setRecapitoTelAziendale(String recapitoTelAziendale) {
-		this.recapitoTelAziendale = recapitoTelAziendale;
-	}
-
 	public TypePersonale getTipoPers() {
 		return tipoPers;
-	}
-
-	public void setTipoPers(TypePersonale tipoPers) {
-		this.tipoPers = tipoPers;
 	}
 
 	public ArrayList<Sede> getSediDoveLavora() {
 		return sediDoveLavora;
 	}
-
-	public void setSediDoveLavora(ArrayList<Sede> sediDoveLavora) {
-		this.sediDoveLavora = sediDoveLavora;
+	
+	public void setSediDoveLavora(ArrayList<Sede> sedi) {
+		this.sediDoveLavora = sedi;
 	}
 
 	public ArrayList<Prenotazione> getPrenotazioni() {
 		return prenotazioni;
-	}
-
-	public void setPrenotazioni(ArrayList<Prenotazione> prenotazioni) {
-		this.prenotazioni = prenotazioni;
 	}
 
 	@Override
@@ -169,6 +117,5 @@ public class Personale {
 					" matricola: " + this.getMatricola() + 
 					" codice: " + this.getCodice() +
         			"tipo: " + this.getTipoPers());
-   
    	}
 }
