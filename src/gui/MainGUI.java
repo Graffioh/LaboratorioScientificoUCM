@@ -8,7 +8,6 @@ import javax.swing.border.LineBorder;
 import controller.Controller;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -20,7 +19,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.awt.Font;
-import java.awt.Image;
 
 public class MainGUI extends JFrame {
 

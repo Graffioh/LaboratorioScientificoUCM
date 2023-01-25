@@ -5,8 +5,8 @@ import java.util.UUID;
 public class Postazione {
 	private String numero;
 	private int codPos;
-	ArrayList<Personale> personale = new ArrayList<Personale>();
-	ArrayList<Strumento> strumenti = new ArrayList<Strumento>();
+	private ArrayList<Personale> personale = new ArrayList<Personale>();
+	private ArrayList<Strumento> strumenti = new ArrayList<Strumento>();
 	
 	public String getNumero() {
 		return numero;

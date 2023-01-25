@@ -29,7 +29,7 @@ import javax.swing.border.Border;
 public class ProfilePage extends JPanel {
 
 	private JLabel nomeEcognomeLabel, laboratorioLabel, ruoloLabel, numeroTelefonoLabel, emailLabel, 
-		recapitoAziendaleLabel, dataNascitaLabel, residenzaLabel, picLabel, descrizioneLaboratorioLabel;
+			recapitoAziendaleLabel, dataNascitaLabel, residenzaLabel, picLabel, descrizioneLaboratorioLabel;
 	private JPanel textPanelHeader, textPanelNormal, profilePicPanel;
 	private JScrollPane descrizioneLaboratorioTextScroll;
 	private LayoutManager layout1, layout2;
@@ -47,7 +47,7 @@ public class ProfilePage extends JPanel {
 	private BufferedImage myPicture;
 	private JTextArea descrizioneFieldLaboratorio;
 
-	private String descrizioneTextStrumentoDotazione = " Ahahahahah Ehi, gir pe Secondiglian \r\n Rind a n'Audi ner opac (rind a n'Audi ner opac) \r\n Ca m par n'astronav (ca m par n'astronav) \r\n Sceng o per na Balenciag (Bale) \r\n Ess vo nata Balenciag (Bale, Bale)";
+	private String descrizioneTextStrumentoDotazione;
 
 	public ProfilePage() {	
 		setBackground(new Color(171, 191, 244));

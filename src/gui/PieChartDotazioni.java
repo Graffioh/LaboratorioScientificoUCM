@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Color;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;

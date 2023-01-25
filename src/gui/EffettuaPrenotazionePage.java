@@ -12,7 +12,6 @@ import java.time.*;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import com.toedter.calendar.JDateChooser;
@@ -45,10 +43,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 	private ArrayList<Strumento> strumentoArray;
 	private ArrayList<DotazioneAccessoria> dotazioneArray;
 	private ArrayList<Personale> personaleArray;
-	private ArrayList<Prenotazione> prenotazioneArray;
-	
-	ArrayList<String> sedi, strumenti, dotazioni;
-	String[] sediStringArray = {"none"}, strumentiStringArray = {"none"}, dotazioniStringArray = {"none"};
+	private String[] sediStringArray = {"none"}, strumentiStringArray = {"none"}, dotazioniStringArray = {"none"};
 	private String descrizioneTextStrumentoDotazione = " ", slotPrenotatiText = " ";
 	
 	private PersonaleImpl personaleDAO;
@@ -373,7 +368,7 @@ public class EffettuaPrenotazionePage extends JPanel {
 		});
 
 		prenotazioneDAO = new PrenotazioneImpl();
-		prenotazioneArray = new ArrayList<Prenotazione>();
+		new ArrayList<Prenotazione>();
 
 		// Descrizione based on combo box
 		strumentiComboBox.addActionListener(new ActionListener() {

@@ -22,8 +22,8 @@ public class Personale {
 	private TypePersonale tipoPers;
 	private int codPers;
 	
-	ArrayList<Sede> sediDoveLavora = new ArrayList<Sede>();
-	ArrayList<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
+	private ArrayList<Sede> sediDoveLavora = new ArrayList<Sede>();
+	private ArrayList<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
 	
 	public Personale(String nome, String cognome, String via, String CAP, String regione, String email,
 			LocalDate dataNascita, String recapitoTel, String recapitoTelAziendale, String matricola,

@@ -19,9 +19,8 @@ public class Strumento {
 	private TypeStrumento tipoStr;
 	private int tempoUso;
 	private int codStr;
-	
-	ArrayList<Postazione> postazioni = new ArrayList<Postazione>();
-	ArrayList<DotazioneAccessoria> dotazioniAccessorie = new ArrayList<DotazioneAccessoria>();
+	private ArrayList<Postazione> postazioni = new ArrayList<Postazione>();
+	private ArrayList<DotazioneAccessoria> dotazioniAccessorie = new ArrayList<DotazioneAccessoria>();
 	
 	public Strumento(String nome, String descrizione, String caratteristicheTecniche, String tipoStrumentoStr, int tempoUso, int codStr,
 			ArrayList<Postazione> postazioni, ArrayList<DotazioneAccessoria> dotazioniAccessorie) {

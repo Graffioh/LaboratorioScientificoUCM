@@ -1,5 +1,4 @@
 package model;
-import java.util.UUID;	
 import java.util.ArrayList;
 
 
@@ -15,9 +14,8 @@ public class Laboratorio {
 	private String descrizione;
 	private TypeLaboratorio tipoLab;
 	private int codL;
-	
-	ArrayList<Sede> sedi = new ArrayList<Sede>();
-	ArrayList<Postazione> postazioni = new ArrayList<Postazione>();
+	private ArrayList<Sede> sedi = new ArrayList<Sede>();
+	private ArrayList<Postazione> postazioni = new ArrayList<Postazione>();
 	
 	public Laboratorio(String nome, String descrizione, TypeLaboratorio tipoLab, int codL, ArrayList<Sede> sedi,
 			ArrayList<Postazione> postazioni) {

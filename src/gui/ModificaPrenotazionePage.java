@@ -12,7 +12,6 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,7 +20,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import com.toedter.calendar.JDateChooser;
@@ -44,8 +42,7 @@ public class ModificaPrenotazionePage extends JPanel {
 	private PrenotazioneImpl prenotazioneDAO;
 	private ArrayList<Prenotazione> prenotazioneArray;
 	
-	ArrayList<String> sedi, dotazioni, prenotazioni;
-	String[] sediStringArray = {"none"}, prenotazioniStringArray = {"none"}, dotazioniStringArray = {"none"};
+	private String[] sediStringArray = {"none"}, prenotazioniStringArray = {"none"};
 	
 	private String descrizioneTextPrenotazione = "Ciao";
 	
@@ -290,8 +287,19 @@ public class ModificaPrenotazionePage extends JPanel {
 		modificaBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
+					prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
+
 				try {
 					prenotazioneDAO.modificaPrenotazione(Integer.parseInt(prenotazioniComboBox.getSelectedItem().toString()), jDateChooserPrenotazione.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), jDateChooserPrenotazione.getDate().getTime(), Integer.parseInt(cbAOra.getSelectedItem().toString()) - Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbAOra.getSelectedItem().toString()));
+				
+				if(!prenotazioneArray.isEmpty()) {				
+					controller.changeInformazioniPrenotazioneBasedOnPrenotazione(prenotazioneArray, prenotazioniComboBox, descrizioneFieldPrenotazione);
+				} else {
+					prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>());
+					
+					descrizioneFieldPrenotazione.setText("");
+				}
+				
 				} catch (Exception ee) {
 					ee.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Campi obbligatori mancanti, riprova.");

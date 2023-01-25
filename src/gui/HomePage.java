@@ -9,16 +9,10 @@ import model.DotazioneAccessoria;
 import model.Strumento;
 
 import javax.swing.JLabel;
-import javax.swing.JList;
-
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.DefaultListModel;
-import java.lang.String;
 import java.util.ArrayList;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
 import controller.Controller;
 
 public class HomePage extends JPanel {

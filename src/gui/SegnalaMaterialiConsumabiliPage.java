@@ -25,21 +25,21 @@ import controller.Controller;
 
 public class SegnalaMaterialiConsumabiliPage extends JPanel {
 	
-	JComboBox segnalaMaterialiConsumabiliComboBox;
+	private JComboBox segnalaMaterialiConsumabiliComboBox;
 	
-	JLabel segnalaMaterialiConsumabiliLabel;
+	private JLabel segnalaMaterialiConsumabiliLabel;
 
-	JList listMaterialiConsumabiliAggiunti;
-	DefaultListModel<String> dfl;
+	private JList listMaterialiConsumabiliAggiunti;
+	private DefaultListModel<String> dfl;
 	
-	JButton aggiungiMCBtn, confermaMCBtn;
+	private JButton aggiungiMCBtn, confermaMCBtn;
 
-	ArrayList<String> materialeConsumabileArray;
-	DotazioneAccessoriaImpl dotazioneDAO;
+	private ArrayList<String> materialeConsumabileArray;
+	private DotazioneAccessoriaImpl dotazioneDAO;
 
-	Controller controller;
+	private Controller controller;
 
-	String[] materialiConsumabiliStrArray;
+	private String[] materialiConsumabiliStrArray;
 	
 	public SegnalaMaterialiConsumabiliPage() {
 

@@ -1,8 +1,6 @@
 package gui;
 
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -20,17 +18,13 @@ import org.jfree.data.general.DefaultPieDataset;
 
 import controller.Controller;
 import dao.DotazioneAccessoriaImpl;
-import dao.PersonaleImpl;
 import model.DotazioneAccessoria;
-import model.Personale;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class RiepilogoDotazioniPage extends JPanel {
 	
-	private JTextArea listaDotazioni;
 	private JLabel listaDotazioniLabel, selezionaDotazioneLabel;
 	
 	private JButton consumoMensileBtn, consumoAnnualeBtn;
@@ -38,14 +32,11 @@ public class RiepilogoDotazioniPage extends JPanel {
 	private PieChartDotazioni pcdMensile, pcdAnnuale;
 
 	private ArrayList<DotazioneAccessoria> dotazioneArray;
-	private ArrayList<Personale> personaleArray;
-	private Personale filteredPersonale;
-
 	private String[] dotazioniStringArray;
+	
+	private DefaultPieDataset dataset1, dataset2;
 
 	private DotazioneAccessoriaImpl dotazioneDAO;
-	private PersonaleImpl personaleDAO;
-
 	private Controller controller;
 	
 	public RiepilogoDotazioniPage() {
@@ -127,9 +118,9 @@ public class RiepilogoDotazioniPage extends JPanel {
 		});
 		add(dotazioniComboBox);
 		
-		DefaultPieDataset dataset1 = new DefaultPieDataset();
+		dataset1 = new DefaultPieDataset();
 
-		DefaultPieDataset dataset2 = new DefaultPieDataset();
+		dataset2 = new DefaultPieDataset();
 
 		dataset1 = controller.setDatasetMonth(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
 		dataset2 = controller.setDatasetYear(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
@@ -149,8 +140,8 @@ public class RiepilogoDotazioniPage extends JPanel {
 			@Override
 			public void componentShown ( ComponentEvent e ) {
 
-				DefaultPieDataset dataset1 = controller.setDatasetMonth(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
-				DefaultPieDataset dataset2 = controller.setDatasetYear(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
+				dataset1 = controller.setDatasetMonth(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
+				dataset2 = controller.setDatasetYear(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
 				
 				pcdMensile.updateChart(dataset1);
 				pcdAnnuale.updateChart(dataset2);
@@ -162,8 +153,8 @@ public class RiepilogoDotazioniPage extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e){
 
-				DefaultPieDataset dataset1 = controller.setDatasetMonth(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
-				DefaultPieDataset dataset2 = controller.setDatasetYear(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
+				dataset1 = controller.setDatasetMonth(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
+				dataset2 = controller.setDatasetYear(dotazioneArray, dotazioniComboBox.getSelectedItem().toString());
 				
 				pcdMensile.updateChart(dataset1);
 				pcdAnnuale.updateChart(dataset2);
