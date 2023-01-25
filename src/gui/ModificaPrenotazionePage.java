@@ -244,7 +244,7 @@ public class ModificaPrenotazionePage extends JPanel {
 					
 					prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>(prenotazioniStringArray));
 					
-					controller.switchDescrizioneBasedOnArrayList(prenotazioneArray, descrizioneFieldPrenotazione, prenotazioniComboBox);
+					controller.changeInformazioniPrenotazioneBasedOnPrenotazione(prenotazioneArray, prenotazioniComboBox, descrizioneFieldPrenotazione);
 				} else {
 					prenotazioniComboBox.setModel(new DefaultComboBoxModel<String>());
 					
@@ -287,11 +287,10 @@ public class ModificaPrenotazionePage extends JPanel {
 		modificaBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
-					prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
-
 				try {
 					prenotazioneDAO.modificaPrenotazione(Integer.parseInt(prenotazioniComboBox.getSelectedItem().toString()), jDateChooserPrenotazione.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), jDateChooserPrenotazione.getDate().getTime(), Integer.parseInt(cbAOra.getSelectedItem().toString()) - Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbDaOra.getSelectedItem().toString()), Integer.parseInt(cbAOra.getSelectedItem().toString()));
 				
+					prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
 				if(!prenotazioneArray.isEmpty()) {				
 					controller.changeInformazioniPrenotazioneBasedOnPrenotazione(prenotazioneArray, prenotazioniComboBox, descrizioneFieldPrenotazione);
 				} else {
