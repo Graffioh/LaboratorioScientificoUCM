@@ -229,14 +229,14 @@ public class Controller {
 
 		String info = new String();
 		
-		DateTimeFormatter formatoDate = DateTimeFormatter.ofPattern("DD/MM/YYYY");
+		//DateTimeFormatter formatoDate = DateTimeFormatter.ofPattern("DD/MM/YYYY");
 		
 		for(Prenotazione el : al) {
 			if(el.getCodice() == comboBoxCodice) {
 				if(el.getCodD() == 0) {
-					info = "Codice strumento:" + el.getCodStr() + "\n\r" + "Data prenotazione:" + el.getData().format(formatoDate);
+					info = "Codice strumento:" + el.getCodStr() + "\n\r" + "Data prenotazione:" + el.getData();
 				} else {
-					info = "Codice dotazione:" + el.getCodD() + "\n\r" + "Data prenotazione:" + el.getData().format(formatoDate);
+					info = "Codice dotazione:" + el.getCodD() + "\n\r" + "Data prenotazione:" + el.getData();
 				}
 			}
 		}

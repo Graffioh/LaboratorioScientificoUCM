@@ -277,7 +277,8 @@ public class ModificaPrenotazionePage extends JPanel {
 		// Change descrizione based on prenotazione
 		prenotazioniComboBox.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e){				
+			public void actionPerformed(ActionEvent e){		
+				prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnSede(filteredPersonale.getCodice(), sediComboBoxModifica.getSelectedItem().toString());
 				if(!prenotazioneArray.isEmpty()) {
 					controller.changeInformazioniPrenotazioneBasedOnPrenotazione(prenotazioneArray, prenotazioniComboBox, descrizioneFieldPrenotazione);
 				}
