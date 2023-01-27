@@ -42,11 +42,6 @@ public class RiepilogoDotazioniPage extends JPanel {
 	public RiepilogoDotazioniPage() {
 		setBackground(new Color(171, 191, 244));
 		setLayout(null);
-		
-		/*listaDotazioni = new JTextArea();
-		listaDotazioni.setBackground(new Color(213, 223, 255));
-		listaDotazioni.setBounds(108, 292, 777, 378);
-		add(listaDotazioni);*/
 
 		listaDotazioniLabel = new JLabel("GRAFICO");
 		listaDotazioniLabel.setFont(new Font("Tahoma", Font.BOLD, 24));

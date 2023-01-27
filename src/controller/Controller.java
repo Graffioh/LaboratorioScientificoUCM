@@ -70,6 +70,7 @@ public class Controller {
 		return tmpPersonale;
 	}
 	
+	// Generic function to get Nomi based on Array List type
 	public <T> ArrayList<String> getNomiFromArrayList(ArrayList<T> al) {
 
 		ArrayList<String> nomi = new ArrayList<String>();
@@ -88,8 +89,8 @@ public class Controller {
 		return nomi;
 	}
 	
+	// Generic function to get codici based on Array List type
 	public <T> ArrayList<String> getCodiciFromArrayList(ArrayList<T> al) {
-
 		ArrayList<String> codici = new ArrayList<String>();
 		for(T el : al) {
 			// Based on the instance of d, cast it to get the desired method.
@@ -107,7 +108,6 @@ public class Controller {
 	}
 	
 	public <T> String getDescrizioneFromNome(ArrayList<T> al, String comboBoxStr) {
-
 		String descrizione = new String();
 		
 		for(T el : al) {
@@ -173,40 +173,6 @@ public class Controller {
 		}
 		
 	}
-
-	/*public String[] getDaOraBasedOnStrumentoDotazionePrenotato(ArrayList<Prenotazione> prenotazioneArray) {
-		ArrayList<Integer> al = new ArrayList<Integer>();
-		
-		if(!prenotazioneArray.isEmpty()) {
-				for(Prenotazione p : prenotazioneArray) {
-					for(Integer i = p.getDaOra(); i <= p.getAOra(); i++) {
-						al.add(i);
-					}
-				}
-			
-			// Take the max and build daOraArray based on that value
-			String[] tmpDaOraArray;
-			
-			int count = 0;
-			for(Integer i = Collections.max(al); i <= 20; ++i) {
-				count += 1;
-			}
-			
-			tmpDaOraArray = new String[count];
-			
-			for(Integer i = Collections.max(al); i <= 20; i++) {
-				tmpDaOraArray[i - Collections.max(al)] = i.toString();
-			}
-			
-			return tmpDaOraArray;
-			
-		} else {
-			
-			String[] tmpDaOraArray = {"9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"};
-			return tmpDaOraArray;
-		}
-	}*/
-
 	
 	public String[] getAOraBasedOnDaOra(int selectedItem) {
 		String[] aOraArray;
@@ -228,8 +194,6 @@ public class Controller {
 	public String getInformazioniFromPrenotazione(ArrayList<Prenotazione> al, int comboBoxCodice) {
 
 		String info = new String();
-		
-		//DateTimeFormatter formatoDate = DateTimeFormatter.ofPattern("DD/MM/YYYY");
 		
 		for(Prenotazione el : al) {
 			if(el.getCodice() == comboBoxCodice) {
@@ -420,6 +384,7 @@ public class Controller {
 		jt.setModel(tableModel);
 	}
 	
+	// Used for updating the list in segnala materiali consumabili
 	public void updateDflBasedOnComboBox(DefaultListModel<String> dfl, String comboBoxStr) {
 		boolean check = false;
 		for(int i = 0; i < dfl.size(); i++) {
@@ -545,36 +510,6 @@ public class Controller {
 		cbAOra.setModel(new DefaultComboBoxModel<String>(aOraArray));
 	}
 	
-	/*public void changeAOraAndDaOraAfterPrenotazione(boolean isStrumento,Date date, JComboBox<String> cb, JComboBox<String> cbDaOra, JComboBox<String> cbAOra) {
-		Controller controller = new Controller();
-		StrumentoImpl strumentoDAO = new StrumentoImpl();
-		DotazioneAccessoriaImpl dotazioneDAO = new DotazioneAccessoriaImpl();
-		PrenotazioneImpl prenotazioneDAO = new PrenotazioneImpl();
-		ArrayList<Prenotazione> prenotazioneArray = new ArrayList<Prenotazione>();
-		int codStrSelezionato = 0, codDSelezionato = 0;
-		
-		if(isStrumento)
-			codStrSelezionato = strumentoDAO.getCodiceBasedOnNome(cb.getSelectedItem().toString());
-		else
-			codDSelezionato = dotazioneDAO.getCodiceBasedOnNome(cb.getSelectedItem().toString());
-			
-		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		
-		if(isStrumento)
-			prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnStrumentoAndDate(codStrSelezionato, localDate);
-		else
-			prenotazioneArray = prenotazioneDAO.getPrenotazioneBasedOnDotazioneAndDate(codDSelezionato, localDate);
-		
-		String[] aOraArray, daOraArray;
-
-		daOraArray = controller.getDaOraBasedOnStrumentoDotazionePrenotato(prenotazioneArray);	
-				
-		aOraArray = controller.getAOraBasedOnDaOra(Integer.parseInt(daOraArray[0].toString()));
-		
-		cbDaOra.setModel(new DefaultComboBoxModel<String>(daOraArray));
-		cbAOra.setModel(new DefaultComboBoxModel<String>(aOraArray));
-	}*/
-	
 	public void changeInformazioniPrenotazioneBasedOnPrenotazione(ArrayList<Prenotazione> alPr, JComboBox<String> cbPr, JTextArea informazioniArea) {
 		Controller controller = new Controller();
 		
@@ -582,17 +517,8 @@ public class Controller {
 		
 		informazioniArea.setText(descrizioneTextPrenotazione);
 	}
-	
-	/*public void setCodStrAndCodDBasedOnSelectedItem(int codStr, int codD, ArrayList<Strumento> alStr, ArrayList<DotazioneAccessoria> alD, JComboBox<String> cbStr, JComboBox<String> cbD) {
-		Controller controller = new Controller();
-		
-		codStr = controller.getCodiceFromNome(alStr, cbStr.getSelectedItem().toString());
-		if(cbD.getSelectedItem() != null)
-			codD = controller.getCodiceFromNome(alD, cbD.getSelectedItem().toString());
-		else
-			codD = 0;
-	}*/
 
+	// Used for pie chart consumo dotazioni
 	public DefaultPieDataset setDatasetMonth(ArrayList<DotazioneAccessoria> alD, String nomeDotazione) {
 		Controller controller = new Controller();
 		
